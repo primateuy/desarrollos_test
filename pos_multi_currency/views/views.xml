@@ -1,0 +1,247 @@
+<odoo>
+  <data>
+    <record id="custom_view_pos_pos_form" model="ir.ui.view">
+      <field name="name">pos.order.form</field>
+      <field name="model">pos.order</field>
+      <field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
+      <field name="arch" type="xml">
+
+        <xpath expr="//notebook/page[@name='products']/group[@name='order_total']" position="replace">
+          <group class="oe_subtotal_footer oe_right" colspan="2" name="order_total">
+            <field name="custom_amount_tax"
+                   force_save="1"
+                   widget="monetary"
+                   options="{'currency_field': 'custom_currency_id'}"
+            />
+            <div class="oe_subtotal_footer_separator oe_inline o_td_label">
+              <label for="custom_amount_total" />
+              <button name="button_dummy"
+                      states="draft" string="(update)" class="oe_edit_only oe_link"/>
+            </div>
+            <field name="custom_amount_total"
+                   force_save="1"
+                   nolabel="1"
+                   class="oe_subtotal_footer_separator"
+                   widget="monetary"
+                   options="{'currency_field': 'custom_currency_id'}"
+            />
+            <field name="custom_amount_paid"
+                   string="Total Paid (with rounding)"
+                   class="oe_subtotal_footer_separator"
+                   widget="monetary"
+                   options="{'currency_field': 'custom_currency_id'}"
+                   attrs="{'invisible': [('custom_amount_paid','=', 'custom_amount_total')]}"/>
+            <label for="margin" invisible="1"/>
+            <div class="text-nowrap" invisible="1">
+              <field name="margin" class="oe_inline" attrs="{'invisible': [('is_total_cost_computed','=', False)]}"/>
+              <span class="oe_inline" attrs="{'invisible': [('is_total_cost_computed','=', False)]}">
+                (<field name="margin_percent" nolabel="1" class="oe_inline" widget="percentage"/>)
+              </span>
+              <span attrs="{'invisible': [('is_total_cost_computed','=', True)]}">TBD</span>
+            </div>
+            <label for="custom_margin"/>
+            <div class="text-nowrap">
+              <field name="custom_margin" class="oe_inline" attrs="{'invisible': [('is_total_cost_computed','=', False)]}"/>
+              <span class="oe_inline" attrs="{'invisible': [('is_total_cost_computed','=', False)]}">
+                (<field name="custom_margin_percent" nolabel="1" class="oe_inline" widget="percentage"/>)
+              </span>
+              <span attrs="{'invisible': [('is_total_cost_computed','=', True)]}">TBD</span>
+            </div>
+
+
+
+            <field name="is_total_cost_computed" invisible="1"/>
+            <field name="custom_currency_id" invisible="1"/>
+          </group>
+        </xpath>
+
+        <xpath expr="//notebook/page[@name='products']/field[@name='lines']" position="replace">
+          <field name="lines" colspan="4" nolabel="1">
+            <tree string="Order lines" editable="bottom">
+              <field name="full_product_name"/>
+              <field name="pack_lot_ids" widget="many2many_tags" groups="stock.group_production_lot"/>
+              <field name="qty"/>
+              <field name="customer_note" optional="hide"/>
+              <field name="product_uom_id" string="UoM" groups="uom.group_uom"/>
+              <field name="custom_price_unit" widget="monetary" options="{'currency_field': 'custom_currency_id'}"/>
+              <field name="is_total_cost_computed" invisible="1"/>
+              <field name="total_cost" attrs="{'invisible': [('is_total_cost_computed','=', False)]}" optional="hide" widget="monetary"/>
+              <field name="margin" attrs="{'invisible': [('is_total_cost_computed','=', False)]}" optional="hide" widget="monetary"/>
+              <field name="margin_percent" attrs="{'invisible': [('is_total_cost_computed','=', False)]}" optional="hide" widget="percentage"/>
+              <field name="custom_discount" string="Disc.%"/>
+              <field name="tax_ids_after_fiscal_position" widget="many2many_tags" string="Taxes"/>
+              <field name="tax_ids" widget="many2many_tags" invisible="1"/>
+              <field name="custom_price_subtotal" widget="monetary" force_save="1" options="{'currency_field': 'custom_currency_id'}"/>
+              <field name="custom_price_subtotal_incl" widget="monetary" force_save="1" options="{'currency_field': 'custom_currency_id'}"/>
+              <field name="custom_currency_id" invisible="1"/>
+              <field name="refunded_qty" optional="hide" />
+            </tree>
+            <form string="Order lines">
+              <group col="4">
+                <field name="full_product_name"/>
+                <field name="qty"/>
+                <field name="custom_discount"/>
+                <field name="custom_price_unit" widget="monetary" options="{'currency_field': 'custom_currency_id'}"/>
+                <field name="custom_price_subtotal" invisible="1" widget="monetary" force_save="1" options="{'currency_field': 'custom_currency_id'}"/>
+                <field name="custom_price_subtotal_incl" invisible="1" widget="monetary" force_save="1" options="{'currency_field': 'custom_currency_id'}"/>
+                <field name="tax_ids_after_fiscal_position" widget="many2many_tags" string="Taxes"/>
+                <field name="tax_ids" widget="many2many_tags" invisible="1"/>
+                <field name="pack_lot_ids" widget="many2many_tags" groups="stock.group_production_lot"/>
+                <field name="notice"/>
+                <field name="custom_currency_id" invisible="1"/>
+              </group>
+            </form>
+          </field>
+        </xpath>
+
+        <xpath expr="//notebook/page[@name='payments']" position="replace">
+          <page string="Payments" name="payments">
+            <field name="payment_ids" colspan="4" nolabel="1">
+              <tree string="Payments">
+                <field name="custom_currency_id" invisible="1" />
+                <field name="payment_date"/>
+                <field name="payment_method_id"/>
+                <field name="custom_amount" options="{'currency_field': 'custom_currency_id'}"/>
+              </tree>
+            </field>
+          </page>
+        </xpath>
+
+      </field>
+    </record>
+
+    <record id="pos_multi_currency_pos_payment_form" model="ir.ui.view">
+      <field name="name">pos.payment.form</field>
+      <field name="model">pos.payment</field>
+      <field name="inherit_id" ref="point_of_sale.view_pos_payment_form"/>
+      <field name="arch" type="xml">
+        <xpath expr="//field[@name='name']" position="after">
+            <field name="custom_amount"/>
+        </xpath>
+
+
+        <xpath expr="//field[@name='amount']" position="attributes">
+                <attribute name="invisible">1</attribute>
+        </xpath>
+
+      </field>
+    </record>
+
+
+    <record id="view_move_form" model="ir.ui.view">
+      <field name="name">account.move.form</field>
+      <field name="model">account.move</field>
+      <field name="inherit_id" ref="account.view_move_form"/>
+      <field name="arch" type="xml">
+        <xpath expr="//page[@id='invoice_tab']//field[@name='price_unit']" position="replace">
+          <field name="price_unit" string="Price" invisible="1"/>
+          <field name="custom_price_unit" string="Price"/>
+        </xpath>
+
+        <xpath expr="//page[@id='invoice_tab']//field[@name='price_subtotal']" position="replace">
+          <field name="custom_currency_id" invisible="1"/>
+          <field name="price_subtotal" invisible="1"/>
+          <field name="custom_price_subtotal" widget="monetary" options="{'currency_field': 'custom_currency_id'}"/>
+        </xpath>
+
+
+        <xpath expr="//field[@name='tax_totals']" position="replace">
+          <field name="custom_currency_id" invisible="1"/>
+
+          <field name="tax_totals" widget="account-tax-totals-field" nolabel="1" colspan="2" invisible="1"
+                 attrs="{'readonly': ['|', ('state', '!=', 'draft'), '&amp;', ('move_type', 'not in', ('in_invoice', 'in_refund', 'in_receipt')), ('quick_edit_mode', '=', False)]}"/>
+          <field name="custom_tax_totals" widget="custom-account-tax-totals-field" nolabel="1" colspan="2"
+                 attrs="{'readonly': ['|', ('state', '!=', 'draft'), '&amp;', ('move_type', 'not in', ('in_invoice', 'in_refund', 'in_receipt')), ('quick_edit_mode', '=', False)]}"/>
+        </xpath>
+
+
+        <xpath expr="//field[@name='invoice_payments_widget']" position="replace">
+          <field name="invoice_payments_widget" colspan="2" nolabel="1" widget="payment" invisible="1"/>
+          <field name="custom_invoice_payments_widget" colspan="2" nolabel="1" widget="payment" />
+        </xpath>
+
+
+        <xpath expr="//div[@name='journal_div']" position="replace">
+          <div name="journal_div"
+                                     class="d-flex"
+                                     groups="account.group_account_readonly"
+                                     invisible="context.get('default_journal_id') and context.get('move_type', 'entry') != 'entry'">
+                                    <field name="journal_id"
+                                        options="{'no_create': True, 'no_open': True}"
+                                        attrs="{'readonly': [('posted_before', '=', True)]}"/>
+                                    <span class="oe_inline o_form_label mx-3"
+                                          groups="base.group_multi_currency"
+                                          attrs="{'invisible': [('move_type', '=', 'entry')]}"> in </span>
+                                    <field name="currency_id"
+                                           groups="base.group_multi_currency"
+                                           attrs="{'readonly': [('state', '!=', 'draft')]}" invisible="1"/>
+                                    <field name="custom_currency_id"
+                                           groups="base.group_multi_currency"
+                                           attrs="{'readonly': [('state', '!=', 'draft')], 'invisible': [('move_type', '=', 'entry')]}"/>
+
+                                </div>
+        </xpath>
+
+        <xpath expr="//page[@id='aml_tab']//field[@name='debit']" position="replace">
+          <field name="debit" sum="Total Debit"
+                 attrs="{'invisible': [('display_type', 'in', ('line_section', 'line_note'))], 'readonly': [('parent.move_type', 'in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt')), ('display_type', 'in', ('line_section', 'line_note', 'product'))]}"
+                  invisible="1"/>
+          <field name="custom_currency_id" invisible="1"/>
+          <field name="custom_debit" sum="Total Debit"
+                 attrs="{'invisible': [('display_type', 'in', ('line_section', 'line_note'))], 'readonly': [('parent.move_type', 'in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt')), ('display_type', 'in', ('line_section', 'line_note', 'product'))]}"/>
+        </xpath>
+
+        <xpath expr="//page[@id='aml_tab']//field[@name='credit']" position="replace">
+          <field name="credit" sum="Total Credit"
+                 attrs="{'invisible': [('display_type', 'in', ('line_section', 'line_note'))], 'readonly': [('parent.move_type', 'in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt')), ('display_type', 'in', ('line_section', 'line_note', 'product'))]}"
+                  invisible="1"/>
+          <field name="custom_credit" sum="Total Credit"
+                 attrs="{'invisible': [('display_type', 'in', ('line_section', 'line_note'))], 'readonly': [('parent.move_type', 'in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt')), ('display_type', 'in', ('line_section', 'line_note', 'product'))]}"/>
+        </xpath>
+
+
+        <xpath expr="//page[@id='aml_tab']//form//field[@name='currency_id']" position="replace">
+          <field name="currency_id" options="{'no_create': True}" groups="base.group_multi_currency" invisible="1"/>
+          <field name="custom_currency_id" options="{'no_create': True}" groups="base.group_multi_currency"/>
+        </xpath>
+
+        <xpath expr="//page[@id='aml_tab']//form//field[@name='debit']" position="replace">
+          <field name="debit" sum="Total Debit" invisible="1"/>
+          <field name="custom_debit" sum="Total Debit"/>
+        </xpath>
+
+        <xpath expr="//page[@id='aml_tab']//form//field[@name='credit']" position="replace">
+          <field name="credit" sum="Total Credit" invisible="1"/>
+          <field name="custom_credit" sum="Total Credit"/>
+        </xpath>
+
+
+        <xpath expr="//page[@id='aml_tab']//form//field[@name='amount_currency']" position="replace">
+          <field name="custom_currency_id" invisible="1"/>
+          <field name="amount_currency" groups="base.group_multi_currency" invisible="1"/>
+          <field name="custom_amount_currency" groups="base.group_multi_currency" options="{'currency_field': 'custom_currency_id'}"/>
+        </xpath>
+
+
+
+
+      </field>
+    </record>
+
+
+    <record id="view_pos_payment" model="ir.ui.view">
+      <field name="name">pos.make.payment.form</field>
+      <field name="model">pos.make.payment</field>
+      <field name="inherit_id" ref="point_of_sale.view_pos_payment"/>
+      <field name="arch" type="xml">
+        <xpath expr="//form//field[@name='amount']" position="replace">
+          <field name="amount" invisible="1"/>
+          <field name="custom_amount" />
+        </xpath>
+      </field>
+    </record>
+
+
+
+  </data>
+</odoo>

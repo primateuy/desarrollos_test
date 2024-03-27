@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="SetPricelistButtonCustom" t-inherit="point_of_sale.SetPricelistButton" owl="1">
+        <xpath expr="//div[@class='control-button o_pricelist_button']" position="replace">
+            <div class="control-button o_pricelist_button">
+                <i class="fa fa-th-list" role="img" aria-label="Price list" title="Price list custom" />
+                <t t-esc="currentPricelistName" t-on-click="setPricelist"/>
+            </div>
+        </xpath>
+    </t>
+</templates>
+<!---->
