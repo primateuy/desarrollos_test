@@ -10,8 +10,10 @@ class PosConfig(models.Model):
         journal = self.env['account.journal'].search([('name', '=', 'Point of Sale')])
         currency = journal.currency_id
         if self.pricelist_id.currency_id != currency:
-            pricelist = self.env['product.pricelist'].search([('currency_id', '=', currency.id)])[0]
-            self.pricelist_id = pricelist
+            pricelist = self.env['product.pricelist'].search([('currency_id', '=', currency.id)])
+            if pricelist:
+                pricelist = pricelist[0]
+                self.pricelist_id = pricelist
         for config in self:
             if config.use_pricelist and config.pricelist_id not in config.available_pricelist_ids:
                 raise ValidationError(_("The default pricelist must be included in the available pricelists."))
