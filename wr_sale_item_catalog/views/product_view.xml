@@ -1,0 +1,83 @@
+<odoo>
+    <data>
+        <record id="view_product_product_kanban_sale_catalog" model="ir.ui.view">
+            <field name="name">view.product.product.kanban.sale.catalog</field>
+            <field name="model">product.product</field>
+            <field name="priority">1000</field>
+            <field name="arch" type="xml">
+                <kanban
+                        edit="0"
+                        class="o_kanban_mobile o_sale_catalog_product_kanban"
+                        action="sale_catalog_add_quantity" type="object"
+                        js_class="sale_catalog_product_kanban"
+                >
+                    <field name="id"/>
+                    <field name="name"/>
+                    <field name="product_template_attribute_value_ids"/>
+                    <field name="sale_catalog_partner_price"/>
+                    <field name="sale_catalog_partner_price_currency_id"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="o_sale_catalog_product d-flex flex-column justify-content-between"
+                                 style="min-height: 100px">
+                                <div class="o_dropdown_kanban dropdown" t-if="!selection_mode">
+                                    <a role="button" class="dropdown-toggle o-no-caret btn" data-bs-toggle="dropdown"
+                                       data-bs-display="static" href="#" aria-label="Dropdown menu"
+                                       title="Dropdown menu">
+                                        <span class="fa fa-ellipsis-v"/>
+                                    </a>
+                                    <div class="dropdown-menu" role="menu">
+                                        <a class="dropdown-item" role="menuitem" type="edit"
+                                           groups="sales_team.group_sale_manager">Edit
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="d-flex">
+                                    <div class="o_kanban_image">
+                                        <img t-att-src="kanban_image('product.product', 'image_128', record.id.raw_value)"
+                                             alt="Product" class="o_image_64_contain"/>
+                                    </div>
+                                    <div class="oe_kanban_details p-2 d-flex">
+                                        <div class="o_kanban_record_top flex-column w-100 "
+                                             style="justify-content: space-between;">
+                                            <div class="o_kanban_record_title">
+                                                <field class="me-1" name="priority" widget="priority"/>
+                                                <strong>
+                                                    <span t-out="record.name.value"/>
+                                                </strong>
+                                            </div>
+                                            <div class="o_kanban_tags_section">
+                                                <field name="product_template_attribute_value_ids"
+                                                       groups="product.group_product_variant" widget="many2many_tags"
+                                                       options="{'color_field': 'color'}"/>
+                                            </div>
+                                            <div class="d-flex w-100 justify-content-between">
+                                                <ul>
+                                                    <li>
+                                                        <t t-if="record.default_code.value">[<field
+                                                                name="default_code"/>]
+                                                        </t>
+                                                    </li>
+                                                    <li>Price:
+                                                        <field name="sale_catalog_partner_price" widget="monetary"
+                                                               options="{'currency_field': 'sale_catalog_partner_price_currency_id'}"></field>
+                                                    </li>
+                                                    <field name="currency_id" invisible="True"/>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="pt-2 border-top">
+                                    <field name="sale_catalog_quantity" class="o_sale_catalog_product_quantity w-100"
+                                           t-att-hide_buttons="context.hide_qty_buttons or false"
+                                           options="{'type': 'number'}" widget="sale_catalog_product_quantity"/>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+    </data>
+</odoo>
