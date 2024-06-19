@@ -28,9 +28,14 @@ class AccountMoveLine(models.Model):
     def compute_amount_secondary(self):
         for rec in self:
             tipo_cambio = self.env['res.currency.rate'].search([('name', '<=', rec.move_id.date), ('currency_id', '=', self.env.companies.secondary_currency_id.id)],limit=1)
-            if tipo_cambio:
-                debit_credit = rec.debit or rec.credit
-                rec.amount_secondary = debit_credit * tipo_cambio.rate
-                rec.tipo_cambio = tipo_cambio.inverse_company_rate
+
+            if rec.currency_id == rec.company_id.secondary_currency_id:
+                rec.amount_secondary = rec.debit or rec.credit
+                rec.tipo_cambio = 1
             else:
-                rec.amount_secondary = 0
+                if tipo_cambio:
+                    debit_credit = rec.debit or rec.credit
+                    rec.amount_secondary = debit_credit * tipo_cambio.rate
+                    rec.tipo_cambio = tipo_cambio.inverse_company_rate
+                else:
+                    rec.amount_secondary = 0
