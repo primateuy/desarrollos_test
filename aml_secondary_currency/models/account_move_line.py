@@ -31,6 +31,6 @@ class AccountMoveLine(models.Model):
             if tipo_cambio:
                 debit_credit = rec.debit or rec.credit
                 rec.amount_secondary = debit_credit * tipo_cambio.rate
-                rec.tipo_cambio = tipo_cambio.inverse_rate
+                rec.tipo_cambio = tipo_cambio.inverse_company_rate
             else:
                 rec.amount_secondary = 0
