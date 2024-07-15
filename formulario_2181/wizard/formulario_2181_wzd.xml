@@ -1,0 +1,59 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="account_line_beta_wzd_form">
+            <field name="name">account.line.beta.wzd.form</field>
+            <field name="model">account.line.beta.wzd</field>
+            <field name="arch" type="xml">
+                <form string="Formulario 2/181">
+                    <div attrs="{'invisible':[('not_result','=',False)]}" class="oe_text_left show_error" style="height: 30px; border-bottom: 1px solid #DD0000;border-top: 1px solid #DD0000; background-color: #FAD7D7; padding: 4px; margin-bottom: 30px;">
+                        <div class="oe_inline" style="float: left;">
+                            <span class="fa fa-warning" style="color: #DD0000;"/><span style="font-weight: bold !important;"> No se encontraron resultados, por favor verificar mes, año y si el impuesto seleccionado tiene configurado el código impuesto para el Formulario 2181.</span>
+                        </div>
+                        <div class="oe_right fa fa-close" style="font-weight: bold !important; cursor: pointer; color: #DD0000;"
+                            onclick="javascript:$($.find('.show_error')).slideUp();"/>
+                    </div>
+                    <div style="margin-bottom: 50px;">
+                        <label for="month" style="font-weight: bold;">Mes</label>
+                        <field name="month" style="width: 130px !important; margin-right: 30px;"/>
+                        <label for="year" style="font-weight: bold;">Año</label>
+                        <field name="year" style="width: 130px !important; margin-right: 30px;"/>
+                        <label for="file_format" style="font-weight: bold;">Formato del archivo</label>
+                        <field name="file_format" style="width: 130px !important; margin-right: 30px;"/>
+                        <br/>
+                        <br/>
+                        <label for="tax_ids" style="font-weight: bold;">Impuestos</label>
+                        <field name="tax_ids" style="width: 450px !important; margin-right: 20px;" widget="many2many_tags" options="{'no_create': True}"/>
+
+                    </div>
+                    <div>
+                        <span class="fa fa-file-excel-o" style="width: 40px; font-size: 28px;" attrs="{'invisible':['|',('file_format','!=','csv'),('file_name','=',False)]}"/>
+                        <span class="fa fa-file-text-o" style="width: 40px; font-size: 28px;" attrs="{'invisible':['|',('file_format','!=','txt'),('file_name','=',False)]}"/>
+                        <span style="font-size: 20px;">
+                            <field name="file_name" invisible="1"/>
+                            <field name="file" nolabel="1" readonly="1" filename="file_name" states="exported"/>
+                            <field name="state" invisible="1"/>
+                            <field name="not_result" invisible="1"/>
+                        </span>
+                    </div>
+                    <footer>
+                        <button string="Siguiente" type="object" name="action_next" class="oe_highlight" states="init"/>
+                        <button string="Cancelar" special="cancel" class="oe_link" states="init"/>
+                        <button string="Volver" type="object" name="action_back" class="oe_highlight" states="exported"/>
+                        <button string="Cerrar" special="cancel" class="oe_link" states="exported"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_account_line_beta_wzd">
+            <field name="name">Formulario 2/181</field>
+            <field name="res_model">account.line.beta.wzd</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="menu_formularios_dgi_root" name="Formularios DGI" string="Formularios DGI" parent="account.menu_finance_reports" sequence="11"/>
+        <menuitem action="action_account_line_beta_wzd" id="menu_formulario_2181_wzd" parent="menu_formularios_dgi_root" sequence="10" string="Formulario 2/181"/>
+        
+    </data>
+</odoo>
