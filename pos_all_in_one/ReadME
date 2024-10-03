@@ -1,0 +1,40 @@
+Version 17.0.0.1 : (02/04/2024)
+   - Solved the error for Point Of Sale > Configuration > Allow Partial Payment > Save. 
+   - Solved the Loyalty point is not set on the Partner, Due to this Redeem loyalty points is not working.
+   - Fix the total value in the XLS file of the POS Payment Report, also set the Unit Price including tax instead of Unit Price excluding tax at the Price Unit column.
+   - Add the Unpaid payment line at the Ongoing Session report payment section.
+   - Solve the bug, when user click Back button on Payment Screen and Payment Screen open from the Pay button of the Order Screen.
+   - Fix the product edit error when cost price is set to 0.
+   - Set the Proper float number in the Total colun of XLS file of the POS Payment Report. 
+   - Fix the Currency Rate issue for the Multi Currency.
+   - Solve the error for the POS > Payment > Create > Error.
+   - Fix the bug that product varient wizard is open only for the products which has more than 1 varient.
+   - Fix the Loyalty points smart button string issue.
+   - Fix the product category related functionality on the POS.  
+   - Rename the Ongoing session report from "Ongoing Session Repor" to "Ongoing Session Report"
+   - Rename the "POS Category reports" to "POS Category" at the Product and Product Varient level. 
+
+
+Version 17.0.0.2 : (15/04/2024)
+   - Fixed issue related to traceback while create product with variant.
+
+Version 17.0.0.3 : (08/05/2024)
+   - Fixed issue related to product price per unit in orderline.
+
+Version 17.0.0.4 : (31/05/2024)
+   -> Fixed currency-related issues.
+   -> Change session_id field facing payment method-related issues on odoo_sh.
+   -> Change the load data method and pass the default list on the js side.
+   -> Update _pos_data_process method according to base code.
+   -> Fixed closing control method issue for odoo_sh.
+
+Version 17.0.0.5 : (12/06/2024)
+   - Fix the traceback which come at the time of set the multi currency at pos config.
+
+Version 17.0.0.6 : (19/07/2024)
+   - Solved the odoo.sh errors and make the module green on odoo.sh
+   - Fix the issue that for discount type > Fixed > discount at POS > 100 > instaed of price it shows Free
+   - Modify process_order method
+   - Add the report_pos_order file at reports and add employee.id in select query to solve pos order report issue for odoo.sh
+   - Refactor sync_product method to solve odoo.sh error
+   - Apply default True to the user point of sale numpad related configuration

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="pos_orders_all.SaleOrdersLine">
+        <tr t-attf-class="partner-line {{highlight}}" t-att-data-id="props.order.id" t-on-click="() => this.props.onClickSaleOrder(props.order)">
+            <td class='order-name' t-att-data-id='props.order.id' t-on-click="() => this.showDetails(props.order)">
+                <t t-out='props.order.name' />
+            </td>
+            <td class='order-date' t-att-data-id='props.order.id' t-on-click="() => this.showDetails(props.order)">
+                <t t-out='props.order.date_order' />
+            </td>
+            <td class='order-partner' t-att-data-id='props.order.id' t-on-click="() => this.showDetails(props.order)">
+                <t t-out='props.order.partner_id[1] or ""' />
+            </td>
+            <td class='order-saleperson' t-att-data-id='props.order.id' t-on-click="() => this.showDetails(props.order)">
+                <t t-out='props.order.user_id[1] or ""' />
+            </td>
+            <td class='order-subtot' t-att-data-id='props.order.id' t-on-click="() => this.showDetails(props.order)">
+                <t t-out='env.utils.formatCurrency(props.order.amount_untaxed)' />
+            </td>
+            <td class='order-tot' t-att-data-id='props.order.id' t-on-click="() => this.showDetails(props.order)">
+                <t t-out='env.utils.formatCurrency(props.order.amount_total)' />
+            </td>
+            <td class='order-state' t-att-data-id='props.order.id' t-on-click="() => this.showDetails(props.order)">
+                <t t-if="props.order.state == 'draft'">Quotation</t>
+                <t t-if="props.order.state == 'sent'">Quotation Sent</t>
+                <t t-if="props.order.state == 'sale'">Sale Order</t>
+                <t t-if="props.order.state == 'done'">Locked</t>
+                <t t-if="props.order.state == 'cancel'">Cancelled</t>
+            </td>
+            <td class="import-order" t-att-data-id='props.order.id'>
+                <button class="edit-partner-button btn btn-lg btn-outline-primary" t-on-click="() => this.importSale(props.order)">
+                <i class="fa fa-refresh"></i><span style="margin-left: 4px;">Import-Order</span></button>
+            </td>
+        </tr>
+    </t>
+</templates>

@@ -1,0 +1,1940 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* pos_orders_all
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-04-28 11:35+0000\n"
+"PO-Revision-Date: 2023-04-28 11:35+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: pos_orders_all
+#: model:ir.model.fields.selection,name:pos_orders_all.selection__pos_config__pos_session_limit__last5
+msgid " Load last 5 Session's Orders"
+msgstr "Carica gli ordini delle ultime 5 sessioni"
+
+#. module: pos_orders_all
+#: model_terms:ir.ui.view,arch_db:pos_orders_all.report_pos_gift_coupon
+msgid ""
+"<br/>\n"
+"\t\t\t\t\t\t\t\t\t<strong>Amount:</strong>"
+msgstr ""
+"<br/>\n"
+"\t\t\t\t\t\t\t\t\t<strong>Quantità:</strong>"
+
+#. module: pos_orders_all
+#: model_terms:ir.ui.view,arch_db:pos_orders_all.report_pos_gift_coupon
+msgid ""
+"<br/>\n"
+"\t\t\t\t\t\t\t\t\t<strong>Issue Date:</strong>"
+msgstr ""
+"<br/>\n"
+"\t\t\t\t\t\t\t\t\t<strong>Data di emissione:</strong>"
+
+#. module: pos_orders_all
+#: model_terms:ir.ui.view,arch_db:pos_orders_all.report_pos_gift_coupon
+msgid "<span style=\"color:#E74C3C; font-weight: bold;\"> Name: </span>"
+msgstr "<span style=\"color:#E74C3C; font-weight: bold;\"> Nome: </span>"
+
+#. module: pos_orders_all
+#: model_terms:ir.ui.view,arch_db:pos_orders_all.report_invoice_document_inherit_discount
+msgid "<span>Disc.</span>"
+msgstr "<span>Disco.</span>"
+
+#. module: pos_orders_all
+#: model_terms:ir.ui.view,arch_db:pos_orders_all.report_pos_gift_coupon
+msgid "<strong>Customer:</strong>"
+msgstr "<strong>Cliente:</strong>"
+
+#. module: pos_orders_all
+#: model_terms:ir.ui.view,arch_db:pos_orders_all.report_pos_gift_coupon
+msgid "<strong>Expiry Date:</strong>"
+msgstr "<strong>Data di scadenza:</strong>"
+
+#. module: pos_orders_all
+#: model:ir.model.fields,field_description:pos_orders_all.field_pos_gift_coupon__active
+msgid "Active"
+msgstr "Attivo"
+
+#. module: pos_orders_all
+#: model:ir.actions.act_window,name:pos_orders_all.action_pos_coupan
+#: model:ir.ui.menu,name:pos_orders_all.menu_pos_gift_act
+msgid "All Gift Coupons"
+msgstr "Tutti i buoni regalo"
+
+#. module: pos_orders_all
+#: model:ir.model.fields.selection,name:pos_orders_all.selection__pos_config__show_stock_location__all
+msgid "All Warehouse"
+msgstr "Tutto Magazzino"
+
+#. module: pos_orders_all
+#: model:ir.model.fields,field_description:pos_orders_all.field_pos_config__allow_bag_charges
+#: model:ir.model.fields,field_description:pos_orders_all.field_res_config_settings__allow_bag_charges
+msgid "Allow Bag Charges"
+msgstr "Consenti addebiti sui bagagli"
+
+#. module: pos_orders_all
+#: model:ir.model.fields,field_description:pos_orders_all.field_pos_config__pos_allow_order
+#: model:ir.model.fields,field_description:pos_orders_all.field_res_config_settings__pos_allow_order
+msgid "Allow POS Order When Product is Out of Stock"
+msgstr "Consenti ordine POS quando il prodotto è esaurito"
+
+#. module: pos_orders_all
+#: model:ir.model.fields,field_description:pos_orders_all.field_pos_gift_coupon__is_categ
+msgid "Allow for Specific Category"
+msgstr "Consenti categoria specifica"
+
+#. module: pos_orders_all
+#: model:ir.model.fields,field_description:pos_orders_all.field_pos_gift_coupon__partner_true
+msgid "Allow for Specific Customer"
+msgstr "Consenti per cliente specifico"
+
+#. module: pos_orders_all
+#: model_terms:ir.ui.view,arch_db:pos_orders_all.res_config_settings_view_form
+msgid "Allow pos order when product is out of stock stock."
+msgstr "Consenti ordine pos quando il prodotto è esaurito."
+
+#. module: pos_orders_all
+#. odoo-python
+#: code:addons/pos_orders_all/models/pos_coupons_config.py:0
+#, python-format
+msgid "Allows only one activated Configuration of POS"
+msgstr "Consente solo una configurazione attivata di POS"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/js/Popups/GiftCoupon/CouponConfigPopup.js:0
+#, python-format
+msgid "Already Used !!!"
+msgstr "Già usato !!!"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/gift_coupon_voucher.xml:0
+#, python-format
+msgid "Amount :"
+msgstr "Quantità :"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/gift_coupon_voucher.xml:0
+#: model:ir.model.fields,field_description:pos_orders_all.field_pos_gift_coupon__amount_type
+#, python-format
+msgid "Amount Type"
+msgstr "Tipo di importo"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/gift_coupon_voucher.xml:0
+#, python-format
+msgid "Apply"
+msgstr "Fare domanda a"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/gift_coupon_voucher.xml:0
+#, python-format
+msgid "Apply Coupon On"
+msgstr "Applica coupon su"
+
+#. module: pos_orders_all
+#: model:ir.model.fields,field_description:pos_orders_all.field_pos_gift_coupon__apply_coupon_on
+msgid "Apply Coupon on"
+msgstr "Applica coupon su"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/gift_coupon_voucher.xml:0
+#, python-format
+msgid "Apply Coupon/Gift Voucher Code"
+msgstr "Applica il codice coupon / buono regalo"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/gift_coupon_voucher.xml:0
+#: code:addons/pos_orders_all/static/src/xml/reorder_reprint_return.xml:0
+#, python-format
+msgid "Back"
+msgstr "Indietro"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/pos_bag_charges.xml:0
+#, python-format
+msgid "Bag"
+msgstr "Borsa"
+
+#. module: pos_orders_all
+#: model:ir.model.fields,field_description:pos_orders_all.field_pos_config__pos_bag_category_id
+#: model:ir.model.fields,field_description:pos_orders_all.field_res_config_settings__pos_bag_category_id
+msgid "Bag Charges Category"
+msgstr "Categoria addebiti bagagli"
+
+#. module: pos_orders_all
+#: model_terms:ir.ui.view,arch_db:pos_orders_all.pos_date
+msgid "Barcode"
+msgstr "Codice a barre"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/reorder_reprint_return.xml:0
+#, python-format
+msgid "CHANGE"
+msgstr "MODIFICA"
+
+#. module: pos_orders_all
+#: model:ir.model.fields,field_description:pos_orders_all.field_pos_config__cancle_order
+#: model:ir.model.fields,field_description:pos_orders_all.field_res_config_settings__pos_cancle_order
+#: model_terms:ir.ui.view,arch_db:pos_orders_all.res_config_settings_view_form
+msgid "Cancel Sale Order after Import"
+msgstr "Annulla ordine di vendita dopo l'importazione"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/pos_orders_list.xml:0
+#: code:addons/pos_orders_all/static/src/xml/sale_orders.xml:0
+#, python-format
+msgid "Cancelled"
+msgstr "Annullato"
+
+#. module: pos_orders_all
+#: model_terms:ir.ui.view,arch_db:pos_orders_all.res_config_settings_view_form
+msgid "Check this to display stock in pos screen."
+msgstr "Seleziona questo per visualizzare lo stock nella schermata pos."
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/gift_coupon_voucher.xml:0
+#: code:addons/pos_orders_all/static/src/xml/pos_bag_charges.xml:0
+#: code:addons/pos_orders_all/static/src/xml/pos_orders_list.xml:0
+#: code:addons/pos_orders_all/static/src/xml/reorder_reprint_return.xml:0
+#: code:addons/pos_orders_all/static/src/xml/sale_orders.xml:0
+#, python-format
+msgid "Close"
+msgstr "Vicino"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/pos_orders_list.xml:0
+#: code:addons/pos_orders_all/static/src/xml/sale_orders.xml:0
+#, python-format
+msgid "Company:"
+msgstr "Azienda:"
+
+#. module: pos_orders_all
+#: model:ir.model,name:pos_orders_all.model_res_config_settings
+msgid "Config Settings"
+msgstr "Impostazioni di configurazione"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/gift_coupon_voucher.xml:0
+#, python-format
+msgid "Confirmation"
+msgstr "Conferma"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/js/Screens/Base/PaymentScreen.js:0
+#, python-format
+msgid "Connection Error"
+msgstr "Errore di connessione"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/gift_coupon_voucher.xml:0
+#: model:ir.actions.report,name:pos_orders_all.action_gift_coupons
+#: model:ir.model.fields,field_description:pos_orders_all.field_pos_order__coupon_id
+#: model_terms:ir.ui.view,arch_db:pos_orders_all.pos_date
+#, python-format
+msgid "Coupon"
+msgstr "Buono"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/gift_coupon_voucher.xml:0
+#: model:ir.model.fields,field_description:pos_orders_all.field_pos_gift_coupon__amount
+#, python-format
+msgid "Coupon Amount"
+msgstr "Importo della cedola"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/js/Popups/GiftCoupon/SelectExistingCouponPopup.js:0
+#, python-format
+msgid "Coupon Amount is greater than order amount"
+msgstr "L'importo del coupon è maggiore dell'importo dell'ordine"
+
+#. module: pos_orders_all
+#: model:ir.model.fields,field_description:pos_orders_all.field_pos_gift_coupon__c_barcode
+msgid "Coupon Barcode"
+msgstr "Codice a barre del coupon"
+
+#. module: pos_orders_all
+#: model:ir.model.fields,field_description:pos_orders_all.field_pos_gift_coupon__c_barcode_img
+msgid "Coupon Barcode Image"
+msgstr "Immagine del codice a barre del coupon"
+
+#. module: pos_orders_all
+#: model:ir.model.fields,field_description:pos_orders_all.field_pos_gift_coupon__coupon_apply_times
+msgid "Coupon Code Apply Limit"
+msgstr "Codice coupon Applica limite"
+
+#. module: pos_orders_all
+#: model_terms:ir.ui.view,arch_db:pos_orders_all.view_pos_gift_coupan_form_view
+msgid "Coupon Description..."
+msgstr "Descrizione coupon..."
+
+#. module: pos_orders_all
+#: model_terms:ir.ui.view,arch_db:pos_orders_all.view_pos_gift_coupan_form_view
+msgid "Coupon History"
+msgstr "Cronologia coupon"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/gift_coupon_voucher.xml:0
+#, python-format
+msgid "Coupon Number :"
+msgstr "Numero tagliando:"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/gift_coupon_voucher.xml:0
+#, python-format
+msgid "Coupon Options"
+msgstr "Opzioni coupon"
+
+#. module: pos_orders_all
+#: model:ir.model.fields,field_description:pos_orders_all.field_product_product__is_coupon_product
+#: model:ir.model.fields,field_description:pos_orders_all.field_product_template__is_coupon_product
+msgid "Coupon Product"
+msgstr "Prodotto in coupon"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/gift_coupon_voucher.xml:0
+#, python-format
+msgid "Coupon Receipt"
+msgstr "Ricevuta tagliando"
+
+#. module: pos_orders_all
+#. odoo-python
+#: code:addons/pos_orders_all/models/pos_coupon.py:0
+#, python-format
+msgid "Coupon amount is greater than maximum amount"
+msgstr "L'importo del coupon è superiore all'importo massimo"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/js/Popups/GiftCoupon/SelectExistingCouponPopup.js:0
+#, python-format
+msgid "Coupon is not applicable here."
+msgstr "Il coupon non è applicabile qui."
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/gift_coupon_voucher.xml:0
+#, python-format
+msgid "Coupon usage limit"
+msgstr "Limite di utilizzo del coupon"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/gift_coupon_voucher.xml:0
+#, python-format
+msgid "Create"
+msgstr "Creare"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/gift_coupon_voucher.xml:0
+#, python-format
+msgid "Create Coupon"
+msgstr "Crea buono"
+
+#. module: pos_orders_all
+#: model:ir.model.fields.selection,name:pos_orders_all.selection__pos_config__credit_note__create_note
+msgid "Create Return order Credit note"
+msgstr "Crea Ordine di reso Nota di credito"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/sale_orders.xml:0
+#, python-format
+msgid "Create Sales Order"
+msgstr "Crea ordine di vendita"
+
+#. module: pos_orders_all
+#: model:ir.model.fields,field_description:pos_orders_all.field_pos_gift_coupon__user_id
+msgid "Created By"
+msgstr "Creato da"
+
+#. module: pos_orders_all
+#: model:ir.model.fields,field_description:pos_orders_all.field_pos_gift_coupon__create_uid
+msgid "Created by"
+msgstr "Creato da"
+
+#. module: pos_orders_all
+#: model:ir.model.fields,field_description:pos_orders_all.field_pos_gift_coupon__create_date
+msgid "Created on"
+msgstr "Creato"
+
+#. module: pos_orders_all
+#: model:ir.model.fields,field_description:pos_orders_all.field_pos_config__credit_note
+#: model:ir.model.fields,field_description:pos_orders_all.field_res_config_settings__credit_note
+msgid "Credit note configuration"
+msgstr "Configurazione della nota di credito"
+
+#. module: pos_orders_all
+#: model:ir.model.fields.selection,name:pos_orders_all.selection__pos_config__show_stock_location__specific
+msgid "Current Session Warehouse"
+msgstr "Magazzino sessione corrente"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/pos_orders_list.xml:0
+#: code:addons/pos_orders_all/static/src/xml/sale_orders.xml:0
+#, python-format
+msgid "Customer"
+msgstr "Cliente"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/pos_discount.xml:0
+#, python-format
+msgid "Customer Note"
+msgstr "Nota del cliente"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/pos_orders_list.xml:0
+#: code:addons/pos_orders_all/static/src/xml/sale_orders.xml:0
+#, python-format
+msgid "Customer:"
+msgstr "Cliente:"
+
+#. module: pos_orders_all
+#: model_terms:ir.ui.view,arch_db:pos_orders_all.res_config_settings_view_form
+msgid "Define Discount Type"
+msgstr "Definisci tipo di sconto"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/js/Screens/Base/ProductScreen.js:0
+#, python-format
+msgid "Deny Order"
+msgstr "Nega l'ordine"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/js/Screens/Base/ProductScreen.js:0
+#, python-format
+msgid "Deny Order() is Out of Stock."
+msgstr "Deny Order() è esaurito."
+
+#. module: pos_orders_all
+#: model:ir.model.fields,field_description:pos_orders_all.field_pos_config__pos_deny_order
+#: model:ir.model.fields,field_description:pos_orders_all.field_res_config_settings__pos_deny_order
+msgid "Deny POS Order When Product Qty is goes down to"
+msgstr "Nega ordine POS quando la quantità di prodotto scende a"
+
+#. module: pos_orders_all
+#: model_terms:ir.ui.view,arch_db:pos_orders_all.res_config_settings_view_form
+msgid "Deny pos order"
+msgstr "Nega ordine pos"
+
+#. module: pos_orders_all
+#: model_terms:ir.ui.view,arch_db:pos_orders_all.res_config_settings_view_form
+msgid "Deny pos order when product quanity goes down to the entered quantity."
+msgstr ""
+"Nega l'ordine pos quando la quantità del prodotto scende al di sotto della "
+"quantità inserita."
+
+#. module: pos_orders_all
+#: model:ir.model.fields,field_description:pos_orders_all.field_pos_gift_coupon__coupon_desc
+#: model_terms:ir.ui.view,arch_db:pos_orders_all.view_pos_gift_coupan_form_view
+msgid "Description"
+msgstr "Descrizione"
+
+#. module: pos_orders_all
+#: model_terms:ir.ui.view,arch_db:pos_orders_all.view_move_form_inherits
+msgid "Disc"
+msgstr "Disco"
+
+#. module: pos_orders_all
+#: model_terms:ir.ui.view,arch_db:pos_orders_all.report_saledetails_inherit_discount
+msgid "Disc:"
+msgstr "Disco:"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/pos_orders_list.xml:0
+#: code:addons/pos_orders_all/static/src/xml/sale_orders.xml:0
+#, python-format
+msgid "Discard"
+msgstr "Scartare"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/pos_orders_list.xml:0
+#: model_terms:ir.ui.view,arch_db:pos_orders_all.pos_date
+#, python-format
+msgid "Discount"
+msgstr "Sconto"
+
+#. module: pos_orders_all
+#: model:ir.model.fields,field_description:pos_orders_all.field_account_bank_statement_line__discount_amount
+#: model:ir.model.fields,field_description:pos_orders_all.field_account_move__discount_amount
+#: model:ir.model.fields,field_description:pos_orders_all.field_account_move_line__discount_amount
+#: model:ir.model.fields,field_description:pos_orders_all.field_account_payment__discount_amount
+msgid "Discount Amount"
+msgstr "Totale sconto"
+
+#. module: pos_orders_all
+#: model_terms:ir.ui.view,arch_db:pos_orders_all.res_config_settings_view_form
+msgid "Discount Configuration in POS"
+msgstr "Configurazione dello sconto nel POS"
+
+#. module: pos_orders_all
+#: model:ir.model.fields,field_description:pos_orders_all.field_account_bank_statement_line__discount_amt
+#: model:ir.model.fields,field_description:pos_orders_all.field_account_move__discount_amt
+#: model:ir.model.fields,field_description:pos_orders_all.field_account_move_line__discount_amt
+#: model:ir.model.fields,field_description:pos_orders_all.field_account_payment__discount_amt
+msgid "Discount Final Amount"
+msgstr "Importo finale dello sconto"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/js/Popups/GiftCoupon/SelectExistingCouponPopup.js:0
+#, python-format
+msgid "Discount Limit Exceeded !!!"
+msgstr "Limite di sconto superato!!!"
+
+#. module: pos_orders_all
+#: model:ir.model.fields,field_description:pos_orders_all.field_account_bank_statement_line__discount_amount_line
+#: model:ir.model.fields,field_description:pos_orders_all.field_account_move__discount_amount_line
+#: model:ir.model.fields,field_description:pos_orders_all.field_account_payment__discount_amount_line
+msgid "Discount Line"
+msgstr "Linea Sconto"
+
+#. module: pos_orders_all
+#: model:ir.model.fields,field_description:pos_orders_all.field_account_move_line__discount_line_type
+#: model:ir.model.fields,field_description:pos_orders_all.field_pos_config__discount_type
+#: model:ir.model.fields,field_description:pos_orders_all.field_pos_order__discount_type
+#: model:ir.model.fields,field_description:pos_orders_all.field_pos_order_line__discount_line_type
+#: model:ir.model.fields,field_description:pos_orders_all.field_res_config_settings__discount_type
+#: model_terms:ir.ui.view,arch_db:pos_orders_all.view_move_form_inherits
+msgid "Discount Type"
+msgstr "Tipo di sconto"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/js/Popups/GiftCoupon/SelectExistingCouponPopup.js:0
+#, python-format
+msgid "Discount amount is higher than maximum amount of this coupon."
+msgstr ""
+"L'importo dello sconto è superiore all'importo massimo di questo coupon."
+
+#. module: pos_orders_all
+#: model_terms:ir.ui.view,arch_db:pos_orders_all.pos_date
+msgid "Discount type"
+msgstr "Tipo di sconto"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/pos_discount.xml:0
+#: code:addons/pos_orders_all/static/src/xml/reorder_reprint_return.xml:0
+#, python-format
+msgid "Discount:"
+msgstr "Sconto:"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/reorder_reprint_return.xml:0
+#, python-format
+msgid "Discounts"
+msgstr "Sconti"
+
+#. module: pos_orders_all
+#: model_terms:ir.ui.view,arch_db:pos_orders_all.res_config_settings_view_form
+msgid "Display Barcode in Receipt"
+msgstr "Visualizza il codice a barre nella ricevuta"
+
+#. module: pos_orders_all
+#: model:ir.model.fields,field_description:pos_orders_all.field_pos_gift_coupon__display_name
+msgid "Display Name"
+msgstr "Nome da visualizzare"
+
+#. module: pos_orders_all
+#: model_terms:ir.ui.view,arch_db:pos_orders_all.res_config_settings_view_form
+msgid "Display Orders in POS"
+msgstr "Visualizza gli ordini nel POS"
+
+#. module: pos_orders_all
+#: model:ir.model.fields,field_description:pos_orders_all.field_pos_config__pos_display_stock
+#: model:ir.model.fields,field_description:pos_orders_all.field_res_config_settings__pos_display_stock
+msgid "Display Stock in POS"
+msgstr "Visualizza lo stock nel POS"
+
+#. module: pos_orders_all
+#: model:ir.model.fields.selection,name:pos_orders_all.selection__pos_config__credit_note__not_create_note
+msgid "Do not Create Return order Credit note"
+msgstr "Non creare Ordine di reso Nota di credito"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/pos_orders_list.xml:0
+#, python-format
+msgid "Draft/New"
+msgstr "Bozza/Nuovo"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/gift_coupon_voucher.xml:0
+#, python-format
+msgid "Email:"
+msgstr "E-mail:"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/js/Popups/GiftCoupon/CouponConfigPopup.js:0
+#: code:addons/pos_orders_all/static/src/js/Screens/ControlButtons/CreateSale.js:0
+#, python-format
+msgid "Empty Order"
+msgstr "Ordine vuoto"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/gift_coupon_voucher.xml:0
+#, python-format
+msgid "Enter Your Coupon Code Here"
+msgstr "Inserisci qui il tuo codice coupon"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/js/Popups/GiftCoupon/SelectExistingCouponPopup.js:0
+#, python-format
+msgid "Expired"
+msgstr "Scaduto"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/gift_coupon_voucher.xml:0
+#: model:ir.model.fields,field_description:pos_orders_all.field_pos_gift_coupon__expiry_date
+#, python-format
+msgid "Expiry Date"
+msgstr "Data di scadenza"
+
+#. module: pos_orders_all
+#: model:ir.model.fields,field_description:pos_orders_all.field_pos_gift_coupon__exp_dat_show
+msgid "Expiry Date."
+msgstr "Data di scadenza."
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/gift_coupon_voucher.xml:0
+#, python-format
+msgid "Expiry date :"
+msgstr "Data di scadenza :"
+
+#. module: pos_orders_all
+#: model_terms:ir.ui.view,arch_db:pos_orders_all.view_pos_gift_coupan_form_view
+msgid "Expiry date of this coupon"
+msgstr "Data di scadenza di questo coupon"
+
+#. module: pos_orders_all
+#: model_terms:ir.ui.view,arch_db:pos_orders_all.view_pos_gift_coupan_form_view
+msgid "Extra Information"
+msgstr "Ulteriori informazioni"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/gift_coupon_voucher.xml:0
+#: model:ir.model.fields.selection,name:pos_orders_all.selection__pos_config__discount_type__fixed
+#: model:ir.model.fields.selection,name:pos_orders_all.selection__pos_gift_coupon__amount_type__fix
+#, python-format
+msgid "Fixed"
+msgstr "Fisso"
+
+#. module: pos_orders_all
+#: model_terms:ir.ui.view,arch_db:pos_orders_all.view_pos_gift_coupan_form_view
+msgid "For your eyes only. This will never be displayed to the customer."
+msgstr "Solo per i tuoi occhi. Questo non sarà mai mostrato al cliente."
+
+#. module: pos_orders_all
+#: model:ir.actions.report,name:pos_orders_all.gift_coupon_print
+msgid "Gift Coupon"
+msgstr "Buono regalo"
+
+#. module: pos_orders_all
+#: model:product.template,name:pos_orders_all.bi_poscoupon_product_product_template
+msgid "Gift Coupon Product"
+msgstr "Buono Regalo Prodotto"
+
+#. module: pos_orders_all
+#: model:ir.ui.menu,name:pos_orders_all.menu_gift_coupon
+msgid "Gift Coupons"
+msgstr "Buoni regalo"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/gift_coupon_voucher.xml:0
+#, python-format
+msgid "Gift coupon"
+msgstr "Buono regalo"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/gift_coupon_voucher.xml:0
+#, python-format
+msgid "Gift coupon is created successfully."
+msgstr "Il buono regalo è stato creato con successo."
+
+#. module: pos_orders_all
+#: model:ir.model.fields,field_description:pos_orders_all.field_pos_gift_coupon__id
+msgid "ID"
+msgstr "ID"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/sale_orders.xml:0
+#, python-format
+msgid "Import"
+msgstr "Importare"
+
+#. module: pos_orders_all
+#: model_terms:ir.ui.view,arch_db:pos_orders_all.res_config_settings_view_form
+msgid "Import Configuration in POS"
+msgstr "Importa la configurazione nel POS"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/sale_orders.xml:0
+#, python-format
+msgid "Import Order"
+msgstr "Ordine di importazione"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/sale_orders.xml:0
+#, python-format
+msgid "Import Products"
+msgstr "Importa prodotti"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/sale_orders.xml:0
+#, python-format
+msgid "Import Qty"
+msgstr "Importa Qtà"
+
+#. module: pos_orders_all
+#: model:ir.model.fields,field_description:pos_orders_all.field_pos_config__check
+#: model:ir.model.fields,field_description:pos_orders_all.field_res_config_settings__pos_check
+#: model_terms:ir.ui.view,arch_db:pos_orders_all.res_config_settings_view_form
+msgid "Import Sale Order"
+msgstr "Ordine di vendita all'importazione"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/sale_orders.xml:0
+#, python-format
+msgid "Import-Order"
+msgstr "Ordine di importazione"
+
+#. module: pos_orders_all
+#: model:ir.model.fields,field_description:pos_orders_all.field_pos_order__sale_order_ids
+msgid "Imported Sale Order(s)"
+msgstr "Ordini di vendita importati"
+
+#. module: pos_orders_all
+#: model:ir.model.fields.selection,name:pos_orders_all.selection__pos_config__pos_stock_type__incoming
+msgid "Incoming Qty"
+msgstr "Qtà in entrata"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/js/Popups/GiftCoupon/SelectExistingCouponPopup.js:0
+#, python-format
+msgid "Invalid Amount !!!"
+msgstr "Importo non valido !!!"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/js/Screens/ControlButtons/ReturnOrderButton.js:0
+#, python-format
+msgid "Invalid Barcode"
+msgstr "Codice a barre non valido"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/js/Popups/GiftCoupon/SelectExistingCouponPopup.js:0
+#, python-format
+msgid "Invalid Code !!!"
+msgstr "Codice non VALIDO !!!"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/js/Popups/GiftCoupon/SelectExistingCouponPopup.js:0
+#, python-format
+msgid "Invalid Customer !!!"
+msgstr "Cliente non valido!!!"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/pos_discount.xml:0
+#, python-format
+msgid "Invalid product lot"
+msgstr "Lotto di prodotto non valido"
+
+#. module: pos_orders_all
+#: model:ir.model.fields,field_description:pos_orders_all.field_pos_config__auto_check_invoice
+#: model:ir.model.fields,field_description:pos_orders_all.field_res_config_settings__auto_check_invoice
+msgid "Invoice Auto Check"
+msgstr "Controllo automatico della fattura"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/pos_orders_list.xml:0
+#, python-format
+msgid "Invoiced"
+msgstr "Fatturato"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/gift_coupon_voucher.xml:0
+#: model:ir.model.fields,field_description:pos_orders_all.field_pos_gift_coupon__issue_date
+#, python-format
+msgid "Issue Date"
+msgstr "Data di emissione"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/gift_coupon_voucher.xml:0
+#, python-format
+msgid "Issue date :"
+msgstr "Data di emissione :"
+
+#. module: pos_orders_all
+#: model:ir.model,name:pos_orders_all.model_account_move
+msgid "Journal Entry"
+msgstr "Registrazione contabile"
+
+#. module: pos_orders_all
+#: model:ir.model,name:pos_orders_all.model_account_move_line
+msgid "Journal Item"
+msgstr "Movimento contabile"
+
+#. module: pos_orders_all
+#: model:ir.model.fields,field_description:pos_orders_all.field_pos_gift_coupon____last_update
+msgid "Last Modified on"
+msgstr "Ultima modifica il"
+
+#. module: pos_orders_all
+#: model:ir.model.fields,field_description:pos_orders_all.field_pos_gift_coupon__write_uid
+msgid "Last Updated by"
+msgstr "Ultimo aggiornamento di"
+
+#. module: pos_orders_all
+#: model:ir.model.fields,field_description:pos_orders_all.field_pos_gift_coupon__write_date
+msgid "Last Updated on"
+msgstr "Ultimo aggiornamento il"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/pos_bag_charges.xml:0
+#, python-format
+msgid "List of Bag Charges"
+msgstr "Elenco degli addebiti sui bagagli"
+
+#. module: pos_orders_all
+#: model:ir.model.fields,field_description:pos_orders_all.field_pos_config__load_orders_days
+#: model:ir.model.fields,field_description:pos_orders_all.field_res_config_settings__pos_load_orders_days
+#: model_terms:ir.ui.view,arch_db:pos_orders_all.res_config_settings_view_form
+msgid "Load Orders of Last Days"
+msgstr "Carica gli ordini degli ultimi giorni"
+
+#. module: pos_orders_all
+#: model:ir.model.fields.selection,name:pos_orders_all.selection__pos_config__pos_session_limit__all
+msgid "Load all Session's Orders"
+msgstr "Carica tutti gli ordini della sessione"
+
+#. module: pos_orders_all
+#: model:ir.model.fields.selection,name:pos_orders_all.selection__pos_config__pos_session_limit__last3
+msgid "Load last 3 Session's Orders"
+msgstr "Carica gli ordini delle ultime 3 sessioni"
+
+#. module: pos_orders_all
+#: model:ir.model.fields,field_description:pos_orders_all.field_pos_config__load_draft_sent
+#: model:ir.model.fields,field_description:pos_orders_all.field_res_config_settings__pos_load_draft_sent
+#: model_terms:ir.ui.view,arch_db:pos_orders_all.res_config_settings_view_form
+msgid "Load only draft/sent sale orders"
+msgstr "Carica solo gli ordini di vendita bozza/inviati"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/pos_orders_list.xml:0
+#, python-format
+msgid "Loading...."
+msgstr "Caricamento...."
+
+#. module: pos_orders_all
+#: model:ir.model.fields,field_description:pos_orders_all.field_pos_order__location_id
+msgid "Location"
+msgstr "Posizione"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/sale_orders.xml:0
+#, python-format
+msgid "Locked"
+msgstr "Bloccato"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/reorder_reprint_return.xml:0
+#, python-format
+msgid "Logo"
+msgstr "Logo"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/gift_coupon_voucher.xml:0
+#, python-format
+msgid "Max Amount"
+msgstr "Importo massimo"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/js/Popups/GiftCoupon/SelectExistingCouponPopup.js:0
+#, python-format
+msgid "Maximum Limit Exceeded !!!"
+msgstr "Limite massimo superato!!!"
+
+#. module: pos_orders_all
+#: model:ir.model.fields,field_description:pos_orders_all.field_pos_gift_coupon__max_amount
+msgid "Maximum amount"
+msgstr "Importo massimo"
+
+#. module: pos_orders_all
+#. odoo-python
+#: code:addons/pos_orders_all/models/pos_coupons_config.py:0
+#, python-format
+msgid "Maximum amount must be greater than minimum amount"
+msgstr "L'importo massimo deve essere superiore all'importo minimo"
+
+#. module: pos_orders_all
+#. odoo-python
+#: code:addons/pos_orders_all/models/pos_coupons_config.py:0
+#, python-format
+msgid "Minimum amount must be less than maximum amount"
+msgstr "L'importo minimo deve essere inferiore all'importo massimo"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/gift_coupon_voucher.xml:0
+#: model:ir.model.fields,field_description:pos_orders_all.field_pos_gift_coupon__name
+#, python-format
+msgid "Name"
+msgstr "Nome"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/gift_coupon_voucher.xml:0
+#, python-format
+msgid "Name :"
+msgstr "Nome :"
+
+#. module: pos_orders_all
+#: model_terms:ir.ui.view,arch_db:pos_orders_all.view_pos_gift_coupan_form_view
+msgid "New Gift Coupon"
+msgstr "Nuovo buono regalo"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/js/Screens/ControlButtons/ReturnOrderButton.js:0
+#, python-format
+msgid "No Order Found for this Barcode"
+msgstr "Nessun ordine trovato per questo codice a barre"
+
+#. module: pos_orders_all
+#. odoo-python
+#: code:addons/pos_orders_all/models/discount_n_coupon.py:0
+#, python-format
+msgid "No Taxes"
+msgstr "Nessuna tassa"
+
+#. module: pos_orders_all
+#: model:ir.model.fields,field_description:pos_orders_all.field_pos_gift_coupon__description
+msgid "Note"
+msgstr "Nota"
+
+#. module: pos_orders_all
+#: model:ir.model.fields,field_description:pos_orders_all.field_pos_order__pos_order_date
+msgid "Oder Date"
+msgstr "Data ordine"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/js/Screens/pos_orders/POSOrdersScreen.js:0
+#: code:addons/pos_orders_all/static/src/js/Screens/sales/SaleOrderScreen.js:0
+#, python-format
+msgid "Offline"
+msgstr "Disconnesso"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/reorder_reprint_return.xml:0
+#, python-format
+msgid "Ok"
+msgstr "OK"
+
+#. module: pos_orders_all
+#: model:ir.model.fields.selection,name:pos_orders_all.selection__pos_config__pos_session_limit__current_day
+msgid "Only Current Day Orders"
+msgstr "Solo ordini del giorno corrente"
+
+#. module: pos_orders_all
+#: model:ir.model.fields.selection,name:pos_orders_all.selection__pos_config__pos_session_limit__current_session
+msgid "Only Current Session's Orders"
+msgstr "Solo gli ordini della sessione corrente"
+
+#. module: pos_orders_all
+#: model:ir.model.fields,field_description:pos_orders_all.field_pos_gift_coupon__order_ids
+msgid "Order"
+msgstr "Ordine"
+
+#. module: pos_orders_all
+#: model:ir.model.fields,field_description:pos_orders_all.field_pos_order__barcode
+msgid "Order Barcode"
+msgstr "Codice a barre dell'ordine"
+
+#. module: pos_orders_all
+#: model:ir.model.fields,field_description:pos_orders_all.field_pos_order__barcode_img
+msgid "Order Barcode Image"
+msgstr "Immagine del codice a barre dell'ordine"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/pos_orders_list.xml:0
+#: code:addons/pos_orders_all/static/src/xml/sale_orders.xml:0
+#, python-format
+msgid "Order Date"
+msgstr "Data dell'ordine"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/pos_orders_list.xml:0
+#: code:addons/pos_orders_all/static/src/xml/sale_orders.xml:0
+#, python-format
+msgid "Order Date:"
+msgstr "Data dell'ordine:"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/pos_orders_list.xml:0
+#: code:addons/pos_orders_all/static/src/xml/sale_orders.xml:0
+#, python-format
+msgid "Order Details"
+msgstr "Dettagli dell'ordine"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/sale_orders.xml:0
+#, python-format
+msgid "Order Number"
+msgstr "Numero d'ordine"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/sale_orders.xml:0
+#, python-format
+msgid "Order Number:"
+msgstr "Numero d'ordine:"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/pos_orders_list.xml:0
+#, python-format
+msgid "Order Ref"
+msgstr "Rif. ordine"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/pos_orders_list.xml:0
+#, python-format
+msgid "Order Ref:"
+msgstr "Riferimento ordine:"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/js/Screens/Base/PaymentScreen.js:0
+#, python-format
+msgid "Order is not synced. Check your internet connection"
+msgstr "L'ordine non è sincronizzato. Controlla la tua connessione Internet"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/reorder_reprint_return.xml:0
+#: code:addons/pos_orders_all/static/src/xml/sale_orders.xml:0
+#, python-format
+msgid "Ordered Qty"
+msgstr "Qtà ordinata"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/pos_orders_list.xml:0
+#, python-format
+msgid "Orders"
+msgstr "Ordini"
+
+#. module: pos_orders_all
+#: model:ir.model.fields.selection,name:pos_orders_all.selection__pos_config__pos_stock_type__outgoing
+msgid "Outgoing Qty"
+msgstr "Qtà in uscita"
+
+#. module: pos_orders_all
+#: model_terms:ir.ui.view,arch_db:pos_orders_all.res_config_settings_view_form
+msgid "POS Auto Check Invoice"
+msgstr "Fattura di controllo automatico POS"
+
+#. module: pos_orders_all
+#: model:pos.category,name:pos_orders_all.pos_bag_category_1
+msgid "POS Bag"
+msgstr "Borsa per punti vendita"
+
+#. module: pos_orders_all
+#: model_terms:ir.ui.view,arch_db:pos_orders_all.res_config_settings_view_form
+msgid "POS Bag Charges"
+msgstr "Addebiti borsa POS"
+
+#. module: pos_orders_all
+#: model:ir.model.fields,field_description:pos_orders_all.field_pos_gift_coupon__categ_ids
+msgid "POS Categories"
+msgstr "Categorie di punti vendita"
+
+#. module: pos_orders_all
+#: model:ir.model,name:pos_orders_all.model_pos_gift_coupon
+msgid "POS Gift Coupon"
+msgstr "Buono regalo POS"
+
+#. module: pos_orders_all
+#: model_terms:ir.ui.view,arch_db:pos_orders_all.view_pos_gift_coupan_tree_view
+msgid "POS Gift Coupons"
+msgstr "Buoni regalo POS"
+
+#. module: pos_orders_all
+#: model:ir.model.fields,field_description:pos_orders_all.field_account_bank_statement_line__pos_order_id
+#: model:ir.model.fields,field_description:pos_orders_all.field_account_move__pos_order_id
+#: model:ir.model.fields,field_description:pos_orders_all.field_account_move_line__pos_order_id
+#: model:ir.model.fields,field_description:pos_orders_all.field_account_payment__pos_order_id
+msgid "POS order"
+msgstr "Ordine POS"
+
+#. module: pos_orders_all
+#: model:ir.model.fields,field_description:pos_orders_all.field_account_move_line__pos_order_line_id
+msgid "POS order Line"
+msgstr "Riga ordine POS"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/pos_orders_list.xml:0
+#, python-format
+msgid "Paid"
+msgstr "Pagato"
+
+#. module: pos_orders_all
+#: model:ir.model.fields,field_description:pos_orders_all.field_pos_gift_coupon__partner_id
+msgid "Partner"
+msgstr "Compagno"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/gift_coupon_voucher.xml:0
+#: model:ir.model.fields.selection,name:pos_orders_all.selection__pos_config__discount_type__percentage
+#, python-format
+msgid "Percentage"
+msgstr "Percentuale"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/gift_coupon_voucher.xml:0
+#, python-format
+msgid "Phone:"
+msgstr "Telefono:"
+
+#. module: pos_orders_all
+#. odoo-python
+#: code:addons/pos_orders_all/models/pos_coupon.py:0
+#, python-format
+msgid ""
+"Please Enter Valid Date.Expiry Date Should not be greater than Issue Date."
+msgstr ""
+"Inserisci una data valida. La data di scadenza non deve essere successiva "
+"alla data di emissione."
+
+#. module: pos_orders_all
+#. odoo-python
+#: code:addons/pos_orders_all/models/discount_n_coupon.py:0
+#, python-format
+msgid "Please define income account for this product: \"%s\" (id:%d)."
+msgstr ""
+"Si prega di definire il conto reddito per questo prodotto: \"%s\" (id:%d)."
+
+#. module: pos_orders_all
+#: model:ir.model,name:pos_orders_all.model_pos_config
+msgid "Point of Sale Configuration"
+msgstr "Configurazione punto vendita"
+
+#. module: pos_orders_all
+#: model:ir.model,name:pos_orders_all.model_report_point_of_sale_report_saledetails
+msgid "Point of Sale Details"
+msgstr "Dettagli punto vendita"
+
+#. module: pos_orders_all
+#: model:ir.model,name:pos_orders_all.model_pos_order_line
+msgid "Point of Sale Order Lines"
+msgstr "Righe ordini del punto vendita"
+
+#. module: pos_orders_all
+#: model:ir.model,name:pos_orders_all.model_pos_order
+msgid "Point of Sale Orders"
+msgstr "Ordini punto vendita"
+
+#. module: pos_orders_all
+#: model:ir.model,name:pos_orders_all.model_report_pos_order
+msgid "Point of Sale Orders Report"
+msgstr "Resoconto ordini punto vendita"
+
+#. module: pos_orders_all
+#: model:ir.model,name:pos_orders_all.model_pos_session
+msgid "Point of Sale Session"
+msgstr "Sessione punto vendita"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/pos_orders_list.xml:0
+#, python-format
+msgid "Posted"
+msgstr "Inserito"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/pos_orders_list.xml:0
+#: code:addons/pos_orders_all/static/src/xml/sale_orders.xml:0
+#, python-format
+msgid "Price"
+msgstr "Prezzo"
+
+#. module: pos_orders_all
+#: model_terms:ir.ui.view,arch_db:pos_orders_all.report_saledetails_inherit_discount
+msgid "Price Unit"
+msgstr "Prezzo unitario"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/gift_coupon_voucher.xml:0
+#: code:addons/pos_orders_all/static/src/xml/pos_orders_list.xml:0
+#: code:addons/pos_orders_all/static/src/xml/reorder_reprint_return.xml:0
+#: model_terms:ir.ui.view,arch_db:pos_orders_all.view_pos_gift_coupan_form_view
+#, python-format
+msgid "Print"
+msgstr "Stampa"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/gift_coupon_voucher.xml:0
+#: code:addons/pos_orders_all/static/src/xml/pos_orders_list.xml:0
+#: code:addons/pos_orders_all/static/src/xml/reorder_reprint_return.xml:0
+#: code:addons/pos_orders_all/static/src/xml/sale_orders.xml:0
+#: model:ir.model,name:pos_orders_all.model_product_template
+#: model:ir.model.fields,field_description:pos_orders_all.field_pos_gift_coupon__product_id
+#: model_terms:ir.ui.view,arch_db:pos_orders_all.report_saledetails_inherit_discount
+#, python-format
+msgid "Product"
+msgstr "Prodotto"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/js/Popups/GiftCoupon/SelectExistingCouponPopup.js:0
+#, python-format
+msgid "Product Not Available !!!"
+msgstr "Prodotto non disponibile!!!"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/js/Popups/GiftCoupon/SelectExistingCouponPopup.js:0
+#, python-format
+msgid "Product Not available in POS."
+msgstr "Prodotto Non disponibile in POS."
+
+#. module: pos_orders_all
+#: model:ir.model,name:pos_orders_all.model_product_product
+msgid "Product Variant"
+msgstr "Variante prodotto"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/pos_bag_charges.xml:0
+#, python-format
+msgid "Product image"
+msgstr "Immagine del prodotto"
+
+#. module: pos_orders_all
+#: model_terms:ir.ui.view,arch_db:pos_orders_all.res_config_settings_view_form
+msgid "Product stock location type"
+msgstr "Tipo di posizione di magazzino del prodotto"
+
+#. module: pos_orders_all
+#: model:ir.model.fields.selection,name:pos_orders_all.selection__pos_config__pos_stock_type__available
+msgid "Qty Available"
+msgstr "Qtà disponibile"
+
+#. module: pos_orders_all
+#: model:ir.model.fields.selection,name:pos_orders_all.selection__pos_config__pos_stock_type__onhand
+msgid "Qty on Hand"
+msgstr "Qtà a portata di mano"
+
+#. module: pos_orders_all
+#: model:ir.model.fields,field_description:pos_orders_all.field_product_product__quant_text
+msgid "Quant Qty"
+msgstr "Quant. Qtà"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/pos_orders_list.xml:0
+#: code:addons/pos_orders_all/static/src/xml/sale_orders.xml:0
+#: model_terms:ir.ui.view,arch_db:pos_orders_all.report_saledetails_inherit_discount
+#, python-format
+msgid "Quantity"
+msgstr "Quantità"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/sale_orders.xml:0
+#, python-format
+msgid "Quotation"
+msgstr "Quotazione"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/sale_orders.xml:0
+#, python-format
+msgid "Quotation Sent"
+msgstr "Preventivo inviato"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/pos_orders_list.xml:0
+#: code:addons/pos_orders_all/static/src/xml/reorder_reprint_return.xml:0
+#, python-format
+msgid "Re-Order"
+msgstr "Riordina"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/pos_orders_list.xml:0
+#, python-format
+msgid "Receipt"
+msgstr "Ricevuta"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/pos_orders_list.xml:0
+#, python-format
+msgid "Receipt Ref"
+msgstr "Rif. scontrino"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/pos_orders_list.xml:0
+#, python-format
+msgid "Receipt Ref:"
+msgstr "Rif scontrino:"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/reorder_reprint_return.xml:0
+#, python-format
+msgid "Remain Qty"
+msgstr "Rimanere Qtà"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/js/Screens/Base/PaymentScreen.js:0
+#, python-format
+msgid "Remaining unsynced orders"
+msgstr "Ordini non sincronizzati rimanenti"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/reorder_reprint_return.xml:0
+#, python-format
+msgid "Reorder Products"
+msgstr "Riordina i prodotti"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/reorder_reprint_return.xml:0
+#, python-format
+msgid "Reorder Qty"
+msgstr "Riordina Qtà"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/reorder_reprint_return.xml:0
+#, python-format
+msgid "Reprint Order"
+msgstr "Ordine di ristampa"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/pos_orders_list.xml:0
+#, python-format
+msgid "Return Order"
+msgstr "Ordine di reso"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/js/Screens/ControlButtons/ReturnOrderButton.js:0
+#, python-format
+msgid "Return Order Barcode"
+msgstr "Codice a barre dell'ordine di reso"
+
+#. module: pos_orders_all
+#: model:ir.model.fields,field_description:pos_orders_all.field_pos_order__return_order_ref
+msgid "Return Order Ref"
+msgstr "Rif. ordine di reso"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/reorder_reprint_return.xml:0
+#, python-format
+msgid "Return Order with Barcode"
+msgstr "Ordine di reso con codice a barre"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/reorder_reprint_return.xml:0
+#, python-format
+msgid "Return Products"
+msgstr "Restituisci i prodotti"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/reorder_reprint_return.xml:0
+#: model:ir.model.fields,field_description:pos_orders_all.field_pos_order_line__return_qty
+#, python-format
+msgid "Return Qty"
+msgstr "Restituzione Qtà"
+
+#. module: pos_orders_all
+#: model_terms:ir.ui.view,arch_db:pos_orders_all.res_config_settings_view_form
+msgid "Return order Credit note configuration"
+msgstr "Ordine di reso Configurazione nota di credito"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/pos_orders_list.xml:0
+#: code:addons/pos_orders_all/static/src/xml/reorder_reprint_return.xml:0
+#, python-format
+msgid "Return-Order"
+msgstr "Ordine di reso"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/pos_discount.xml:0
+#, python-format
+msgid "SN"
+msgstr "SN"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/sale_orders.xml:0
+#, python-format
+msgid "Sale Order"
+msgstr "Ordine di vendita"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/sale_orders.xml:0
+#, python-format
+msgid "Sale Orders"
+msgstr "Ordini di vendita"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/sale_orders.xml:0
+#, python-format
+msgid "Sale Person:"
+msgstr "Persona di vendita:"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/sale_orders.xml:0
+#, python-format
+msgid "SalesPerson"
+msgstr "Venditore"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/sale_orders.xml:0
+#, python-format
+msgid "Search Customers..."
+msgstr "Cerca clienti..."
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/pos_orders_list.xml:0
+#, python-format
+msgid "Search Orders"
+msgstr "Cerca ordini"
+
+#. module: pos_orders_all
+#: model_terms:ir.ui.view,arch_db:pos_orders_all.res_config_settings_view_form
+msgid "Select Bag Category"
+msgstr "Seleziona la categoria della borsa"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/gift_coupon_voucher.xml:0
+#, python-format
+msgid "Select Coupon"
+msgstr "Seleziona Coupon"
+
+#. module: pos_orders_all
+#: model:ir.model.fields,help:pos_orders_all.field_pos_config__discount_type
+#: model:ir.model.fields,help:pos_orders_all.field_res_config_settings__discount_type
+msgid "Seller can apply different Discount Type in POS."
+msgstr "Il venditore può applicare diversi tipi di sconto nel POS."
+
+#. module: pos_orders_all
+#: model:ir.model.fields,help:pos_orders_all.field_pos_config__pos_stock_type
+#: model:ir.model.fields,help:pos_orders_all.field_res_config_settings__pos_stock_type
+msgid "Seller can display Different stock type in POS."
+msgstr "Il venditore può visualizzare diversi tipi di stock nel POS."
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/reorder_reprint_return.xml:0
+#, python-format
+msgid "Served by"
+msgstr "Servito da"
+
+#. module: pos_orders_all
+#: model_terms:ir.ui.view,arch_db:pos_orders_all.res_config_settings_view_form
+msgid "Session Limit Configuration"
+msgstr "Configurazione del limite di sessione"
+
+#. module: pos_orders_all
+#: model:ir.model.fields,field_description:pos_orders_all.field_pos_config__pos_session_limit
+#: model:ir.model.fields,field_description:pos_orders_all.field_res_config_settings__pos_session_limit
+msgid "Session limit"
+msgstr "Limite di sessione"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/pos_orders_list.xml:0
+#, python-format
+msgid "Session:"
+msgstr "Sessione:"
+
+#. module: pos_orders_all
+#: model_terms:ir.ui.view,arch_db:pos_orders_all.res_config_settings_view_form
+msgid ""
+"Set session limit to load pos orders. If you have more than 1000 orders, "
+"then we recommend not to use \"Load all\" option."
+msgstr ""
+"Imposta il limite di sessione per caricare gli ordini pos. Se hai più di "
+"1000 ordini, ti consigliamo di non utilizzare l'opzione \"Carica tutto\"."
+
+#. module: pos_orders_all
+#: model:ir.model.fields,field_description:pos_orders_all.field_pos_config__show_barcode
+#: model:ir.model.fields,field_description:pos_orders_all.field_res_config_settings__show_barcode
+#: model_terms:ir.ui.view,arch_db:pos_orders_all.res_config_settings_view_form
+msgid "Show Barcode in Receipt"
+msgstr "Mostra codice a barre nella ricevuta"
+
+#. module: pos_orders_all
+#: model:ir.model.fields,field_description:pos_orders_all.field_pos_config__show_draft
+#: model:ir.model.fields,field_description:pos_orders_all.field_res_config_settings__show_draft
+#: model_terms:ir.ui.view,arch_db:pos_orders_all.res_config_settings_view_form
+msgid "Show Draft Orders"
+msgstr "Mostra ordini provvisori"
+
+#. module: pos_orders_all
+#: model:ir.model.fields,field_description:pos_orders_all.field_pos_config__show_order
+#: model:ir.model.fields,field_description:pos_orders_all.field_res_config_settings__show_order
+msgid "Show Orders"
+msgstr "Mostra ordini"
+
+#. module: pos_orders_all
+#: model_terms:ir.ui.view,arch_db:pos_orders_all.res_config_settings_view_form
+msgid "Show POS Orders in POS"
+msgstr "Mostra ordini POS in POS"
+
+#. module: pos_orders_all
+#: model:ir.model.fields,field_description:pos_orders_all.field_pos_config__show_posted
+#: model:ir.model.fields,field_description:pos_orders_all.field_res_config_settings__show_posted
+#: model_terms:ir.ui.view,arch_db:pos_orders_all.res_config_settings_view_form
+msgid "Show Posted Orders"
+msgstr "Mostra ordini registrati"
+
+#. module: pos_orders_all
+#: model:ir.model.fields,field_description:pos_orders_all.field_pos_config__show_stock_location
+#: model:ir.model.fields,field_description:pos_orders_all.field_res_config_settings__show_stock_location
+msgid "Show Stock Of"
+msgstr "Mostra stock di"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/gift_coupon_voucher.xml:0
+#, python-format
+msgid "Specific Category"
+msgstr "Categoria specifica"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/gift_coupon_voucher.xml:0
+#, python-format
+msgid "Specific Customer"
+msgstr "Cliente specifico"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/pos_orders_list.xml:0
+#: code:addons/pos_orders_all/static/src/xml/sale_orders.xml:0
+#, python-format
+msgid "State"
+msgstr "Stato"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/pos_orders_list.xml:0
+#, python-format
+msgid "Status:"
+msgstr "Stato:"
+
+#. module: pos_orders_all
+#: model_terms:ir.ui.view,arch_db:pos_orders_all.res_config_settings_view_form
+msgid "Stock Configuration in POS"
+msgstr "Configurazione delle scorte nel POS"
+
+#. module: pos_orders_all
+#: model:ir.model.fields,field_description:pos_orders_all.field_pos_config__stock_location_id
+#: model:ir.model.fields,field_description:pos_orders_all.field_res_config_settings__stock_location_id
+msgid "Stock Location"
+msgstr "Posizione magazzino"
+
+#. module: pos_orders_all
+#: model_terms:ir.ui.view,arch_db:pos_orders_all.res_config_settings_view_form
+msgid "Stock Location Configuration"
+msgstr "Configurazione posizione magazzino"
+
+#. module: pos_orders_all
+#: model:ir.model,name:pos_orders_all.model_stock_move
+msgid "Stock Move"
+msgstr "Movimento di magazzino"
+
+#. module: pos_orders_all
+#: model:ir.model.fields,field_description:pos_orders_all.field_pos_config__pos_stock_type
+#: model:ir.model.fields,field_description:pos_orders_all.field_res_config_settings__pos_stock_type
+#: model_terms:ir.ui.view,arch_db:pos_orders_all.res_config_settings_view_form
+msgid "Stock Type"
+msgstr "Tipo di magazzino"
+
+#. module: pos_orders_all
+#: model_terms:ir.ui.view,arch_db:pos_orders_all.res_config_settings_view_form
+msgid "Stock location used for inventory"
+msgstr "Ubicazione magazzino utilizzata per l'inventario"
+
+#. module: pos_orders_all
+#: model_terms:ir.ui.view,arch_db:pos_orders_all.res_config_settings_view_form
+msgid "Stock type show up in POS screen."
+msgstr "Il tipo di stock viene visualizzato nella schermata POS."
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/sale_orders.xml:0
+#, python-format
+msgid "Subtotal"
+msgstr "totale parziale"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/pos_stock.xml:0
+#, python-format
+msgid "Sync"
+msgstr "Sincronizza"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/reorder_reprint_return.xml:0
+#, python-format
+msgid "TOTAL"
+msgstr "TOTALE"
+
+#. module: pos_orders_all
+#: model:ir.model,name:pos_orders_all.model_account_tax
+msgid "Tax"
+msgstr "Imposta"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/gift_coupon_voucher.xml:0
+#: model:ir.model.fields.selection,name:pos_orders_all.selection__pos_gift_coupon__apply_coupon_on__taxed
+#, python-format
+msgid "Taxed Amount"
+msgstr "Importo tassato"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/reorder_reprint_return.xml:0
+#, python-format
+msgid "Tel:"
+msgstr "Telefono:"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/js/Popups/GiftCoupon/SelectExistingCouponPopup.js:0
+#, python-format
+msgid "The Coupon You are trying to apply is Expired"
+msgstr "Il coupon che stai cercando di applicare è scaduto"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/js/Screens/Base/PaymentScreen.js:0
+#, python-format
+msgid "There are unsynced orders. Do you want to sync these orders?"
+msgstr "Ci sono ordini non sincronizzati. Vuoi sincronizzare questi ordini?"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/js/Screens/ControlButtons/CreateSale.js:0
+#, python-format
+msgid "There must be at least one product in your order before Add a note."
+msgstr ""
+"Ci deve essere almeno un prodotto nel tuo ordine prima di aggiungere una "
+"nota."
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/js/Popups/GiftCoupon/CouponConfigPopup.js:0
+#, python-format
+msgid ""
+"There must be at least one product in your order before it can be apply for "
+"voucher code."
+msgstr ""
+"Ci deve essere almeno un prodotto nel tuo ordine prima che possa essere "
+"richiesto il codice voucher."
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/js/Popups/GiftCoupon/SelectExistingCouponPopup.js:0
+#, python-format
+msgid "This Gift Coupon is not applicable for this Customer"
+msgstr "Questo buono regalo non è applicabile a questo cliente"
+
+#. module: pos_orders_all
+#: model_terms:ir.ui.view,arch_db:pos_orders_all.view_pos_gift_coupan_form_view
+msgid ""
+"This will be displayed in the order summary, as well as on the invoice."
+msgstr ""
+"Questo verrà visualizzato nel riepilogo dell'ordine, oltre che sulla "
+"fattura."
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/pos_orders_list.xml:0
+#: code:addons/pos_orders_all/static/src/xml/sale_orders.xml:0
+#, python-format
+msgid "Total"
+msgstr "Totale"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/pos_orders_list.xml:0
+#: code:addons/pos_orders_all/static/src/xml/sale_orders.xml:0
+#, python-format
+msgid "Total Amount:"
+msgstr "Importo totale:"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/item_count.xml:0
+#, python-format
+msgid "Total Items"
+msgstr "Articoli totali"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/item_count.xml:0
+#, python-format
+msgid "Total Items:"
+msgstr "Articoli totali:"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/reorder_reprint_return.xml:0
+#, python-format
+msgid "Total Taxes"
+msgstr "Tasse totali"
+
+#. module: pos_orders_all
+#: model:ir.model,name:pos_orders_all.model_stock_picking
+msgid "Transfer"
+msgstr "Trasferimento"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/js/Screens/pos_orders/POSOrdersScreen.js:0
+#, python-format
+msgid "Unable to load orders."
+msgstr "Impossibile caricare gli ordini."
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/js/Screens/sales/SaleOrderScreen.js:0
+#, python-format
+msgid "Unable to load saleorders."
+msgstr "Impossibile caricare gli ordini di vendita."
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/js/Popups/GiftCoupon/CouponConfigPopup.js:0
+#: code:addons/pos_orders_all/static/src/js/Screens/ControlButtons/CreateSale.js:0
+#, python-format
+msgid "Unknown customer"
+msgstr "Cliente sconosciuto"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/gift_coupon_voucher.xml:0
+#: model:ir.model.fields.selection,name:pos_orders_all.selection__pos_gift_coupon__apply_coupon_on__untaxed
+#, python-format
+msgid "Untaxed Amount"
+msgstr "Importo non tassato"
+
+#. module: pos_orders_all
+#: model:ir.model.fields,field_description:pos_orders_all.field_pos_gift_coupon__used
+msgid "Used"
+msgstr "Usato"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/gift_coupon_voucher.xml:0
+#, python-format
+msgid "User:"
+msgstr "Utente:"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/reorder_reprint_return.xml:0
+#, python-format
+msgid "VAT:"
+msgstr "I.V.A:"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/pos_discount.xml:0
+#, python-format
+msgid "Valid product lot"
+msgstr "Lotto di prodotto valido"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/pos_orders_list.xml:0
+#, python-format
+msgid "View Orders"
+msgstr "Visualizza gli ordini"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/js/Popups/GiftCoupon/SelectExistingCouponPopup.js:0
+#, python-format
+msgid "Voucher Code Entered by you is Invalid. Enter Valid Code..."
+msgstr ""
+"Il codice voucher inserito da te non è valido. Inserisci codice valido..."
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/pos_discount.xml:0
+#, python-format
+msgid "With a"
+msgstr "Con un"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/js/Popups/GiftCoupon/SelectExistingCouponPopup.js:0
+#, python-format
+msgid "You already exceed the maximum number of limit for this Coupon code"
+msgstr "Hai già superato il numero massimo di limiti per questo codice coupon"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/js/Screens/ControlButtons/CreateSale.js:0
+#, python-format
+msgid "You cannot Create Sales Order. Select customer first."
+msgstr "Non è possibile creare un ordine cliente. Seleziona prima il cliente."
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/js/Popups/GiftCoupon/CouponConfigPopup.js:0
+#, python-format
+msgid "You cannot use Coupons/Gift Voucher. Select customer first."
+msgstr "Non puoi utilizzare Coupon/Buoni regalo. Seleziona prima il cliente."
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/js/Popups/GiftCoupon/CouponConfigPopup.js:0
+#, python-format
+msgid ""
+"You have already use Coupon code, at a time you can use one coupon in a "
+"Single Order"
+msgstr ""
+"Hai già utilizzato il codice Coupon, alla volta puoi utilizzare un Coupon "
+"in un Singolo Ordine"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/pos_discount.xml:0
+#, python-format
+msgid "at"
+msgstr "A"
+
+#. module: pos_orders_all
+#: model:ir.model.fields,field_description:pos_orders_all.field_pos_gift_coupon__coupon_count
+msgid "coupon count"
+msgstr "conteggio tagliandi"
+
+#. module: pos_orders_all
+#. odoo-javascript
+#: code:addons/pos_orders_all/static/src/xml/pos_discount.xml:0
+#, python-format
+msgid "discount"
+msgstr "sconto"
+
+#. module: pos_orders_all
+#: model:ir.model.fields,field_description:pos_orders_all.field_pos_order_line__original_line_id
+msgid "original Line"
+msgstr "Linea originale"
+
+#. module: pos_orders_all
+#: model:ir.model.fields.selection,name:pos_orders_all.selection__pos_gift_coupon__amount_type__per
+msgid "percentage(%)"
+msgstr "percentuale(%)"
+
+#. module: pos_orders_all
+#: model:ir.model.fields,field_description:pos_orders_all.field_account_bank_statement_line__config_inv_tax
+#: model:ir.model.fields,field_description:pos_orders_all.field_account_move__config_inv_tax
+#: model:ir.model.fields,field_description:pos_orders_all.field_account_payment__config_inv_tax
+msgid "total disc tax"
+msgstr "imposta totale sul disco"

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+	<t t-name="pos_all_in_one.ProductDetailsEditPopup" owl="1">
+		<div class="popup popup-import">
+			<header class="title drag-handle modal-header">
+				<h4 class="modal-title">
+					<t t-out="props.title" />
+				</h4>
+			</header>
+			<main class="modal-body" style="min-height: 500px;">
+				<div class='partner-details-box clearfix'>
+					<div class="">
+						<t t-if="productImageUrl">
+							<img t-att-src="productImageUrl" alt="Product"
+									style="width: 100-px; height: 100px; object-fit: cover;" />
+						</t>
+						<t t-else="">
+							<i class="fa fa-camera" role="img" aria-label="Picture" title="Picture"></i>
+						</t>
+						<input type="file" class="image-uploader" t-on-change="uploadImage" />
+					</div>
+
+					<div class='partner-detail'>
+						<input class='detail partner-name form-control' name='display_name' t-att-value='product.display_name' placeholder='Name'></input>
+					</div>
+					<div class="partner-detail">
+						<select class="detail form-control partner-address-country needsclick" name="pos_categ_ids" style="text-align: left;display: inline-block;overflow: hidden;background: white;min-height: 44px;font-family: 'Lato';font-size: 20px;color: #444;padding: 10px;border-radius: 3px;border: none;box-shadow: 0px 0px 0px 1px rgb(220,220,220) inset;box-sizing: border-box;">
+							<option value="">Select POS Category</option>
+							<t t-foreach="pos.pos_category" t-as="category" t-key="category.id">
+								<t t-foreach="product.pos_categ_ids" t-as="p_categ" t-key="p_categ">
+									<option t-att-value="category.id"
+										 t-att-selected="category.id ? ((category.id === p_categ) ? true : undefined) : undefined">
+										<t t-out="category.name" />
+									</option>
+								</t>
+							</t>
+						</select>
+					</div>
+					<div class='client-detail'>
+						<input placeholder="Barcode" class='detail form-control' name='barcode'    t-att-value='product.barcode || ""'></input>
+					</div>
+
+					<div class='client-detail'>
+						<input type="number" class='detail form-control'  name='list_price' t-att-value='product.lst_price' placeholder='Sale Price'></input>
+					</div>
+
+					<div class='client-detail'>
+						<input type="number" class='detail form-control'  name='cost_price' t-att-value='product.standard_price || ""' placeholder='Cost Price'></input>
+					</div>
+				</div>
+			</main>
+			<footer class="footer modal-footer">
+				<button type="button" class="btn btn-success" t-on-click="save_product">Save</button>
+				<button type="button" class="btn btn-primary" t-on-click="cancel">Close</button>
+			</footer>
+		</div>
+	</t>
+	
+</templates>

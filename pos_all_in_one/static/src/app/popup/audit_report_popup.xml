@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	
+<templates id="audit_reports_template" inherit_id="point_of_sale.template" xml:space="preserve">
+	<t t-name="pos_all_in_one.PopupLocationWidget" owl="1">
+		<div class="popup popup-delivery">
+            <div class="modal-header">
+                <h4 class="modal-title">
+                    Audit Report
+                </h4>
+            </div>
+            <main class="modal-body" style="min-height: 500px;">
+             	<ul class="tabs">
+					<li class="tab">
+						<input type="radio" name="tabs" id="tab1" checked="checked"/>
+						<label for="tab1" style="margin-left: 20px;margin-right: 5px;">Sessions </label>
+						<div id="tab-content1" class="content mt-5" style="min-width:420px; float:left">
+							<div class='location-detail2 required-field'>
+								<div id="select_ssn" class="alert" style="color: #ec1010; font-size: inherit; margin: 5px; text-align: center;">
+									<span class="closebtn"></span>  
+									Please Select Session.
+								</div>
+								<span class='label' style="text-align: center;display: block;">Sessions</span>
+								<select class="select_session_id" name='select_session_id' style="height: 40px;margin-top: 20px;min-width: 200px;margin-left: 3%;">
+									<option style="font-size: 14px; padding: 5px;" value=''>Select Session </option>
+									<t t-foreach='pos_sessions' t-as='ssn' t-key='ssn.id'>
+										<option t-att-value='ssn.id'> 
+											<t t-out='ssn.name'/>
+										</option>
+									</t>
+								</select>
+							</div>
+						</div>
+					</li>
+					<li class="tab">
+						<input type="radio" name="tabs" id="tab2" />
+						<label for="tab2">Locations</label>   
+						<div id="tab-content2" class="content mt-5" style="min-width:420px;">
+							<div class='location-detail2 required-field'>
+								<div id="select_loc" class="alert" style="color: #ec1010; font-size: inherit; margin: 5px; text-align: center;">
+									<span class="closebtn"></span>  
+									Please Select Location.
+								</div>
+								<span class='label' style="text-align: center;display: block;">Stock Locations</span>
+								<select class="summery_location_id" name='location_id' style="height: 40px;margin-top: 20px;margin-left: 3%;max-width: 390px;">
+									<option style="font-size: 14px; padding: 5px;" value=''>Select Stock Locations</option>
+									<t t-foreach='locations' t-as='loc' t-key='loc.id'>
+										<option t-att-value='loc.id'> 
+											<t t-out='loc.display_name'/>
+										</option>
+									</t>
+								</select>
+							</div>
+						</div>
+					</li>
+				</ul>
+            </main>
+            <footer class="footer modal-footer justify-content-between">
+				<div class="modal-footer-left d-flex gap-2">
+					<button class="button btn btn-lg btn-primary" t-on-click="print_location">
+						Print
+					</button>
+					<button class="button cancel btn btn-lg btn-primary" t-on-click="go_back_screen">
+						Close
+					</button>
+				</div>
+			</footer>
+        </div>
+	</t>
+</templates>

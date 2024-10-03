@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="pos_orders_all.PosOrdersLine">
+        <tr t-attf-class="partner-line {{highlight}}" t-att-data-id="props.order.id"
+            t-on-click="() => this.props.onClickPosOrder(props.order)">
+            <td class='order-name'>
+                <t t-out='props.order.name' />
+            </td>
+            <td class='order-ref'>
+                <t t-out='props.order.pos_reference' />
+            </td>
+            <td class='order-partner'>
+                <t t-out='props.order.partner_id[1] or ""' />
+            </td>
+            <td class='order-date'>
+                <t t-out="get_order_date(props.order.date_order)" />
+            </td>
+            <td class='order-tot'>
+                <t t-out='env.utils.formatCurrency(props.order.amount_total)' />
+            </td>
+            <td class='order-state'>
+                <t t-if="props.order.state == 'draft'">Draft/New</t>
+                <t t-if="props.order.state == 'invoiced'">Invoiced</t>
+                <t t-if="props.order.state == 'paid'">Paid</t>
+                <t t-if="props.order.state == 'done'">Posted</t>
+                <t t-if="props.order.state == 'cancel'">Cancelled</t>
+            </td>
+            <td class="print-order">
+                <button class='edit-partner-button btn btn-lg btn-outline-primary' t-on-click.stop="() => this.props.onClickReOrder(props.order)"><i class="fa fa-refresh"></i><span style="margin-left: 4px;">Re-Order</span></button>
+            </td>
+            <td class="print-order">
+                <button class='edit-partner-button btn btn-lg btn-outline-primary' t-on-click.stop="() => this.props.onClickReturnOrder(props.order)"><i class="fa fa-sign-in"></i><span style="margin-left: 4px;">Return Order</span></button>
+            </td>
+            <td class="print-order">
+                <button class='edit-partner-button btn btn-lg btn-outline-primary' t-on-click.stop="() => this.props.onClickRePrint(props.order)"><i class="fa fa-print"></i><span style="margin-left: 4px;">Print</span></button>
+            </td>
+        </tr>
+    </t>
+
+</templates>

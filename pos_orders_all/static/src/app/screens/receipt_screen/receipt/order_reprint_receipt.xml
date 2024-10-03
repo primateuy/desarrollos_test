@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="pos_orders_all.OrderReprintReceipt">
+        <div class="pos-receipt">
+        	<img t-attf-src="/web/image?model=res.company&amp;id={{pos.company.id}}&amp;field=logo" alt="Logo" class="pos-receipt-logo"/>
+	        <br/>
+	        <h1 class="tracking-number text-center" style="font-size: 100px" t-if="pos.trackingNumber and pos.bigTrackingNumber" t-out="pos.trackingNumber" />
+	        <div class="pos-receipt-contact">
+	            <!-- contact address -->
+	            <div t-if="pos.company.partner_id?.[1]" t-out="pos.company.partner_id[1]" />
+	            <t t-if="pos.company.phone">
+	                <div>Tel:<t t-out="pos.company.phone" /></div>
+	            </t>
+	            <t t-if="pos.company.vat">
+	                <div><t t-out="pos.company.country?.vat_label || 'Tax ID'"/>: <t t-out="pos.company.vat" /></div>
+	            </t>
+	            <div t-if="pos.company.email" t-out="pos.company.email" />
+	            <div t-if="pos.company.website" t-out="pos.company.website" />
+	            <div t-if="pos.header" style="white-space:pre-line" t-out="pos.header" />
+	            <div t-if="pos.cashier" class="cashier">
+	                <div>--------------------------------</div>
+	                <div>Served by <t t-out="pos.cashier" /></div>
+	            </div>
+	            <div t-if="pos.trackingNumber and !pos.bigTrackingNumber">
+	                Order: <t t-out="pos.trackingNumber" />
+	            </div>
+	        </div>
+	        <br /><br />
+			<div class='orderlines'>
+				<t t-foreach='props.orderlines' t-as='line' t-key="line.id">
+					<t t-set='simple' t-value='(line.discount === 0 and line.qty === 1)' />
+					<div t-if='simple'>
+						<t t-out="line.product_id"/>
+						<span t-out='props.formatCurrency(line.total_price)' class="price_display pos-receipt-right-align"/>
+					</div>
+					<t t-if='!simple'>
+						<div t-out='line.product_id'/>
+						<t t-if='line.discount !== 0'>
+							<div class="pos-receipt-left-padding">
+								<t t-out="props.formatCurrency(line.price_unit)"/>
+							</div>
+							<div class="pos-receipt-left-padding">
+								Discount: <t t-out='line.discount' />%
+							</div>
+						</t>
+						<div class="pos-receipt-left-padding">
+							<t t-out="Math.round(line.qty)"/>
+							x
+							<t t-out='props.formatCurrency(line.total_price/line.qty)' />
+							<span class="price_display pos-receipt-right-align">
+								<t t-out='props.formatCurrency(line.total_price)'/>
+							</span>
+						</div>
+					</t>
+				</t>
+			</div>
+
+			<div class="pos-receipt-right-align">--------</div>
+			<br/>
+			<div class="pos-receipt-amount">
+				TOTAL
+				<span t-out='props.formatCurrency(props.order.amount_total)' class="pos-receipt-right-align"/>
+			</div>
+			<br/><br/>
+			<!-- Payment Lines -->
+			<div class="paymentlines" t-foreach="props.paymentlines" t-as="pline" t-key="pline.id">
+                <t t-out="pline.name" />
+                <span t-out="props.formatCurrency(pline.amount, false)" class="pos-receipt-right-align"/>
+            </div>
+			<br/>
+			<div class="pos-receipt-amount receipt-change mt-2">
+				CHANGE
+				<span t-out='props.formatCurrency(-props.change)' class="pos-receipt-right-align"/>
+			</div>
+			<br/>
+			<t t-if='discount_total'>
+				<div>
+					Discounts
+					<span t-out='props.formatCurrency(props.discount)' class="pos-receipt-right-align"/>
+				</div>
+			</t>
+			<div>
+				Total Taxes
+				<span t-out='props.formatCurrency(props.tax)' class="pos-receipt-right-align"/>
+			</div>
+			<div class='before-footer' />
+			<br/>
+			<div class="pos-receipt-order-data">
+				<div><t t-out='props.order.pos_reference' /></div>
+				<div><t t-out='props.order.date_order' /></div>
+			</div>
+			<t t-if="pos.config.show_barcode">
+				<div>
+					<span style="display:none;" t-out="receiptBarcode"/>
+					<div style="margin:auto;margin-top:10px;" id="barcode_print1"></div>
+				</div>
+			</t>
+		</div>
+    </t>
+</templates>

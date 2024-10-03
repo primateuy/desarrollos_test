@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="pos_all_in_one.SeeAllProductsButton">
+        <button class="control-button btn btn-light rounded-0 fw-bolder" t-on-click="() => this.click()">
+            <i class="fa fa-money"></i>
+            <span> </span>
+            <span>Products</span>
+        </button>
+    </t>
+</templates>

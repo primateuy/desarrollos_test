@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+	<t t-name="pos_all_in_one.PosProductDetailPopup" owl="1">
+		<div class="popup popup-import" style="max-width: 973px;">
+			<div class="modal-header">
+				<h4 class="modal-title title drag-handle">
+					Product Details
+				</h4>
+			</div>
+			<main class="body modal-body">
+				<t t-set="order" t-value="props.order || []"/>
+				<div>
+					<div class='client-name' style='float: left;margin-left: 0px;'>
+						<h2><t t-out='order["display_name"]'/></h2>
+					</div>
+					<div class="client-picture" style='float: right;margin-right: 40px;'>
+						<t t-if="productImageUrl">
+							<img t-att-src="productImageUrl" alt="Product"
+								 style="width: 100-px; height: 100px; object-fit: cover;" />
+						</t>
+						<t t-else="">
+							<i class="fa fa-camera" role="img" aria-label="Picture" title="Picture"></i>
+						</t>
+					</div>
+				</div>
+				<table style='width:100%'>
+					<tr class="popup-tr">
+						<td style='width:20%; '><strong>Product POS Category:</strong>
+						</td>
+						<td style='width:30%; ' >
+							<t t-foreach="order['pos_categ_ids']" t-as="pos_categ" t-key="pos_categ">
+								<t t-foreach="pos.pos_category" t-as="pos_cat" t-key="pos_cat.id">
+									<t t-if="pos_cat.id == pos_categ" >
+										<t t-out='pos_cat.name or ""' />
+										<br></br>
+									</t>
+
+								</t>
+							</t>		
+						</td>
+						<td style='width:20%; '><strong>Barcode:</strong>
+						</td>
+						<td style='width:30%; '>    
+							<span t-out="order['barcode'] or ''"/>
+						</td>
+					</tr>
+					<tr class="popup-tr" t-if="order['taxes_id']">
+						<td style='width:20%; '><strong>Customer Taxes:</strong>
+						</td>
+						<td style='width:30%; '>    
+							<div t-foreach="order['taxes_id']" t-as="tax" t-key='tax'>
+								<t t-out="pos.taxes_by_id[tax].name" />
+							</div>
+						</td>
+					</tr>
+					<tr class="popup-tr">
+						<td style='width:20%; '><strong>Sale Price:</strong>
+						</td>
+						<td style='width:30%; '>
+							<t t-out="env.utils.formatCurrency(order['lst_price'] or 0.0)" />
+						</td>
+						<td style='width:20%; '><strong>Cost Price:</strong>
+						</td>
+						<td style='width:30%; '>
+							<t t-out="env.utils.formatCurrency(order['standard_price'] or 0.0)" />
+						</td>
+					</tr>
+				</table>
+			</main>
+			<footer class="footer modal-footer">
+				<div class="button  btn btn-lg btn-primary btn-success" t-on-click="edit_product">
+					Edit
+				</div>
+				<div class="button cancel btn btn-lg btn-primary" t-on-click="cancel">
+					Close
+				</div>
+			</footer>
+		</div>
+	</t>
+
+</templates>

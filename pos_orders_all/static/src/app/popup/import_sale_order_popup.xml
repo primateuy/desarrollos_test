@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="pos_orders_all.ImportSaleOrderPopup" owl="1">
+        <div class="popup popup-med">
+            <div class="modal-header">
+                <h4 class="modal-title title drag-handle">
+                    Import Products
+                </h4>
+            </div>
+            <main class="body modal-body">
+                <div class="main_div_pos_session">
+                    <table class='import-product-list' style='width:100%;text-align: center;line-height: 30px;'>
+                        <thead>
+                            <tr class="orderline-table-head">
+                                <th>Product</th>
+                                <th>Ordered Qty</th>
+                                <th>Import Qty</th>
+                            </tr>
+                        </thead>
+                        <tbody class='import-product-list-contents'>
+                            <tr class="orderline-table" t-foreach="props.orderline || []" t-as="item" t-key="item.id">
+                                <td><t t-out='item.product_id[1]' /></td>
+                                <td><t t-out='item.product_uom_qty' /></td>
+                                <td class="entered_item_qty p-2">
+                                    <input type="text" name="qty" style="margin: 5px;"
+                                        t-att-line-id='item.id' t-att-qty-id='item.product_uom_qty'
+                                        class="input-field">
+                                    </input>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+               </div>
+            </main>
+            <footer class="footer modal-footer">
+                <div class="button cancel btn btn-lg btn-primary" t-on-click="cancel">
+                    Close
+                </div>
+                <div class="button cancel btn btn-lg btn-primary" t-on-click="do_import">
+                    Import
+                </div>
+            </footer>
+        </div>
+    </t>
+</templates>

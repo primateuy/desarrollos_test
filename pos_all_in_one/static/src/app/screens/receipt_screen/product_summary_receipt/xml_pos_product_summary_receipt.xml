@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	
+<templates id="product_reports_template" inherit_id="point_of_sale.template" xml:space="preserve">	
+	<t t-name="pos_all_in_one.XMLPosProductSummaryReceipt" owl="1">
+		<div class="pos-receipt">
+			<t t-set="obj" t-value="props.order"/>
+			<img t-attf-src="/web/image?model=res.company&amp;id={{pos.company.id}}&amp;field=logo" alt="Logo" class="pos-receipt-logo"/>
+			<br/>
+			<div class="pos-receipt-contact">
+				<t t-if='pos.company.contact_address'>
+					<div><t t-out='pos.company.contact_address' /></div>
+				</t>
+				<t t-if='pos.company.phone'>
+					<div>Tel:<t t-out='pos.company.phone' /></div>
+				</t>
+				<t t-if='pos.company.vat'>
+					<div>VAT:<t t-out='pos.company.vat' /></div>
+				</t>
+				<t t-if='pos.company.email'>
+					<div><t t-out='pos.company.email' /></div>
+				</t>
+				<t t-if='pos.company.website'>
+					<div><t t-out='pos.company.website' /></div>
+				</t>
+				<br/>
+				
+				<t t-if='pos.get_cashier()'>
+					<div class='cashier'>
+						<div>--------------------------------</div>
+						<div>Served by <t t-out='pos.get_cashier().name' /></div>
+					</div>
+				</t>
+			</div>
+			<br />
+			<t t-if="obj">
+				<t t-if="!obj.prod_current_session">
+					<div class="receipt-periods">
+						Start Date: <span style="float:right;" t-out="obj.p_st_date"/>
+					</div>
+					<div class="receipt-periods">
+						End Date: <span style="float:right;" t-out="obj.p_ed_date"/>
+					</div>
+				</t>
+				<br/>
+				<div class="pos-receipt-center-align">
+				<strong>Product Summary</strong>
+				</div><br />
+				<div>
+					<table class='receipt-orderlines' style="margin: 0px auto;">
+						<colgroup>
+							<col width='50%' />
+							<col width='50%' />
+						</colgroup>
+						<thead>
+							<tr style="border-bottom: 2px solid black;">
+								<th>Product</th>
+								<th class="pos-receipt-right-align">Quantity</th>
+							</tr>
+						</thead>
+						<tbody>
+							<t t-set="tot1" t-value="0.0"/>
+							<t t-set="c" t-value="0"/>
+							<tr t-foreach="obj.p_summery" t-as="p_summery1" t-key="c">
+								<t t-set="c" t-value="c + 1"/>
+								<td><t t-out="p_summery1.name.en_US"/></td>
+								<td class="pos-receipt-right-align">
+									<t t-out="p_summery1.total"/>
+									<t t-set="tot1" t-value="tot1 + p_summery1.total"/>
+								</td>
+							</tr>
+							<tr style="border-top: 2px solid black;">
+								<th>Total:</th>
+								<td class="pos-receipt-right-align">
+									<t t-out="tot1"/>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<br />
+			</t>
+		</div>
+	</t>	
+</templates>

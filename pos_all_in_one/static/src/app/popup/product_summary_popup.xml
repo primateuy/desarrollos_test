@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>	
+<templates id="product_reports_template" inherit_id="point_of_sale.template" xml:space="preserve">
+	<t t-name="pos_all_in_one.PopupProductWidget" owl="1">
+		<div class="popup popup-import">
+         <div class="modal-header">
+             <h4 class="modal-title title drag-handle">
+                 Product Summary
+             </h4>
+         </div>
+         <main class="modal-body">
+             <div>
+					<div id="prod_dt_strt" class="alert" style="color: #ec1010; font-size: inherit; margin: 5px; text-align: center;">
+						<span class="closebtn"></span>  
+						Please fill Start Date.
+					</div>
+					<div id="prod_dt_end" class="alert" style="color: #ec1010; font-size: inherit; margin: 5px; text-align: center;">
+						<span class="closebtn"></span>  
+						Please fill End Date.
+					</div>
+					<div class="form-group" id="form1">  
+						<input id="prod_crnt_ssn" class="prod_crnt_ssn" type="checkbox"  t-on-click="clickCurrentSession" 
+							style="min-height: 15px !important;width: 25px !important;box-shadow: none !important;"/>
+						<label for="prod_crnt_ssn">Current Session</label>
+					</div>
+					<div class="left_pane" id="prod_st_dt" style="width: 49%;display:inline-block;">
+						<p class="text-center">Start Date</p>
+						<input type="date" name="st_date" id="pro_st_date"/>
+					</div>
+					<div class="right_pane" id="prod_end_dt" style="width: 50%;display:inline-block;">
+						<p class="text-center">End Date</p>
+						<input type="date" name="ed_date" id="pro_ed_date"/>
+					</div>
+				</div>
+         </main>
+         <footer class="footer modal-footer">
+             <div class="button btn btn-lg btn-primary" t-on-click="print_product">
+                 Print
+             </div>
+             <div class="button cancel btn btn-lg btn-primary" t-on-click="go_back_screen">
+                 Close
+             </div>
+         </footer>
+     </div>
+	</t>	
+</templates>

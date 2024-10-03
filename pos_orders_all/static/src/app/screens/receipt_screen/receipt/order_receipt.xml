@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="OrderReceipt" t-inherit="point_of_sale.OrderReceipt" t-inherit-mode="extension" owl="1">
+        <xpath expr="//div[hasclass('before-footer')]" position="before">
+            <br/>
+            <div>
+                Total Items 
+                <span t-out="props.data.total_qty" class="pos-receipt-right-align"/>
+            </div>
+        </xpath>
+        <xpath expr="//div[hasclass('after-footer')]" position="before">
+            <t t-if="pos.config.show_barcode">
+                <div>
+                    <span style="display:none" t-out="receiptBarcode"/>
+                    <div style="margin:auto;margin-top:10px;" id="barcode_print"></div>
+                </div>
+            </t>
+        </xpath> 
+    </t>
+</templates>

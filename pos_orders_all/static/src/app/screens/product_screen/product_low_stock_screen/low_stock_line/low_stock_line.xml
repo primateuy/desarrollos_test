@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="pos_orders_all.LowStockLine">
+        <tr class='partner-line' t-att-data-id='props.product.id'>
+            <td t-att-data-id='props.product.id' ><t t-out='props.product.display_name'/></td>
+            <td t-att-data-id='props.product.id' ><t t-out='props.product.qty_available' /></td>
+        </tr>
+    </t>
+
+</templates>

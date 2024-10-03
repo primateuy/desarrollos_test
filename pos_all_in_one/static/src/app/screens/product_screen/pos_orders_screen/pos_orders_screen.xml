@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+	<t t-name="PayPOSOrdersScreen" t-inherit="pos_orders_all.PosOrdersScreen" t-inherit-mode="extension" owl="1">
+		<xpath expr="//th[hasclass('order_state')]" position="after">
+			<t t-if="pos.config.allow_partical_payment">
+				<th>Amount Due</th>
+				<th>Pay</th>
+			</t>
+		</xpath>
+		<xpath expr="//div[hasclass('top-content')]/button[2]" position="after">
+			<button class="button draft btn btn-lg btn-outline-primary" style="width: 140px;" t-on-click="draftFilter">
+                <i class="fa fa-file"></i> Unpaid
+            </button>
+            
+            <button class="button paid btn btn-lg btn-outline-primary" style="width: 140px;" t-on-click="paidFilter">
+                <i class="fa fa-credit-card"></i> Paid
+            </button>
+
+            <button class="button draft btn btn-lg btn-outline-primary" style="width: 140px;" t-on-click="doneFilter">
+                <i class="fa fa-check"></i> Posted
+            </button>
+
+            <button class="button draft btn btn-lg btn-outline-primary" style="width: 140px;" t-on-click="invoicedFilter">
+                <i class="fa fa-dollar"></i> Invoiced
+            </button>
+
+            <div class="button btn-outline-primary" style="width: 170px;" t-if="state.filter_state">
+				<span id="filter_order">Filtered By: </span>
+				<span id="filter_state" t-out="state.filter_state"/>
+			</div>
+		</xpath>
+
+		<xpath expr="//tbody[hasclass('partner-list-contents')]" position="replace">
+			<tbody class="partner-list-contents">
+				<t t-if="!pos_orders">
+					<tr>
+						<td>Loading....</td>
+					</tr>
+				</t>
+
+				<t t-foreach="pos_orders" t-as="order" t-key="order.id">
+					<PosOrdersLine 
+						order="order" 
+						selectedPosOrder="state.selectedPosOrder"
+						onClickPosOrder.bind="clickPosOrder"
+						onClickReOrder.bind="clickReOrder"
+						onClickReturnOrder.bind="clickReturnOrder"
+						onClickRePrint.bind="clickReprint"
+						onClickCustPay.bind="clickPayCustom" />
+				</t>
+			</tbody>
+		</xpath>
+	</t>
+</templates>

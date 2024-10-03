@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="PartnerLine" t-inherit="point_of_sale.PartnerLine" t-inherit-mode="extension" owl="1">
+        <xpath expr="//tr" position="inside">
+            <t t-if="props.config">
+                <td class='order-partner' t-att-data-id='props.partner.id'
+                t-on-click.stop="() => props.onClickShowOrder(props.partner)"
+                >
+                    <button class='edit-partner-button btn btn-light border'><i class="fa fa-university"></i> View Orders</button>
+                </td>
+            </t>
+        </xpath>
+    </t>
+</templates>

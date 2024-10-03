@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+	<t t-name="pos_orders_all.SelectExistingCouponPopup" owl="1">
+		<div class="popup popup-import">
+            <div class="modal-header">
+                <h4 class="modal-title title drag-handle">
+                    Apply Coupon/Gift Voucher Code
+                </h4>
+            </div>
+            <main class="body modal-body">
+                <div class="main_div_pos_session">
+                    <p style="color: #875a7b;font-size: 1.5rem;">Enter Your Coupon Code Here</p>
+					<input id ="existing_coupon_code" type="text" class="input-field" name="code"></input>
+               </div>
+            </main>
+            <footer class="footer modal-footer">
+                <div class="button btn btn-lg btn-primary" t-on-click="apply_coupon">
+                    Apply
+                </div>
+                <div class="button cancel btn btn-lg btn-primary" t-on-click="cancel">
+                    Close
+                </div>
+            </footer>
+        </div>
+	</t>
+</templates>

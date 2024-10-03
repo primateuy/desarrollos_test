@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+	<t t-name="pos_orders_all.AfterCreateCouponPopup" owl="1">
+		<div class="popup popup-barcode">
+			<header class="title drag-handle modal-header">
+				<h4 class="modal-title">Confirmation
+				</h4>
+			</header>
+			<main class="modal-body">
+				<div class="main_div_pos_session" style="font-family: 'Lato-Reg';color: #875a7b;font-size: 1.5rem;text-align: center;">
+					<p>Gift coupon is created successfully.</p>
+				</div>
+			</main>
+			<footer class="footer modal-footer">
+				<button type="button" class="btn btn-primary" t-on-click="cancel">Close</button>
+				<button type="button" class="btn btn-primary" t-on-click="print_gift_coupon">Print</button>
+			</footer>
+		</div>
+	</t>
+</templates>

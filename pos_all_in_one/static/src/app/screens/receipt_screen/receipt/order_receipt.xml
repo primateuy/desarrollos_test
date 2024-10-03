@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="pos_loyalty_odoo_template" inherit_id="point_of_sale.template" xml:space="preserve">
+	<t t-name="OrderReceiptBi" t-inherit="point_of_sale.OrderReceipt" t-inherit-mode="extension" owl="1">
+		<xpath expr="//div[hasclass('pos-receipt-taxes')]" position="after">
+		   <table class='receipt-change' style="min-width: 100%;">
+				<t t-if="props.data.cust_order">
+					<t t-if="props.data.cust_order.get_partner()">
+						<tr>
+							<td>Earned Loyalty Points:</td>
+							<td class="pos-right-align"><t t-out="props.data.cust_order.get_total_loyalty()"/></td>
+						</tr>
+						<tr>
+							<td>Total Loyalty Points:</td>
+							<td class="pos-right-align"><t t-out="(props.data.cust_order.get_partner().loyalty_points1).toFixed(2)"/></td>
+						</tr>
+					</t>
+				</t>
+			</table>
+		</xpath>
+
+		<xpath expr="//div[hasclass('pos-receipt-amount')]" position="replace">
+			<div class="pos-receipt-amount">
+				TOTAL
+				<t t-if="props.data.cust_order.is_paying_partial == false">
+					<span t-out="env.utils.formatCurrency(props.data.cust_order.get_total_with_tax())" class="pos-receipt-right-align"/>
+				</t>
+				<t t-if="props.data.cust_order.is_paying_partial">
+					<span t-out="env.utils.formatCurrency(props.data.cust_order.get_total_with_tax() + props.data.cust_order.amount_paid)" class="pos-receipt-right-align"/>
+				</t>
+			</div>
+		</xpath>
+
+		<xpath expr="//div[hasclass('before-footer')]" position="before">
+			<t t-if="props.data.cust_order.is_partial || props.data.cust_order.is_draft_order ">
+				<table style="width: 100%;">
+					<tr>
+						<td>Total Paid Amount:</td>
+						<td style="text-align: right;">
+							<t t-if="(props.data.cust_order.is_paying_partial == false) or (props.data.cust_order.get_total_with_tax() == props.data.cust_order.get_total_paid())">
+								<t t-out="env.utils.formatCurrency(props.data.cust_order.get_total_paid())"/>
+							</t>
+							<t t-if="props.data.cust_order.is_paying_partial and props.data.cust_order.get_total_with_tax() != props.data.cust_order.get_total_paid()">
+								<t t-out="env.utils.formatCurrency(props.data.cust_order.get_total_paid() + props.data.cust_order.amount_paid)"/>
+							</t>
+						</td>
+					</tr>
+					<tr>
+						<td>Amount Due:</td>
+						<td style="text-align: right;">	
+							<t t-out="env.utils.formatCurrency(props.data.cust_order.get_partial_due())"/>	
+						</td>
+					</tr>
+				</table>
+			</t>
+		</xpath>
+	</t>
+
+	<t t-name="OrderReprintReceipt" t-inherit="pos_orders_all.OrderReprintReceipt" t-inherit-mode="extension" owl="1">
+		<xpath expr="//div[hasclass('before-footer')]" position="before">
+			<t t-if="props.order.state == 'draft' ">
+				<table style="width: 100%;">
+					<tr>
+						<td>Total Paid Amount:</td>
+						<td style="text-align: right;">
+							<t t-out="env.utils.formatCurrency(props.order.amount_paid)"/>
+						</td>
+					</tr>
+					<tr>
+						<td>Amount Due:</td>
+						<td style="text-align: right;">
+							<t t-out="env.utils.formatCurrency(props.order.amount_total - props.order.amount_paid)"/>
+						</td>
+					</tr>
+				</table>
+			</t>
+		</xpath>
+	</t>
+
+</templates>

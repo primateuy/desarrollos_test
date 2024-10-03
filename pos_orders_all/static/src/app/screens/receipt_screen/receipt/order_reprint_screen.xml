@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="pos_orders_all.OrderReprintScreen">
+        <div class="receipt-screen screen h-100 bg-100">
+            <div class="screen-content d-flex flex-column h-100">
+                <div class="top-content d-flex gap-2 align-items-center p-2 border-bottom text-center">
+                    <button class="button back btn btn-lg btn-outline-primary" t-on-click="back">
+                        <i class="fa fa-angle-double-left me-2"></i>
+                        <span>Back</span>
+                    </button>
+                    <button class="button back btn btn-lg btn-outline-primary" t-on-click="back">
+                        <span>Ok</span>
+                        <span> </span>
+                        <i class="fa fa-angle-double-right"></i>
+                    </button>
+                </div>
+                <div class="centered-content mx-auto mt-3 border-start border-end text-center overflow-x-hidden overflow-y-auto">
+                    <button class="button print btn btn-lg btn-primary" t-on-click="printReceipt">
+                        <i class="fa fa-print ms-2" t-ref="order-print-receipt-button"></i> Print Receipt
+                    </button>
+                    <div class="pos-receipt-container text-center">
+                        <div class="d-inline-block m-3 p-3 border rounded bg-view text-start overflow-hidden">
+                            <OrderReprintReceipt 
+                                order="props.order"
+                                barcode = "props.barcode"
+                                discount = "props.discount"
+                                orderlines = "props.orderlines"
+                                paymentlines = "props.paymentlines"
+                                change = "props.change"
+                                subtotal = "props.subtotal" 
+                                tax = "props.tax"   
+                                user_name = "props.user_name"
+                                formatCurrency="env.utils.formatCurrency"                                                    
+                            />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

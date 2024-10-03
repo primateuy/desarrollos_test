@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="PayPosOrdersLine" t-inherit="pos_orders_all.PosOrdersLine" t-inherit-mode="extension" owl="1">
+         <xpath expr="//td[hasclass('order-state')]" position="after">
+            <t t-if="pos.config.allow_partical_payment">
+                <td class='order-line-due' t-att-data-id='props.order.id'>
+                    <t t-if="props.order.state != 'draft'">
+                        <t t-out='env.utils.formatCurrency(0)' />
+                    </t>
+                    <t t-if="props.order.state == 'draft'">
+                        <t t-out='env.utils.formatCurrency(props.order.amount_total - props.order.amount_paid)' />
+                    </t>
+                </td>
+                <td class="print-order" t-att-data-id='props.order.id'>
+                    <t t-if="props.order.state == 'draft'">
+                        <button class="edit-partner-button btn btn-lg btn-outline-primary" t-on-click.stop="() => this.props.onClickCustPay(props.order)" t-att-id='props.order.id' ><i class="fa fa-credit-card"></i> Pay</button>
+                    </t>
+                    <t t-else="">
+                        <span> - </span>
+                    </t>
+                </td>
+            </t>
+        </xpath> 
+    </t>
+</templates>

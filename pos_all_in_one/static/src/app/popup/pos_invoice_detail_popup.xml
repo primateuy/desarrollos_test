@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+	<t t-name="pos_all_in_one.PosInvoiceDetail" owl="1">
+		<div class="popup" style="min-width: 70%;">
+            <div class="modal-header">
+                <h4 class="modal-title">
+					Invoice Details
+				</h4>
+			</div>
+			<main class="modal-body">
+				<t t-set="order" t-value="props.order || []"/>
+				<table style='width:100%'>
+					<tr class="popup-tr">
+						<td style='width:20%; '><strong>Customer:</strong>
+						</td>
+						<td style='width:30%; '  t-if="order['partner_id']">
+							<span t-out="order['partner_id'][1] or ''"/>
+						</td>
+						<td style='width:20%; '><strong>Amount Due:</strong>
+						</td>
+						<td style='width:30%; '>    
+							<t t-if="pos.currency.id == props.order.currency_id[0]">
+								<t t-out='env.utils.formatCurrency(props.order.amount_residual)' />	
+							</t>
+							<t t-else="">
+								<t t-foreach="pos.poscurrency" t-as="curr" t-key="curr.id">
+
+									<t t-if="curr.id == props.order.currency_id[0]">
+										<t t-if="curr.position == 'after'">
+											<t t-out="(props.order.amount_residual).toFixed(2)"/><t t-out="curr.symbol"/>
+										</t>
+										<t t-else="">
+											<t t-out="curr.symbol"/><t t-out="(props.order.amount_residual).toFixed(2)"/>
+										</t>
+									</t>
+								</t> 
+							</t>
+						</td>
+					</tr>
+					<tr class="popup-tr">
+						<td style='width:20%; '><strong>Total Amount:</strong>
+						</td>
+						<td style='width:30%; '>    
+							<t t-if="pos.currency.id == props.order.currency_id[0]">
+								<t t-out='env.utils.formatCurrency(props.order.amount_total)' />	
+							</t>
+							<t t-else="">
+								<t t-foreach="pos.poscurrency" t-as="curr" t-key="curr.id">
+
+									<t t-if="curr.id == props.order.currency_id[0]">
+										<t t-if="curr.position == 'after'">
+											<t t-out="(props.order.amount_total).toFixed(2)"/><t t-out="curr.symbol"/>
+										</t>
+										<t t-else="">
+											<t t-out="curr.symbol"/><t t-out="(props.order.amount_total).toFixed(2)"/>
+										</t>
+									</t>
+								</t> 
+							</t>
+						</td>
+						<td style='width:20%; '><strong>Status:</strong>
+						</td>
+						<td style='width:30%; '>
+							<t t-if="order['state'] == 'draft'">Draft/New</t>
+							<t t-if="order['state'] == 'posted'">Posted</t>
+							<t t-if="order['state'] == 'cancel'">Cancelled</t>    
+						</td>
+					</tr>
+				</table>
+				<br/>
+			</main>
+
+			<footer class="footer modal-footer">
+                <div class="button confirm btn btn-lg btn-primary" id="create_customer_payment" t-on-click="register_payment">
+					Payment
+				</div>
+
+                <div class="button cancel btn btn-lg btn-primary" t-on-click="cancel">
+                    Close
+                </div>
+            </footer>			
+		</div>
+	</t>
+</templates>

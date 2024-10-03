@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>	
+<templates id="product_reports_template" inherit_id="point_of_sale.template" xml:space="preserve">
+	<t t-name="pos_all_in_one.ReportProductButtonWidget"  owl="1">
+		<div class="control-button btn btn-light rounded-0 fw-bolder"
+		 t-on-click="() => this.onClick()">
+			<i class="fa fa-shopping-cart me-1" role="img" aria-label="Product Summary" title="Product Summary" />
+			<span> </span>
+			Product Summary
+		</div>
+	</t>
+</templates>

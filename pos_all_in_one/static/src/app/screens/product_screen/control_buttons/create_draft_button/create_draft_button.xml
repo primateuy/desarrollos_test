@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>	
+<templates id="create_draft_template" inherit_id="point_of_sale.template" xml:space="preserve">
+	<t t-name="pos_all_in_one.CreateDraftPOS" owl="1">
+		<div class="control-button btn btn-light rounded-0 fw-bolder" t-on-click="() => this.onClickDraft()">
+            <i class="fa fa-file"></i>
+            <span> </span>
+			<span>Draft Order</span>
+        </div>
+	</t>
+</templates>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="pos_orders_all.ReOrderPopup">
+        <div class="popup popup-import" style="min-width: 50%;">
+            <div class="modal-header">
+                <h4 class="modal-title title drag-handle">
+                    Reorder Products
+                </h4>
+            </div>
+            <main class="body modal-body">
+                <t t-set="order" t-value="props.order || []"/>
+                <table class='reorder-product-list' style='width:100%; text-align: center;line-height: 30px;'>
+                    <thead>
+                        <tr class="orderline-table-head">
+                            <th>Product</th>
+                            <th>Reorder Qty</th>
+                        </tr>
+                    </thead>
+                    <tbody class='reorder-product-list-contents'>
+                        <tr class="orderline-table" t-foreach="props.orderlines || []" t-as="item" t-key="item.id">
+                            <td><t t-out='item.product_id[1]' /></td>
+                            <td class="entered_item_qty">
+                                <input type="text" name="qty" style="margin: 5px;margin-left: -3px;"
+                                    t-att-line-id='item.id' t-att-qty-id='item.qty'
+                                    class="input-field">
+                                </input>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </main>
+            <footer class="footer modal-footer">
+                <div class="button cancel btn btn-lg btn-primary" t-on-click="cancel">
+                    Close
+                </div>
+
+                <div class="button cancel btn btn-lg btn-primary" t-on-click="do_reorder">
+                    Re-Order
+                </div>
+            </footer>
+        </div>
+    </t>
+
+</templates>

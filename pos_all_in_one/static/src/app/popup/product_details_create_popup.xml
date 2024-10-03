@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+	<t t-name="pos_all_in_one.ProductDetailsCreatePopup" owl="1">
+		<div class="popup popup-import">
+			<header class="title drag-handle modal-header">
+				<h4 class="modal-title">
+					Create Product
+				</h4>
+			</header>
+			<main class="modal-body" style="min-height: 500px;">
+			   	<ul class="tabs">
+					<li class="tab">
+						<input type="radio" name="tabs" checked="checked" id="tab1" />
+						<label for="tab1" style="margin-left: 8px;margin-right: 0px;">Basic Info</label>
+						<div id="tab-content1" class="content">
+							<div class="basic_info">
+								<div class='client-details-box clearfix'>
+									<div class="client-picture">
+										<t t-if="partnerImageUrl">
+											<img t-att-src="partnerImageUrl" alt="Partner"
+												style="width: 100px; height: 100px; margin-left: 86px;object-fit: cover;" />
+										</t>
+										<input type="file" class="image-uploader form-control" t-on-change="uploadImage" />
+									</div>
+									<div class='client-detail'>
+										<input class='detail client-name form-control' name='display_name' placeholder='Name'></input>
+									</div>
+									<div class="client-detail">
+										<select class="detail client-address-country needsclick" name="pos_categ_id" style="text-align: left;display: inline-block;overflow: hidden;background: white;min-height: 44px;font-family: 'Lato';font-size: 20px;color: #444;padding: 10px;border-radius: 3px;border: none;box-shadow: 0px 0px 0px 1px rgb(220,220,220) inset;box-sizing: border-box;">
+											<option value="">Select POS Category</option>
+											
+											<t t-foreach="pos.pos_category" t-as="category" t-key="category.id">
+												<option t-att-value="category.id">
+													<t t-out="category.name" />
+												</option>
+											</t>
+										</select>
+									</div>
+									<div class='client-detail'>
+										<input class='detail barcode form-control' name='barcode' placeholder='Barcode'></input>
+									</div>
+									<div class='client-detail'>
+										<input type="number" class='form-control detail client-address-city' name='list_price' placeholder='Sale Price'></input>
+									</div>
+									<div class='client-detail'>
+										<input type="number" class='form-control detail client-address-city' name='cost_price' placeholder='Cost Price'></input>
+									</div>
+								</div>
+							</div>
+						</div>
+					</li>
+
+					<li class="tab">
+						<input type="radio" name="tabs" id="tab2" />
+						<label for="tab2" style="margin-left: 8px;margin-right: 9px;">Advance Info</label>   
+						<div id="tab-content2" class="content">
+							<div class="advance_info">
+								<div class='client-details-box clearfix'>
+									<div class="client-detail">
+										<select class="detail client-address-country needsclick" name="product_type" style="text-align: left;display: inline-block;overflow: hidden;background: white;min-height: 44px;font-family: 'Lato';font-size: 20px;color: #444;padding: 10px;border-radius: 3px;border: none;box-shadow: 0px 0px 0px 1px rgb(220,220,220) inset;box-sizing: border-box;width: 80%;">
+											<option value="">Select Product Type</option>
+											<option value="consu">Consumable</option>
+											<option value="service">Service</option>
+											<option value="product">Storable Product</option>
+										</select>
+									</div>
+									<div class="client-detail">
+										<select class="detail client-address-country needsclick" name="categ_id" style="text-align: left;display: inline-block;overflow: hidden;background: white;min-height: 44px;font-family: 'Lato';font-size: 20px;color: #444;padding: 10px;border-radius: 3px;border: none;box-shadow: 0px 0px 0px 1px rgb(220,220,220) inset;box-sizing: border-box;width: 80%;">
+											<option value="">Select Product Category</option>
+											<t t-foreach="pos.product_categories" t-as="prd_categ" t-key="prd_categ.id">
+												<option t-att-value="prd_categ.id">
+													<t t-out="prd_categ.name" />
+												</option>
+											</t>
+										</select>
+									</div>
+									<div class='client-detail'>
+										<input class='detail client-address-city' name='default_code' placeholder='Internal Reference'></input> 
+									</div>
+									<br/>
+									<span style="font-size: 28px;">Taxes</span>      
+									<div class='client-detail' style="padding-top: 11px;">
+										<t t-foreach="pos.taxes" t-as="tax" t-key="tax.id">
+											<t t-if="tax.type_tax_use ==='sale'">
+												<div class="prd_tax">
+													<input id="tax.id" class="product_tax" type="checkbox" t-att-value="tax.id"/>
+													<label for="product_tax"><t t-out="tax.name"/></label>
+												</div>
+											</t>
+										</t> 
+									</div>
+								</div>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</main>
+
+			<footer class="footer modal-footer">
+				<button type="button" class="btn btn-primary" t-on-click="create_product">Create</button>
+				<button type="button" class="btn btn-primary" t-on-click="create_product_add_product">Create and Add Product</button>
+				<button type="button" class="btn btn-primary" t-on-click="cancel">Close</button>
+			</footer>
+		</div>
+	</t>
+</templates>

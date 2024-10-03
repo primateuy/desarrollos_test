@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="PartnerLine" t-inherit="point_of_sale.PartnerLine" t-inherit-mode="extension" owl="1">
+        <xpath expr="//tr" position="inside">
+            <td class="text-center">
+                <center><t t-out='(props.partner.loyalty_points1).toFixed(2) or "0"' /></center>
+            </td>
+            <td t-if="env.services.pos.config.allow_pos_payment" class='order-partner' t-att-data-id='props.partner.id' t-on-click.stop="() => props.onRegisterPayment(props.partner)">
+                <button class='edit-partner-button btn btn-light border'><i class="fa fa-university"></i>Register Payment</button>
+            </td>
+        </xpath>
+    </t>
+</templates>

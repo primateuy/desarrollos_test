@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+    <t t-name="Navbar" t-inherit="point_of_sale.Navbar" t-inherit-mode="extension" owl="1">
+        <xpath expr="//div[hasclass('status-buttons')]" position="before">
+            <div class="header-button" style="margin-top: 11px;margin-left: 44px;" t-on-click="show_products">
+                <span style="font-size: 20px; color: #495057;">Low Stock Product List</span>
+            </div>
+        </xpath>
+    </t>
+</templates>
+    

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	
+<templates id="categ_reports_template" inherit_id="point_of_sale.template" xml:space="preserve">
+	<t t-name="pos_all_in_one.XMLPosCategorySummaryReceipt" owl="1">
+		<div class="pos-receipt">
+			<t t-set="obj" t-value="props.order"/>
+			<img t-attf-src="/web/image?model=res.company&amp;id={{pos.company.id}}&amp;field=logo" alt="Logo" class="pos-receipt-logo"/>
+			<br/>
+			<div class="pos-receipt-contact">
+				<t t-if='pos.company.contact_address'>
+					<div><t t-out='pos.company.contact_address' /></div>
+				</t>
+				<t t-if='pos.company.phone'>
+					<div>Tel:<t t-out='pos.company.phone' /></div>
+				</t>
+				<t t-if='pos.company.vat'>
+					<div>VAT:<t t-out='pos.company.vat' /></div>
+				</t>
+				<t t-if='pos.company.email'>
+					<div><t t-out='pos.company.email' /></div>
+				</t>
+				<t t-if='pos.company.website'>
+					<div><t t-out='pos.company.website' /></div>
+				</t>
+				<br/>
+				
+				<t t-if='pos.get_cashier()'>
+					<div class='cashier'>
+						<div>--------------------------------</div>
+						<div>Served by <t t-out='pos.get_cashier().name' /></div>
+					</div>
+				</t>
+			</div>
+			<br />
+			<t t-if="obj">
+				<t t-if="!obj.categ_current_session">
+					<div class="receipt-periods">
+						Start Date: <span style="float:right;" t-out="obj.st_date_categ"/>
+					</div>
+					<div class="receipt-periods">
+						End Date: <span style="float:right;" t-out="obj.ed_date_categ"/>
+					</div>
+				</t>
+
+				<t t-if="!obj.categ_current_session">
+					<br/>
+					<div class="pos-receipt-center-align receipt-periods-month">
+						<span><strong>Month : </strong></span>
+						<t t-if="obj.st_month_categ">
+							<strong><t t-out="obj.st_month_categ"/></strong>
+						</t>
+						<t t-if="obj.ed_month_categ">
+							<t t-if="obj.ed_month_categ != obj.st_month_categ">
+								<strong>To</strong>
+								<strong><t t-out="obj.ed_month_categ"/></strong>
+							</t>
+						</t>
+					</div>
+				</t>
+				<br/>
+				<div>
+					<table class='receipt-orderlines' style="margin: 0px auto;margin-top:32px;" >
+						<colgroup>
+							<col width='33%' />
+							<col width='33%' />
+							<col width='33%' />
+						</colgroup>
+						<thead style="border-bottom:2px solid black;padding-bottom:5px;">
+							<th class="text-center">Category</th>
+							<th class="pos-right-align">Quantity</th>
+							<th class="pos-right-align">Total</th>
+						</thead>
+						<tbody>
+							<t t-set="a" t-value="0"/>
+							<tr t-foreach='cate_summary' t-as='data1' t-key='a'>
+								<t t-set="a" t-value="a + 1"/>
+								<td style="padding:5px 0;">
+									<span t-out="data1.coalesce"/>
+								</td>
+								<td class="pos-center-align">
+									<span t-out="data1.total"/>
+								</td>
+								<td class="pos-right-align">
+									<span t-out="env.utils.formatCurrency(data1.sum)"/>
+								</td>
+							</tr>
+							<tr t-if="obj.final_total" style="border-top:2px solid black;">
+								<td style="padding:5px 0;">
+									<strong>Total</strong>
+								</td>
+								<td style="padding:5px 0;">
+									<p/>
+								</td>
+								<td class="pos-right-align">
+									<value><span t-out="env.utils.formatCurrency(obj.final_total)"/></value>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<br/>
+			</t>
+		</div>
+	</t>
+</templates>

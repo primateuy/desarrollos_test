@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+	<t t-name="pos_orders_all.CreateCouponPopup" owl="1">
+		<div class="popup popup-import">
+            <div class="modal-header">
+                <h4 class="modal-title title drag-handle">
+                    Create Coupon
+                </h4>
+            </div>
+            <main class="body modal-body"  style="font-family: 'Lato-Reg';text-align: center;min-height: 400px;">
+                <div class="main_div_pos_session">
+					<div id="error_text" style="color: #ec1010; font-size: inherit; margin: 5px; text-align: center;"></div>
+					<div class="body touch-scrollable scrollable-y" >
+						<div class="create_wrapper">
+							<table id="create_coupon_table" class="table">
+								<tr>
+									<td style="padding:5px;">
+										<span>Name </span><sup style="color:red;">*</sup>
+										<span>
+											<input id="coupon_name" type="text" class="form-control form-control-sm" name="c_name" style="margin:8px auto"/>
+										</span>
+									</td>
+									<td>
+										<span>Coupon usage limit</span>
+										<span>
+											<input id="coupon_limit" type="number" min="0" class="form-control form-control-sm" name="c_limit" style="margin:8px auto"/>
+										</span>
+									</td>
+								</tr>
+								<tr>
+									<td style="padding:5px;">
+										<span>Product </span><sup style="color:red;">*</sup>
+										<span>
+											<select id="coupon_product" classs="form-control form-control-sm" style="margin:8px auto;min-width: 176px;    min-height: 40px;">
+												<t t-foreach="products" t-as="prod" t-key='prod.id'>
+													<option t-att-value="prod.id">
+														<t t-out="prod.display_name"/>
+													</option>
+												</t>
+											</select>
+										</span>
+									</td>
+									<td>
+										<span>Amount Type </span><sup style="color:red;">*</sup>
+										<span>
+
+											<select id="coup_amount_type" class="form-control form-control-sm" style="margin:8px auto;min-width: 176px;    min-height: 40px;" t-on-change="_CoupAmountType">
+												<option value="Fixed">Fixed</option>
+												<option value="Percentage">Percentage</option>
+											</select>
+										</span>
+									</td>
+								</tr>
+								<tr id="apply_coupon_type">
+									<td></td>
+									<td>
+										<span>Apply Coupon On </span>
+										<select id="apply_coupon_on" class="form-control form-control-sm" style="margin:8px auto;min-width: 176px;    min-height: 40px;">
+											<option value="taxed">Taxed Amount</option>
+											<option value="untaxed">Untaxed Amount</option>
+										</select>
+									</td>
+								</tr>
+								<tr>
+									<td style="padding:5px;">
+										<span>Coupon Amount </span><sup style="color:red;">*</sup>
+										<span>
+											<input id="coupon_amount" type="text" class="form-control form-control-sm" name="c_amount" style="margin:8px auto"/>
+										</span>
+									</td>
+									<td>
+										<span>Max Amount </span>
+										<span>
+											<input id="coupon_max_amount" type="text" class="form-control form-control-sm" name="c_max_amount" style="margin:8px auto"/>
+										</span>
+									</td>
+								</tr>
+								<tr>
+									<td style="padding:5px;">
+										<span>Issue Date </span><sup style="color:red;">*</sup>
+										<span>
+											<input id="coupon_issue_dt" type="date" class="form-control form-control-sm" name="c_issue_dt" style="margin:8px auto;
+												font-size:15px;"/>
+										</span>
+									</td>
+									<td>
+										<span>Expiry Date </span>
+										<span style="display: inline-flex;vertical-align: sub;">
+											<input id="coupon_expdt_box" type="checkbox" name="c_expdt_box" style="min-height: auto;margin:8px;font-size:15px;" 
+												t-on-click="() => this.coupon_expdt_box()"/>
+										</span>
+										<span>
+											<input id="coupon_exp_dt" type="date" class="form-control form-control-sm" name="c_exp_dt" style="margin:8px auto"/>
+										</span>
+									</td>
+								</tr>
+								<tr>
+									<td style="padding: 10px 0px;">
+										<span>Specific Category </span>
+									</td>
+									<td class="multi_categ">
+										<select class="multi_select" id="coupon_categ" name="categs[]" multiple="multiple" style="margin:8px auto;min-width: 176px;min-height: 40px;">
+											<t t-foreach="categories" t-as="c" t-key='c.id'>
+												<option t-att-value="c.id">
+													<t t-out="c.name"/>
+												</option>
+											</t>
+										</select>
+									</td>
+								</tr>
+								<tr>
+									<td style="padding: 10px 0px;">
+										<span>Specific Customer </span>
+										<span style="display: inline-flex;vertical-align: sub;">
+											<input id="c_cust_box" type="checkbox" name="c_cust_box" class="c_cust_box" style="min-height: auto;margin:8px;"
+												t-on-click="() => this.coupon_cust_box()"/>
+										</span>
+									</td>
+									<td>
+										<select id="coupon_customer" style="margin:8px auto;min-width: 176px;    min-height: 40px;">
+											<t t-foreach="pos.partners" t-as="d" t-key="d.id">
+												<option><t t-out='d.name'/></option>
+											</t>
+										</select>
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+               </div>
+            </main>
+            <footer class="footer modal-footer">
+                <div class="button btn btn-lg btn-primary" t-on-click="create_coupon">
+                    Create
+                </div>
+                <div class="button cancel btn btn-lg btn-primary" t-on-click="cancel">
+                    Close
+                </div>
+            </footer>
+        </div>
+	</t>
+</templates>

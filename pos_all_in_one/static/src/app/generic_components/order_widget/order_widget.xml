@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+    <t t-name="OrderWidget" t-inherit="point_of_sale.OrderWidget" t-inherit-mode="extension" owl="1">
+        <xpath expr="//div[hasclass('order-container')]" position="after">
+            <t t-if="env.services.pos.mainScreen.component.name == 'ProductScreen'">
+                <t t-if="partner and loyalty_points">
+                    <div class='loyalty-items' style="padding-bottom: 10px;padding-left: 15px;"><i><b style="font-weight: bold;color: #017e84;font-size: 20px;">
+                        + <span><t t-out="loyalty_points"/></span> Loyalty Points. Total:<span><t t-out="(temp_loyalty_point).toFixed(2)"/></span></b></i>
+                    </div>
+                </t>
+            </t>
+        </xpath>
+    </t>
+</templates>
+    

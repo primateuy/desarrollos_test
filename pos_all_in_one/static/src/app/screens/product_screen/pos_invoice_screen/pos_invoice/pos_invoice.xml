@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="pos_all_in_one.POSInvoice" owl="1">
+        <tr t-attf-class="partner-line {{highlight}}" t-att-data-id="props.order.id"
+            t-on-click="() => this.props.onClickPosOrder(props.order)">
+            <td class='order-name' t-att-data-id='props.order.id'>
+                <t t-out='props.order.name' />
+            </td>
+            <td class='order-partner' t-att-data-id='props.order.id'>
+                <t t-out='props.order.partner_id[1] or ""' />
+            </td>
+            <td class='order-date' t-att-data-id='props.order.id'>
+                <t t-if="pos.currency.id == props.order.currency_id[0]">
+                    <t t-out='env.utils.formatCurrency(props.order.amount_total)' />    
+                </t>
+                <t t-else="">
+                    <t t-foreach="pos.poscurrency" t-as="curr" t-key="curr.id">
+
+                        <t t-if="curr.id == props.order.currency_id[0]">
+                            <t t-if="curr.position == 'after'">
+                                <t t-out="(props.order.amount_total).toFixed(2)"/><t t-out="curr.symbol"/>
+                            </t>
+                            <t t-else="">
+                                <t t-out="curr.symbol"/><t t-out="(props.order.amount_total).toFixed(2)"/>
+                            </t>
+                        </t>
+                    </t> 
+                </t>
+            </td>
+            <td class='order-tot' t-att-data-id='props.order.id'>
+                <t t-if="pos.currency.id == props.order.currency_id[0]">
+                    <t t-out='env.utils.formatCurrency(props.order.amount_residual)' /> 
+                </t>
+                <t t-else="">
+                    <t t-foreach="pos.poscurrency" t-as="curr" t-key="curr.id">
+
+                        <t t-if="curr.id == props.order.currency_id[0]">
+                            <t t-if="curr.position == 'after'">
+                                <t t-out="(props.order.amount_residual).toFixed(2)"/><t t-out="curr.symbol"/>
+                            </t>
+                            <t t-else="">
+                                <t t-out="curr.symbol"/><t t-out="(props.order.amount_residual).toFixed(2)"/>
+                            </t>
+                        </t>
+                    </t> 
+                </t>
+            </td>
+            <td class='order-state' t-att-data-id='props.order.id'>
+                <t t-if="props.order.state == 'draft'">Draft/New</t>
+                <t t-if="props.order.state == 'posted'">Posted</t>
+                <t t-if="props.order.state == 'cancel'">Cancelled</t>
+            </td>
+            <td class='order-payment-state' t-att-data-id='props.order.id'>
+                <t t-if="props.order.payment_state == 'not_paid'">Not Paid</t>
+                <t t-if="props.order.payment_state == 'in_payment'">In Payment</t>
+                <t t-if="props.order.payment_state == 'paid'">Paid</t>
+                <t t-if="props.order.payment_state == 'partial'">Partially Paid</t>
+                <t t-if="props.order.payment_state == 'reversed'">Reversed</t>
+                <t t-if="props.order.payment_state == 'invoicing_legacy'">Invoicing App Legacy</t>
+            </td>
+        </tr>
+    </t>
+</templates>

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+    <t t-name="ProductCard" t-inherit="point_of_sale.ProductCard" t-inherit-mode="extension" owl="1">
+        <xpath expr="//div[hasclass('product-img')]" position="inside">
+            <t t-if="env.services.pos.config.display_stock">
+                <t t-set="product_data" t-value="pos.db.product_by_id[props.productId]"/>
+                <t t-if="product_data.detailed_type == 'product'">
+                    <t t-if="env.services.pos.config.pos_stock_type == 'onhand'">
+                        <t t-if="env.services.pos.config.stock_position == 'top_left'">
+                            <t t-if="product_data.image_128">
+                                <t t-if="product_data.bi_on_hand > 0">
+                                    <span class="qty-left-label" id="stockqty" >
+                                        <t t-out="product_data.bi_on_hand"/>
+                                    </span>
+                                </t>
+                                <t t-else="">
+                                    <span class="qty-left-label out-of-stock-qty" >
+                                        <t t-out="product_data.bi_on_hand"/>
+                                    </span>
+                                </t>
+                            </t>
+                            <t t-else="">
+                                <t t-if="product_data.bi_on_hand > 0">
+                                    <span class="qty-image-label" id="stockqty" >
+                                        <t t-out="product_data.bi_on_hand"/>
+                                    </span>
+                                </t>
+                                <t t-else="">
+                                    <span class="qty-image-label out-of-stock-qty" >
+                                        <t t-out="product_data.bi_on_hand"/>
+                                    </span>
+                                </t>
+                            </t>
+                        </t>
+                        <t t-if="env.services.pos.config.stock_position == 'top_right'">
+                            <t t-if="product_data.bi_on_hand > 0">
+                                <span class="qty-tright-label" id="stockqty" >
+                                    <t t-out="product_data.bi_on_hand"/>
+                                </span>
+                            </t>
+                            <t t-else="">
+                                <span class=" qty-tright-label out-of-stock-qty" >
+                                    <t t-out="product_data.bi_on_hand"/>
+                                </span>
+                            </t>
+                        </t>
+                        <t t-if="env.services.pos.config.stock_position == 'bottom_right'">
+                            <t t-if="product_data.bi_on_hand > 0">
+                                <span class="qty-bright-label" id="stockqty" >
+                                    <t t-out="product_data.bi_on_hand"/>
+                                </span>
+                            </t>
+                            <t t-else="">
+                                <span class="qty-bright-label out-of-stock-qty" >
+                                    <t t-out="product_data.bi_on_hand"/>
+                                </span>
+                            </t>
+                        </t>
+                    </t>
+                    <t t-if="env.services.pos.config.pos_stock_type == 'available'">
+                        <t t-if="env.services.pos.config.stock_position == 'top_left'">
+                            <t t-if="product_data.image_128">
+                                <t t-if="product_data.bi_available > 0">
+                                    <span class="qty-left-label" id="availqty">
+                                        <t t-out="product_data.bi_available"/>
+                                    </span>
+                                </t>
+                                <t t-else="">
+                                    <span class="qty-left-label out-of-stock-qty" id="availqty">
+                                        <t t-out="product_data.bi_available"/>
+                                    </span>
+                                </t>
+                            </t>
+                            <t t-else="">
+                                <t t-if="product_data.bi_available > 0">
+                                    <span class="qty-image-label" id="availqty">
+                                        <t t-out="product_data.bi_available"/>
+                                    </span>
+                                </t>
+                                <t t-else="">
+                                    <span class="qty-image-label out-of-stock-qty" id="availqty">
+                                        <t t-out="product_data.bi_available"/>
+                                    </span>
+                                </t>
+                            </t>
+                        </t>
+                        <t t-if="env.services.pos.config.stock_position == 'top_right'">
+                            <t t-if="product_data.bi_available > 0">
+                                <span class="qty-tright-label" id="availqty">
+                                    <t t-out="product_data.bi_available"/>
+                                </span>
+                            </t>
+                            <t t-else="">
+                                <span class="qty-tright-label out-of-stock-qty" id="availqty">
+                                    <t t-out="product_data.bi_available"/>
+                                </span>
+                            </t>
+                        </t>
+                        <t t-if="env.services.pos.config.stock_position == 'bottom_right'">
+                            <t t-if="product_data.bi_available > 0">
+                                <span class="qty-bright-label" id="availqty">
+                                    <t t-out="product_data.bi_available"/>
+                                </span>
+                            </t>
+                            <t t-else="">
+                                <span class="qty-bright-label out-of-stock-qty" id="availqty">
+                                    <t t-out="product_data.bi_available"/>
+                                </span>
+                            </t>
+                        </t>
+                    </t>
+                </t>
+            </t>
+        </xpath>
+    </t>
+</templates>
+    

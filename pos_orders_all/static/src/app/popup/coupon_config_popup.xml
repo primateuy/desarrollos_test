@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="pos_orders_all.CouponConfigPopup">
+        <div class="popup popup-import">
+            <div class="modal-header">
+                <h4 class="modal-title title drag-handle">
+                    Coupon Options
+                </h4>
+            </div>
+            <main class="body modal-body">
+                <div class="main_div_pos_session d-flex">
+                    <div class="creat_coupon left" t-on-click="create_coupon">
+                        <div class="left_wrapper" style="max-width: 43%;margin: 0px 10px;">
+                            <div class="left_img" style="opacity: 0.5;">
+                                <img src="/pos_orders_all/static/src/img/create_coupon.png" style="max-width: 100%;"/>
+                            </div>
+                            <span class="text-center">Create Coupon</span>
+                        </div>
+                    </div>
+                    <div class="select_coupon right" t-on-click="select_coupon">
+                        <div class="right_wrapper" style="max-width: 43%;margin: 0px 10px;">
+                            <div class="right_img" style="opacity: 0.5;">
+                                <img src="/pos_orders_all/static/src/img/apply_coupon.png" style="max-width: 100%;"/>
+                            </div>
+                            <span class="text-center">Select Coupon</span>
+                        </div>
+                    </div>
+                </div>
+            </main>
+            <footer class="footer modal-footer">
+                <div class="button cancel btn btn-lg btn-primary" t-on-click="cancel">
+                    Close
+                </div>
+            </footer>
+        </div>
+    </t>
+
+</templates>

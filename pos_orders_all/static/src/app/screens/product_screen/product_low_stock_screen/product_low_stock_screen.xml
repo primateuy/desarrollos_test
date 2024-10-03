@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="pos_orders_all.LowStockProducts">
+        <div class="partnerlist-screen screen h-100 d-flex flex-column bg-100">
+            <div class="top-content d-flex align-items-center p-2 border-bottom text-center">
+                <div class="button back btn btn-lg btn-secondary mx-2" t-on-click="back" style="color: #FFFFFF !important;background-color: #71639e !important;border-color: #71639e !important;">
+                    <i t-if="ui.isSmall" class="fa fa-angle-double-left"/>
+                    <t t-else=""> Discard</t>
+                </div>
+            </div>
+            <section class="overflow-auto">
+                 <table class="partner-list table table-striped w-100">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Quantity</th>
+                        </tr>
+                    </thead>
+                    <tbody class="partner-list-contents">
+                        <t t-foreach="low_products" t-as="l_product"
+                            t-key="l_product['id']">
+                            <LowStockLine product="l_product"/>
+                        </t>
+                    </tbody>
+                 </table>
+            </section>
+        </div>
+    </t>
+</templates>

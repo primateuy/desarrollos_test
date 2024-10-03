@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template>			
+	<t t-name="pos_all_in_one.ProductProduct" owl="1">
+		<div class='productt-list-container'>
+			<div class="productt-list-scroller touch-scrollable  scrollable-y">
+				<div class="productt-list">
+				</div>
+			</div>
+			<span class="placeholder-ScrollbarWidget" />
+		</div>
+	</t>
+</template>

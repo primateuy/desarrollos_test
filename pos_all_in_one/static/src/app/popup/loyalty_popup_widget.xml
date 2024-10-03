@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="pos_loyalty_odoo_template" inherit_id="point_of_sale.template" xml:space="preserve">
+	<t t-name="pos_all_in_one.LoyaltyPopupWidget" owl="1">
+		<div class="popup popup-textinput">
+			<div class="modal-header">
+                <h4 class="modal-title">Loyalty Reedemption</h4>
+            </div>
+
+            <div class="modal-body">
+                <p class="body">
+                    <div>
+						<p style="color: #875a7b;">Hello <b><t t-out="props.partner.name"/> !!! </b></p>
+						<p style="color: #875a7b;">Your Loyalty Points: <b><t t-out="(props.partner.loyalty_points1).toFixed(2)"/></b>Point(s) </p>
+						<p  style="color: #875a7b;">Your Loyalty Balance: 
+							<b><t t-out="env.utils.formatCurrency(props.partner.loyalty_amount)"/></b>
+						</p>
+						<div>
+							<p style="color: #875a7b;">Enter number of points to Redeem: </p>
+							<input id ="entered_item_qty" type="text" placeholder="Enter points to redeem" class="input-field" name="code"></input>
+						</div>
+					</div>
+                </p>
+            </div>
+
+            <div class="footer footer-flex modal-footer">
+                <div class="button confirm highlight btn btn-lg btn-primary" t-on-click="redeemPoints">
+                    Reedem Now 
+                </div>
+                <div class="button cancel btn btn-lg btn-secondary" t-on-click="cancel">
+                    Close
+                </div>
+            </div>
+		</div>
+	</t>	 
+</templates>

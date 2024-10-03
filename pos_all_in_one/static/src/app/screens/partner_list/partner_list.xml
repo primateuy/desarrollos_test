@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="BiPartnerListScreen" t-inherit="point_of_sale.PartnerListScreen" t-inherit-mode="extension" owl="1">
+        <xpath expr="//table//thead//tr" position="inside">
+            <th>Loyalty Points</th>
+        </xpath>
+
+        <xpath expr="//tbody[hasclass('partner-list-contents')]" position="replace">
+            <t t-if="env.services.pos.config.allow_pos_payment">
+                <tbody class="partner-list-contents">
+                    <t t-foreach="partners" t-as="partner" t-key="partner.id">
+                        <PartnerLine partner="partner"
+                            selectedPartner="state.selectedPartner"
+                            detailIsShown="state.detailIsShown"
+                            isBalanceDisplayed="isBalanceDisplayed"
+                            onClickEdit.bind="editPartner"
+                            onRegisterPayment.bind="registerPayment"
+                            onClickPartner.bind="clickPartner"
+                            config="pos.config.show_order"
+                            onClickShowOrder.bind="showOrders"
+                            />
+                    </t>
+                </tbody>
+            </t>
+            <t t-else="">
+                <tbody class="partner-list-contents">
+                    <t t-foreach="partners" t-as="partner"
+                        t-key="partner.id">
+                        <PartnerLine partner="partner"
+                            selectedPartner="state.selectedPartner"
+                            detailIsShown="state.detailIsShown"
+                            isBalanceDisplayed="isBalanceDisplayed"
+                            onClickEdit.bind="editPartner"
+                            onClickPartner.bind="clickPartner"
+                            />
+                    </t>
+                </tbody>
+            </t>
+        </xpath>
+    </t>
+</templates>

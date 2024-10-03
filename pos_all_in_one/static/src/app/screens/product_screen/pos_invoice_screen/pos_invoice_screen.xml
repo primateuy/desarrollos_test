@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="pos_all_in_one.POSInvoiceScreen" owl="1">
+        <div class="partnerlist-screen screen h-100 d-flex flex-column bg-100">
+            <div class="top-content d-flex align-items-center p-2 border-bottom text-center">
+                
+                <div class="button back btn btn-lg btn-secondary mx-2" t-on-click="back">
+                    <i t-if="ui.isSmall" class="fa fa-angle-double-left"/>
+                    <t t-else=""> Discard</t>
+                </div>
+            </div>
+
+            <section class="overflow-auto">
+                <table class="partner-list table table-striped w-100">
+                    <thead>
+                        <tr>
+                            <th class="order_ref">Invoice</th>
+                            <th class="receipt_ref">Customer Ref</th>
+                            <th class="order_cstmr">Total Amount</th>
+                            <th class="order_date">Due Amount</th>
+                            <th class="order_state">State</th>
+                            <th class="order_state">Payment State</th>
+                        </tr>
+                    </thead>
+                    <tbody class="posorders-list-contents">
+                        <t t-if="!invoices">
+                            <tr>
+                                <td>Loading....</td>
+                            </tr>
+                        </t>
+                        <t t-foreach="invoices" t-as="order"
+                           t-key="order.id">
+                            <POSInvoice order="order" selectedPosOrder="state.selectedPosOrder" onClickPosOrder.bind="clickPosOrder" />
+                        </t>
+                    </tbody>
+                </table>
+            </section>
+        </div>
+    </t>
+</templates>

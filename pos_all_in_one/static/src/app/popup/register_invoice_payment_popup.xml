@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template>
+    <t t-name="pos_all_in_one.RegisterInvoicePaymentPopupWidget" owl="1">
+		<div class="popup">
+            <div class="modal-header">
+                <h4 class="modal-title">Register Payment for the Invoice and Validate</h4>
+            </div>
+	
+			<div class="modal-body">
+				<p>Enter Payment Details Here</p><br/>
+				<div style="text-align: left; margin-left: 37px;">
+					<label style="text-align:left"> Payment Journal:  </label>
+					<select id="payment_type1" class='detail' name='type' style="height: 35px;width: 59%;float: right;   margin-right: 6%;">
+						<t t-foreach='pos.account_journal' t-as='jrn' t-key='jrn.id'>
+							<option t-att-value='jrn.id'> 
+								<t t-out='jrn.name'/>
+							</option>
+						</t>
+					</select>
+				</div><br/>
+				<div style="text-align: left; margin-left: 37px;">
+					<label style="text-align:left"> Amount:  </label><input id ="entered_amount1" type="number" class="input-field" name="code" style="height: 35px;width: 59%;float: right;   margin-right: 6%;"></input>
+				</div><br/>
+				<div style="text-align: left; margin-left: 37px;margin-top: 2%;">
+					<label style="text-align:left"> Payment Note:  </label><input id ="entered_note1" type="text" class="input-field" name="code" style="height: 35px;width: 59%;float: right;   margin-right: 6%;"></input>
+				</div>
+			</div>
+
+			<footer class="footer modal-footer">
+            	<button class="button btn btn-lg btn-primary"
+                    t-on-click="register_payment"
+                    >
+                    Create
+                </button>
+
+				<button class="button cancel btn btn-lg btn-primary" id="cancel_coupon_code" t-on-click="cancel">
+					Cancel
+				</button>
+
+            </footer>
+		</div>
+	</t>
+</template>

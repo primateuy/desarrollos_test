@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="pos_orders_all.PosOrdersScreen">
+        <div class="splitbill-screen screen h-100 bg-100">
+            <div class="contents d-flex flex-column flex-nowrap h-100 my-0 mx-auto">
+                <div class="top-content d-flex gap-2 align-items-center p-2 border-bottom text-center">
+                    <button class="button back btn btn-lg btn-outline-primary" t-on-click="back">
+                        <i class="fa fa-angle-double-left me-2"></i>
+                        <span>Discard</span>
+                    </button>
+                    <button class="button back btn btn-lg btn-outline-primary" t-on-click="refresh_orders">
+                        <i class="fa fa-refresh"></i>
+                    </button>
+                    <div class="top-right-buttons d-flex gap-2 w-100 justify-content-end" style="width: 80% !important;">
+                        <div class="search-bar-container sb-partner d-flex align-items-center w-100 w-md-70 w-lg-50 h-100 h-100" t-if="!state.detailIsShown">
+                            <div class="input-group h-100">
+                                <div class="pos-search-bar form-control d-flex align-items-center bg-view">
+                                    <i class="oi oi-search me-2"/>
+                                    <input class="flex-grow-1 w-auto h-100 border-0 p-2 me-4" type="text" autofocus="autofocus" t-ref="search-word-input-pos-order" placeholder="Search Orders" size="1" t-on-keyup="updateOrderList" />      
+                                    <i class="fa fa-times position-absolute end-0 me-2 pe-1 cursor-pointer" t-on-click="_clearSearch"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <section class="overflow-auto">
+                    <table class="partner-list table table-striped w-100">
+                        <thead>
+                            <tr>
+                                <th class="order_ref">Order Ref</th>
+                                <th class="receipt_ref">Receipt Ref</th>
+                                <th class="order_cstmr">Customer</th>
+                                <th class="order_date">Order Date</th>
+                                <th class="order_total">Total</th>
+                                <th class="order_state">State</th>
+                                <th class="reorder">Re-Order</th>
+                                <th class="returnorder">Return-Order</th>
+                                <th class="reprint">Receipt</th>
+                            </tr>
+                        </thead>
+                        <tbody class="partner-list-contents">
+                            <t t-if="!pos_orders">
+                                <tr>
+                                    <td>Loading....</td>
+                                </tr>
+                            </t>
+
+                            <t t-foreach="pos_orders" t-as="order" t-key="order.id">
+                                <PosOrdersLine 
+                                    order="order" 
+                                    selectedPosOrder="state.selectedPosOrder"
+                                    onClickPosOrder.bind="clickPosOrder"
+                                    onClickReOrder.bind="clickReOrder"
+                                    onClickReturnOrder.bind="clickReturnOrder"
+                                    onClickRePrint.bind="clickReprint" />
+                            </t>
+                        </tbody>
+                    </table>
+                </section>
+            </div>
+        </div>
+    </t>
+
+</templates>

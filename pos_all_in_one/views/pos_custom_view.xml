@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<record model="ir.ui.view" id="bi_pos_pay_later">
+	        <field name="name">res.config.setting.form.extended.view</field>
+	        <field name="model">res.config.settings</field>
+	        <field name="inherit_id" ref="point_of_sale.res_config_settings_view_form"/>
+	        <field name="arch" type="xml">
+	            <xpath expr="//block[@id='pos_interface_section']" position="before">
+	                <h2 name="pos_interface">POS Pay Later Configuration</h2>
+	                <div class="row mt16 o_settings_container">
+	                    <div class="col-12 col-lg-6 o_setting_box">
+	                    	<div class="o_setting_left_pane">
+                                <field name="allow_partical_payment"/>
+                            </div>
+	                        <div class="o_setting_right_pane">
+	                        	<label for="allow_partical_payment"/>
+	                            <div>
+	                                <div class="text-muted">
+                                        Select Product
+                                    </div>
+	                                <div class="content-group mt16" invisible="allow_partical_payment == False">
+	                                    <field name="partial_product_id" colspan="4" nolabel="1" required="allow_partical_payment == True"/>
+	                                </div>
+	                            </div>
+	                        </div>
+	                    </div>
+	                </div>
+	            </xpath>
+	        </field>
+	    </record>
+
+		<record model="ir.ui.view" id="pos_sale_order_discount_type">
+			<field name="name">pos.order.view.discount.form</field>
+			<field name="model">pos.order</field>
+			<field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='partner_id']" position="after">
+					<field name="is_partial" invisible="1"/>
+					<field name="amount_due" invisible="1"/>
+					<field name="amount_paid"  invisible="1"/>
+				</xpath>
+				<xpath expr="//field[@name='company_id']" position="after">
+					<field name="location_id" invisible="1"/>
+				</xpath>
+			</field>
+		</record>
+	</data>
+</odoo>

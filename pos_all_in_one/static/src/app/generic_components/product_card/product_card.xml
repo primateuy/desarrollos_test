@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template>
+	<t t-name="BiProductCard" t-inherit="point_of_sale.ProductCard" t-inherit-mode="extension" owl="1">
+		<xpath expr="//div[hasclass('product-content')]" position="replace">
+			 <div class="product-content d-flex flex-column justify-content-between h-100 mx-2 py-1">
+				<t t-set="count" t-value="pos.db.product_by_id[props.productId]"/>
+				<t t-if="env.services.pos.config.allow_product_variants">
+					<t t-if="count.product_variant_count > 1">
+						<div class="overflow-hidden lh-sm fw-bolder product-name"
+							t-att-class="{'no-image': !props.imageUrl}" 
+							t-attf-id="article_product_{{props.productId}}"
+							t-out="count.name" />
+					</t>
+					<t t-else="">
+						<t t-out="props.name" />
+					</t>
+					<span t-if="props.price" class="price-tag text-primary py-1 fw-bolder" />
+		  
+					<t t-if="count.product_variant_count > 1">
+						<t t-out="count.product_variant_count"/> Variants
+					</t>
+					<t t-else="">
+						<t t-out="props.price" />
+					</t>
+				</t>
+				<t t-else="">
+					<div class="product-content d-flex flex-column justify-content-between h-100 mx-2 py-1">
+					<div class="overflow-hidden lh-sm fw-bolder product-name"
+						t-att-class="{'no-image': !props.imageUrl}" 
+						t-attf-id="article_product_{{props.productId}}"
+						t-out="props.name" />
+					<span t-if="props.price" class="price-tag text-primary py-1 fw-bolder"
+						t-out="props.price" />
+					</div>
+				</t>
+			</div>
+		</xpath>
+	</t>
+</template>

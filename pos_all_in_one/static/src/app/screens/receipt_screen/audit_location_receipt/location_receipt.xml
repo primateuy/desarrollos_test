@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>	
+<templates id="audit_reports_template" inherit_id="point_of_sale.template" xml:space="preserve">
+	<t t-name="pos_all_in_one.LocationReceipt" owl="1">
+		<div class="pos-receipt">
+			<t t-set="obj" t-value="props.order"/>
+				<img t-attf-src="/web/image?model=res.company&amp;id={{pos.company.id}}&amp;field=logo" alt="Logo" class="pos-receipt-logo"/>
+	        <br/>
+			<div class="pos-receipt-contact">
+				<t t-if='pos.company.contact_address'>
+					<div><t t-out='pos.company.contact_address' /></div>
+				</t>
+				<t t-if='pos.company.phone'>
+					<div>Tel:<t t-out='pos.company.phone' /></div>
+				</t>
+				<t t-if='pos.company.vat'>
+					<div>VAT:<t t-out='pos.company.vat' /></div>
+				</t>
+				<t t-if='pos.company.email'>
+					<div><t t-out='pos.company.email' /></div>
+				</t>
+				<t t-if='pos.company.website'>
+					<div><t t-out='pos.company.website' /></div>
+				</t>
+				<br/>
+				
+				<t t-if='pos.get_cashier()'>
+					<div class='cashier'>
+						<div>--------------------------------</div>
+						<div>Served by <t t-out='pos.get_cashier().name' /></div>
+					</div>
+				</t>
+			</div>
+			<br />
+			<t t-if="obj.ssn">
+				<div class="pos-receipt-center-align">
+					<strong>Session Summary</strong>
+				</div><br />
+			</t>
+
+			<t t-if="!obj.ssn">
+				<div class="pos-receipt-center-align">
+					<strong>Location Summary</strong>
+				</div><br />
+			</t>
+			<br />
+			<table class='orderlines' style="margin: 0px auto;">
+				<colgroup>
+					<col width='40%' />
+					<col width='30%' />
+					<col width='30%' />
+				</colgroup>
+				<thead>
+					<tr style="border-bottom: 2px solid black;">
+						<th>Product</th>
+						<th style="text-align: center;">Sold qty</th>
+						<th class="pos-receipt-right-align">Available qty</th>
+					</tr>
+				</thead>
+				<tbody>
+				<tr t-foreach="obj.loc_summery" t-as="product" t-key="product">
+
+					<td style="float: left;">
+						<t t-out="product"/>	 
+					</td>
+					<td class="text-center">
+						<t t-out="obj.loc_summery[product]['qty']"/>
+					</td>
+					<td  style="text-align: center;">
+						<t t-out="obj.loc_summery[product]['avail_qty']"/>
+					</td>
+				</tr>
+				</tbody>
+			</table>
+			<hr style="border-bottom: 2px solid black;"/>
+		</div>
+	</t>
+</templates>

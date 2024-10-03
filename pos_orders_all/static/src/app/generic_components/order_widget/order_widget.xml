@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+    <t t-name="OrderWidget" t-inherit="point_of_sale.OrderWidget" t-inherit-mode="extension" owl="1">
+        <xpath expr="//div[hasclass('order-summary')]" position="after">
+            <t t-if="env.services.pos.mainScreen.component">
+                <t t-if="env.services.pos.mainScreen.component.name == 'ProductScreen'">
+                    <t t-set="qty" t-value=" get_total_qty()"/>
+                    <div class='items bg-100' style="padding-bottom: 10px; padding-left: 15px;padding-right: 15px;">
+                        <i>
+                            <b style="font-weight: bold; color: #0075AC;font-size: 20px;">Total Items: 
+                                <span><t t-out="qty"/></span>
+                            </b>
+                        </i>
+                    </div>
+                </t>
+            </t>
+        </xpath>
+    </t>
+</templates>
+    

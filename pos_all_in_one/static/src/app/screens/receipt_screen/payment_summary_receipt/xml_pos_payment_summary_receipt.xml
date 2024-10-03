@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	
+<templates id="payment_reports_template" inherit_id="point_of_sale.template" xml:space="preserve">
+	<t t-name="pos_all_in_one.XMLPosPaymentSummaryReceipt" owl="1">
+		<div class="pos-receipt">
+			<t t-set="obj" t-value="props.order"/>
+ 			<img t-attf-src="/web/image?model=res.company&amp;id={{pos.company.id}}&amp;field=logo" alt="Logo" class="pos-receipt-logo"/>
+			<br/>
+			<div class="pos-receipt-contact">
+				<t t-if='pos.company.phone'>
+					<div><t t-out='pos.company.phone' /></div>
+				</t>
+				<t t-if='pos.company.phone'>
+					<div>Tel:<t t-out='pos.company.phone' /></div>
+				</t>
+				<t t-if='pos.company.vat'>
+					<div>VAT:<t t-out='pos.company.vat' /></div>
+				</t>
+				<t t-if='pos.company.email'>
+					<div><t t-out='pos.company.email' /></div>
+				</t>
+				<t t-if='pos.company.website'>
+					<div><t t-out='pos.company.website' /></div>
+				</t>
+				<br/>
+				
+				<t t-if='pos.get_cashier()'>
+					<div class='cashier'>
+						
+						<div>Served by <t t-out='pos.get_cashier().name' /></div>
+					</div>
+				</t>
+			</div>
+			<br />
+			<t t-if="obj">
+				<t t-if="!obj.is_current_session">
+					<div class="receipt-periods">
+						Start Date: <span style="float:right;" t-out="obj.st_date_pay"/>
+					</div>
+					<div class="receipt-periods">
+						End Date: <span style="float:right;" t-out="obj.ed_date_pay"/>
+					</div>
+				</t>
+				<br/>
+				<t t-if="obj.smry_payment == 'Salespersons'">
+					<span style="text-align: center;"><h3>Payment Summary </h3></span>
+					<span style="text-align: center;"><h4>Salesperson:<t t-out="pos.get_cashier().name"/></h4></span>
+				</t>
+				<t t-if="obj.smry_payment == 'Journals'">
+					<span style="text-align: center;"><h3>Journal Summary </h3></span>
+				</t>
+				<t t-set="a" t-value="0"/>
+				<t t-foreach="obj.pay_summary" t-as="pay" t-key="a" >
+				<t t-set="a" t-value="a + 1"/>
+				<div class="receipt-periods-month">
+					<t t-if="pay">
+						<div style="text-align: center;">
+							<strong>Month: <span  t-out="pay[0]"/></strong>
+						</div>
+					</t>
+					<table class='receipt-orderlines' style="margin: 0px auto;margin-top:15px;min-width: 80%;">
+						<colgroup>
+							<col width='50%' />
+							<col width='50%' />
+						</colgroup>
+						<thead style="border-bottom:2px solid black;padding-bottom:5px;">
+							<th class="text-center">Journal</th>
+							<th class="pos-receipt-right-align">Amount</th>
+						</thead>
+						<tbody>
+							<t t-set="total" t-value="0"/>
+							<t t-set="c" t-value="0"/>
+							<t t-foreach="pay[1]" t-as="lines" t-key="c">
+								<t t-set="c" t-value="c + 1"/>
+								<t t-foreach="lines" t-as="jrnl" t-key="jrnl">
+									<tr>
+										<td style="padding:5px 0;">
+											<span t-out="jrnl"/>
+										</td>
+										<td class="pos-receipt-right-align">
+											<span t-out="env.utils.formatCurrency(lines[jrnl])"/>
+											<t t-set="total" t-value="total + lines[jrnl]"/>
+										</td>
+									</tr>
+								</t>
+							</t>
+							<tr t-if="obj.final_total" style="border-top:2px solid black;">
+								<td style="padding:5px 0;">
+									<strong>Total</strong>
+								</td>
+								<td class="pos-receipt-right-align">
+									<value><span t-out="env.utils.formatCurrency(total)"/></value>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				<br/><br/>
+				</div>
+			</t>
+				<span style="text-align: center;"><h3>Total Summary </h3></span>
+				<table  class='receipt-orderlines' style="margin: 0px auto;margin-top:15px;min-width: 80%;">
+				<colgroup>
+					<col width='50%' />
+					<col width='50%' />
+				</colgroup>
+				<thead style="border-bottom:2px solid black;padding-bottom:5px;">
+					<th class="text-center">Journal</th>
+					<th class="pos-receipt-right-align">Amount</th>
+				</thead>
+				<tbody>
+					<t t-set="fn_total" t-value="0"/>
+					<t t-set="b" t-value="0"/>
+					<tr t-foreach='obj.payments' t-as='payment' t-key="b">
+						<t t-set="b" t-value="b + 1"/>
+						<td style="padding:5px 0;"><t t-out="payment['coalesce']" /></td>
+						<td class="pos-receipt-right-align">
+							<value><span t-out="env.utils.formatCurrency(payment['total'])"/></value>
+						</td>
+						<t t-set="fn_total" t-value="fn_total + payment['total']"/>
+					</tr>
+					<tr style="border-top:2px solid black;">
+						<td style="padding:5px 0;"></td>
+						<td class="pos-receipt-right-align">
+							<value><span t-out="env.utils.formatCurrency(fn_total)"/></value>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			</t>
+		</div>
+	</t>
+</templates>

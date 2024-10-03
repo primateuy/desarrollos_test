@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="pos_all_in_one.PosProductScreen" owl="1">
+        <div class="partnerlist-screen screen h-100 d-flex flex-column bg-100">
+            <div class="top-content d-flex align-items-center p-2 border-bottom text-center">
+                <div class="button back btn btn-lg btn-secondary mx-2" t-on-click="back">
+                    <i t-if="env.isSmall" class="fa fa-angle-double-left"/>
+                    <t t-else=""> Discard</t>
+                </div>
+                <div class="button refresh-order" t-on-click="refresh_orders">
+                    <i class='fa fa-refresh'></i>
+                </div>
+                <t t-if= "pos.config.allow_edit_product">
+                    <div class="button back btn btn-lg btn-primary mx-2" t-on-click="create_order">
+                        Create
+                    </div>
+                </t>
+                <div class="top-right-buttons d-flex gap-2 w-100 justify-content-end">
+                    <div class="search-bar-container sb-partner d-flex align-items-center w-100 w-md-70 w-lg-50 h-100 h-100" t-if="!state.detailIsShown">
+                            <div class="input-group h-100">
+                                <div class="pos-search-bar form-control d-flex align-items-center bg-view">
+                                    <i class="oi oi-search me-2" t-on-click="_onPressEnterKey"/>
+                                    <input class="flex-grow-1 w-auto h-100 border-0 p-2 me-4" type="text" autofocus="autofocus" t-ref="search-word-input-partner" placeholder="Search products..." size="1" t-on-keyup="updateProductList" />
+                                    <i class="fa fa-times position-absolute end-0 me-2 pe-1 cursor-pointer" t-on-click="_clearSearch"/>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+            <section class="overflow-auto">
+                <table class="partner-list table table-striped w-100">
+                    <thead>
+                        <tr class="odoo-theme-color">
+                            <th class="order_ref">Product Name</th>
+                            <th class="receipt_ref">Product POS Category</th>
+                            <th class="order_cstmr">List Price</th>
+                            <th class="order_date">Cost Price</th>
+                            <th class="order_state">Barcode</th>
+                        </tr>
+                    </thead>
+                    <tbody class="partner-list-contents">
+                        <t t-if="!pos_products">
+                            <tr>
+                                <td>Loading....</td>
+                            </tr>
+                        </t>
+                        <t t-foreach="pos_products" t-as="product"
+                            t-key="product.id">
+
+                            <POSProduct order = "product" selectedPosOrder="state.selectedPosOrder"
+                                                onClickPosOrder.bind="clickPosOrder"/>
+                        </t>
+                    </tbody>
+                </table>
+            </section>
+        </div>
+    </t>
+
+</templates>

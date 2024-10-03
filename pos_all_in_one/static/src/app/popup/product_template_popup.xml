@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template>
+	<t t-name="pos_all_in_one.ProductTemplatePopup" owl="1">		
+		 <div class="popup popup-confirm">
+		 	<header class="title drag-handle modal-header">
+				<h4 class="modal-title">
+					<p style="color: #714b67;font-weight: bold;font-size: 20px; margin-left:155px;">Products Variants</p>
+				</h4>
+			</header>
+			<main class="modal-body">
+				<div style="overflow : auto">
+					<div t-if="props.variant_ids.length != 0" class="product-list {{this.pos.productListViewMode}} p-1" style="max-height: 360px;overflow: auto; display: grid;">
+						<t t-foreach="props.variant_ids" t-as="product" t-key="product.id">
+							<t t-set="count" t-value="pos.db.product_by_id[product.id]"/>
+							<article tabindex="0" class="flex-column product position-relative btn btn-light d-flex align-items-stretch p-0 m-0 text-start cursor-pointer overflow-hidden transition-base " t-on-click="() => this.add_product_variant(product)">
+								<div class="product-img" >
+									<img t-att-src="count.getImageUrl()" t-att-alt="count.display_name"  />
+								</div>
+								<div class="product-content d-flex flex-column justify-content-between h-100 mx-2 py-1">
+									<div class="product-name" style="font-size: 14px;display: flex" t-attf-id="article_product_{{product.id}}">
+										<t t-out="count.display_name" /><br/>
+										<t t-out="env.utils.formatCurrency(count.lst_price)" />
+									</div>					              
+								</div>
+							</article>
+						</t>
+					</div>
+				</div>
+			</main>
+
+			<footer class="footer modal-footer">
+				<div class="button confirm highlight btn btn-lg btn-primary" t-on-click="confirm">
+					<t t-out="props.confirmText" />
+				</div>
+			</footer>
+		</div>			
+	</t>
+</template>

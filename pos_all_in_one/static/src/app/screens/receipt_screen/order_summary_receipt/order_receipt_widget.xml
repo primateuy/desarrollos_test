@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	
+<templates id="order_reports_template" inherit_id="point_of_sale.template" xml:space="preserve">
+	<t t-name="pos_all_in_one.OrderReceiptWidget" owl="1">
+		<div class="receipt-screen screen h-100 bg-100">
+			<div class="screen-content d-flex flex-column h-100">
+				<div class="top-content d-flex align-items-center py-3 border-bottom text-center">
+					<div class="button back btn btn-lg btn-secondary mx-2" t-on-click="back">
+						<i class="fa fa-angle-double-left"></i>
+						<span> </span>
+						<span>Back</span>
+					</div>
+					<div class="top-content-center flex-grow-1">
+						<h1> Order Summary</h1>
+					</div>
+				</div>
+
+
+				<div class="default-view d-flex flex-lg-row flex-column overflow-hidden flex-grow-1">
+                    <div class="actions d-flex flex-column justify-content-between flex-lg-grow-1 flex-grow-0 flex-shrink-1 flex-basis-0">
+                        <div class="d-flex flex-column m-4">
+                            <div class="buttons my-3">
+                                <button class="button print btn btn-lg btn-secondary w-100 py-3" t-on-click="printReceipt">
+                                    <i class="fa fa-print ms-2" t-ref="order-print-receipt-button"></i> Print
+                                </button>
+                            </div>
+                            
+                           
+                        </div>
+                       
+                    </div>
+                    <div class="pos-receipt-container d-flex flex-grow-1 flex-lg-grow-0 user-select-none justify-content-center bg-200 text-center overflow-hidden">
+                        <div class="d-inline-block m-3 p-3 border rounded bg-view text-start overflow-y-auto">
+                            <XMLPosOrderSummaryReceipt order="order_receipt_data"/>
+                        </div>
+                    </div>
+                </div>
+			</div>
+		</div>
+	</t>
+</templates>

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	
+<templates id="order_reports_template" inherit_id="point_of_sale.template" xml:space="preserve">
+	<t t-name="pos_all_in_one.XMLPosOrderSummaryReceipt" owl="1">
+		<div class="pos-receipt">
+
+			<t t-set="obj" t-value="props.order"/>
+			<img t-attf-src="/web/image?model=res.company&amp;id={{pos.company.id}}&amp;field=logo" alt="Logo" class="pos-receipt-logo"/>
+			<br/>
+			<div class="pos-receipt-contact">
+				<t t-if='pos.company.contact_address'>
+					<div><t t-out='pos.company.contact_address' /></div>
+				</t>
+				<t t-if='pos.company.phone'>
+					<div>Tel:<t t-out='pos.company.phone' /></div>
+				</t>
+				<t t-if='pos.company.vat'>
+					<div>VAT:<t t-out='pos.company.vat' /></div>
+				</t>
+				<t t-if='pos.company.email'>
+					<div><t t-out='pos.company.email' /></div>
+				</t>
+				<t t-if='pos.company.website'>
+					<div><t t-out='pos.company.website' /></div>
+				</t>
+				<br/>
+
+				<t t-if='pos.get_cashier()'>
+					<div class='cashier'>
+						<div>Served by <t t-out='pos.get_cashier().name' /></div>
+					</div>
+				</t>
+			</div>
+			<br />
+
+			<t t-if="obj">
+				<t t-if="!obj.order_current_session">
+					<div class="receipt-periods">
+						Start Date: <span style="float:right;" t-out="obj.st_date"/>
+					</div>
+					<div class="receipt-periods">
+						End Date: <span style="float:right;" t-out="obj.ed_date"/>
+					</div>
+				</t>
+				<br/>
+				<div class="pos-receipt-center-align">
+				<strong>Order Summary</strong>
+				</div><br />
+
+				<table class='receipt-orderlines' style="margin: 0px auto;">
+					<colgroup>
+						<col width='25%' />
+						<col width='25%' />
+						<col width='30%' />
+						<col width='20%' />
+					</colgroup>
+					<thead>
+						<tr style="border-bottom: 2px solid black;">
+							<th>Name</th>
+							<th class="pos-receipt-center-align">State</th>
+							<th class="pos-receipt-center-align">Order Date</th>
+							<th class="pos-receipt-right-align">Amount</th>
+						</tr>
+					</thead>
+					<tbody style="font-size:14px;">
+						<t t-set="tot" t-value="0.0"/>
+						<t t-set="a" t-value="0"/>
+						<tr t-foreach="obj.summery" t-as="summery1" t-key="a">
+							<t t-set="a" t-value="a + 1"/>
+							<td>
+								<t t-out="summery1.name"/>
+
+							</td>
+							<td class="pos-receipt-center-align">
+								<t t-out="summery1.state"/>
+							</td>
+							<td class="pos-receipt-center-align">
+								<t t-out="summery1.date"/>
+							</td>
+							<td class="pos-receipt-right-align">
+								<t t-out="env.utils.formatCurrency(summery1.total)"/>
+								<t t-set="tot" t-value="tot + summery1.total" />
+							</td>
+						</tr>
+						<br />
+						<tr>
+							<th style="padding-top: 10px;">Total:</th>
+							<td></td>
+							<td></td>
+							<td class="pos-receipt-right-align" style="padding-top: 10px;">
+								<t t-out="env.utils.formatCurrency(tot)"/>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<br />
+			</t>
+		</div>
+	</t>
+</templates>

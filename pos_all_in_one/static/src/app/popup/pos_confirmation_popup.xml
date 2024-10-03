@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+	<t t-name="pos_all_in_one.PosConfirmationPopup" owl="1">
+		 <div class="popup popup-import">
+            <div class="modal-header">
+                <h4 class="modal-title title drag-handle">
+                     <t t-out="props.title" />
+                </h4>
+            </div>
+            <main class="list-lines" style="font-size: 17px !important; font-weight: 500; !important">
+                Stock Transfer Ref :
+					<h5 t-out="props.transfer_name" t-on-click="transfer_backend_view"
+							style="color: #0075AC;text-align: center;cursor: pointer;"/>
+            </main>
+            <footer class="footer modal-footer">
+                <div class="button cancel btn btn-lg btn-primary" t-on-click="cancel">
+                   Ok
+                </div>
+            </footer>
+        </div>
+	</t>
+
+</templates>

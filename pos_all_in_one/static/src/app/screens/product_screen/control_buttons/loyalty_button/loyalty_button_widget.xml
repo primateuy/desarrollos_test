@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="pos_loyalty_odoo_template" inherit_id="point_of_sale.template" xml:space="preserve">
+	<t t-name="pos_all_in_one.LoyaltyButton">
+		<button class="control-button btn btn-light rounded-0 fw-bolder" t-on-click="() => this.click()">
+			<i class="fa fa-gift"></i>
+			<span> </span>
+			<span>Redeem</span>
+		</button>
+	</t> 
+</templates>

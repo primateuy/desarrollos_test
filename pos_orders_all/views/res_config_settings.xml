@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<record model="ir.ui.view" id="pos_date">
+			<field name="name">pos.order.view.date.form</field>
+			<field name="model">pos.order</field>
+			<field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
+			<field name="arch" type="xml">
+				<field name="pos_reference" position="after">
+					<field string="Barcode" name="barcode"/>
+				</field>
+			</field>
+		</record>
+
+		<record id="product_stock_quant" model="ir.ui.view">
+            <field name="name">product.product.stock.quant.form</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='pos_categ_ids']" position="after">
+                   <field name="stock_quant_ids" readonly="1" invisible="1"/>
+                   <field name="quant_text" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+
+		<record id="res_config_settings_view_form" model="ir.ui.view">
+            <field name="name">res.config.settings.view.form.inherit</field>
+            <field name="model">res.config.settings</field>
+            <field name="inherit_id" ref="point_of_sale.res_config_settings_view_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//block[@id='pos_interface_section']" position="after">
+                    <br/>
+					<h2>Display Orders in POS </h2>
+					<div class="row mt16 o_settings_container" id="session_config">
+						<div id="show_odr" class="col-xs-12 col-md-6 o_setting_box">
+							<div class="o_setting_left_pane">
+								<field name="show_order"/>
+							</div>
+							<div class="o_setting_right_pane">
+								<label for="show_order" string='Show POS Orders in POS'/>
+							</div>
+						</div>
+						<div class="col-xs-12 col-md-6 o_setting_box" invisible="not show_order">
+							<div class="o_setting_right_pane">
+								<label for="pos_pos_session_limit" string="Session Limit Configuration "/>
+								<div class="text-muted">
+									Set session limit to load pos orders. If you have more than 1000 orders, then we recommend not to use "Load all" option.
+								</div>
+								<div class="content-group mt16">
+									<field name="pos_pos_session_limit" required="not show_order"/>
+								</div>
+							</div>
+						</div>
+						<div id="draft_div" class="col-xs-12 col-md-6 o_setting_box" invisible="not show_order">
+							<div class="o_setting_left_pane">
+								<field name="show_draft"/>
+							</div>
+							<div class="o_setting_right_pane">
+								<label for="show_draft" string='Show Draft Orders'/>
+							</div>
+						</div>	
+						<div id="posted_div" class="col-xs-12 col-md-6 o_setting_box" invisible="not show_order">
+							<div class="o_setting_left_pane">
+								<field name="show_posted"/>
+							</div>
+							<div class="o_setting_right_pane">
+								<label for="show_posted" string='Show Posted Orders'/>
+							</div>
+						</div>
+							
+					</div>
+
+					<h2>Display Barcode in Receipt </h2>
+					<div class="row mt16 o_settings_container" id="session_config">
+						<div id="barcode_div" class="col-xs-12 col-md-6 o_setting_box">
+							<div class="o_setting_left_pane">
+								<field name="show_barcode"/>
+							</div>
+							<div class="o_setting_right_pane">
+								<label for="show_barcode" string='Show Barcode in Receipt'/>
+							</div>
+						</div>		
+					</div>
+					<br/>
+
+					<h2>Import Configuration in POS</h2>
+                    <div class="row mt16 o_settings_container">
+                        <div id="pos_check" class="col-xs-12 col-md-6 o_setting_box">
+                            <div class="o_setting_left_pane">
+                                <field name="pos_check"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="pos_check" string='Import Sale Order'/>
+                            </div>
+                        </div>
+                        <div  class="col-xs-12 col-md-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <label for="pos_load_orders_days" string="Load Orders of Last Days "/>
+                                <field name="pos_load_orders_days"/>
+                            </div>
+                        </div>
+                        <div id="pos_load_draft_sent" class="col-xs-12 col-md-6 o_setting_box">
+                            <div class="o_setting_left_pane">
+                                <field name="pos_load_draft_sent"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="pos_load_draft_sent" string='Load only draft/sent sale orders'/>
+                            </div>
+                        </div>
+                        <div  class="col-xs-12 col-md-6 o_setting_box">
+                            <div class="o_setting_left_pane">
+                                <field name="pos_cancle_order"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="pos_cancle_order" string='Cancel Sale Order after Import'/>
+                            </div>
+                        </div>
+                    </div>
+                </xpath>
+
+                <xpath expr="//block[@id='pos_bills_and_receipts_section']" position="inside">
+                 	<div class="col-xs-12 col-md-6 o_setting_box">
+		                <div class="o_setting_left_pane">
+						</div>
+						<div class="o_setting_right_pane">
+							<label for="credit_note"/>
+							<div class="text-muted">
+								Return order Credit note configuration
+							</div>
+							<div class="content-group mt16">
+								<field name="credit_note" />
+							</div>
+						</div>
+		            </div>
+                </xpath>  
+
+                <xpath expr="//block[@id='pos_accounting_section']" position="inside">
+            		<div class="col-xs-12 col-md-6 o_setting_box">
+						<div class="o_setting_left_pane">
+							<field name="auto_check_invoice"/>
+						</div>
+						<div class="o_setting_right_pane">
+							<label for="auto_check_invoice"/>
+							<div class="text-muted">
+								POS Auto Check Invoice
+							</div>
+						</div>
+					</div>
+                </xpath>
+
+                <xpath expr="//block[@id='pos_accounting_section']" position="after">
+                	<block title="Stock Configuration in POS" id="stock_config">
+                        <setting help="Check this to display stock in pos screen">
+                            <field name="pos_display_stock"/>
+                        </setting>
+                        <setting help="Stock type show up in POS screen.">
+                            <label for="pos_pos_stock_type" string="Stock Type"/>
+                            <div class="text-muted">
+                                Stock type show up in POS screen.
+                            </div>
+                            <field name="pos_pos_stock_type"/>
+                        </setting>
+                        <setting help="Allow pos order when product is out of stock.">
+                            <field name="pos_pos_allow_order"/>
+                        </setting>
+                        <setting help="Deny pos order when product quanity goes down to the entered quantity." invisible="not pos_pos_allow_order">
+                            <field name="pos_pos_deny_order"/>
+                        </setting>
+                        <setting>
+                            <field name="stock_position"/>
+                        </setting>
+                        <setting>
+                            <span class="o_form_label">Color Selection</span>
+                                <div class="w-50 row">
+                                    <span class="d-block w-75 py-2">Background Color</span>
+                                    <field name="color_background" class="d-block w-25 p-0 m-0" widget="color"/>
+                                </div>
+                                <div class="w-50 row mt-1">
+                                    <span class="d-block w-75 py-2">Font Color</span>
+                                    <field name="font_background" class="d-block w-25 p-0 m-0" widget="color"/>
+                                </div>
+                        </setting>
+                        <setting>
+                            <field name="low_stock"/>
+                        </setting>
+                    </block>
+                    <block title="Stock Location Configuration" id="stock_location_config">
+                        <setting id="stock_location">
+                            <label for="show_stock_location"/>
+                            <div class="text-muted">
+                                Product stock location type
+                            </div>
+                            <field name="show_stock_location" class="o_light_label" widget="radio"/>
+                        </setting>
+                        <setting id="stock_location_inventory">
+                            <label for="stock_location_id"/>
+                            <div class="text-muted">
+                                Stock location used for inventory
+                            </div>
+                            <field name="stock_location_id"/>
+                        </setting>
+                    </block>
+                    
+                    <h2>POS Bag Charges </h2>
+					<div class="row mt16 o_settings_container" id="session_config">
+						<div id="bag" class="col-xs-12 col-md-6 o_setting_box">
+							<div class="o_setting_left_pane">
+								<field name="allow_bag_charges"/>
+							</div>
+							<div class="o_setting_right_pane">
+								<label for="allow_bag_charges" />
+							</div>
+						</div>
+						<div class="col-xs-12 col-md-6 o_setting_box" invisible="not allow_bag_charges">
+							<div class="o_setting_right_pane">
+								<label for="pos_pos_bag_category_id"/>
+								<div class="text-muted">
+									Select Bag Category
+								</div>
+								<div class="content-group mt16">
+									<field name="pos_pos_bag_category_id" required="allow_bag_charges"/>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<h2>Discount Configuration in POS</h2>
+	                <div class="row mt16 o_settings_container" id="pos_discoun_section">
+	                    <div class="col-12 col-lg-6 o_setting_box" id="default_sales_tax_setting">
+	                        <div class="o_setting_right_pane">
+	                            <div>
+	                                <label for="discount_type"/>
+	                                <div class="text-muted">
+	                                    Define Discount Type
+	                                </div>
+	                                <div class="content-group mt16">
+	                                    <field name="discount_type" colspan="4" nolabel="1" widget="radio"/>
+	                                </div>
+	                            </div>
+	                        </div>
+	                    </div>
+	                </div>
+                </xpath>              
+            </field>
+        </record>
+	</data>
+</odoo>

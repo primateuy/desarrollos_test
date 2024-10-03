@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="pos_all_in_one.POSProduct" owl="1">
+        <tr t-attf-class="partner-line {{highlight}}" t-att-data-id="props.order.id" t-on-click="() => this.props.onClickPosOrder(props.order)">
+            <td class='order-name'>
+                <t t-out='props.order.display_name' />
+            </td>
+            <td class='order-name'>
+                <t t-if="props.order.pos_categ_ids.length != 0">
+                    <t t-foreach="props.order.pos_categ_ids" t-as="pos_categ" t-key="pos_categ">
+                        <t t-foreach="pos.pos_category" t-as="pos_cat" t-key="pos_cat.id">
+                            <t t-if="pos_cat.id == pos_categ" >
+                                <t t-out='pos_cat.name or ""' />
+                                <br></br>
+                            </t>
+
+                        </t>
+                    </t>
+                </t>
+                <t t-else="">
+                    <t t-out="props.order.categ_store_fields"/>
+                </t>
+            </td>
+            <td class='order-name' >
+                <t t-out='env.utils.formatCurrency(props.order.lst_price or 0.0)' />
+            </td>
+            <td class='order-name'>
+                <t t-out='env.utils.formatCurrency(props.order.standard_price or 0.0)' />
+            </td>
+            <td class='order-name'>
+                <t t-out='props.order.barcode or ""' />
+            </td>
+            
+        </tr>
+    </t>
+
+</templates>

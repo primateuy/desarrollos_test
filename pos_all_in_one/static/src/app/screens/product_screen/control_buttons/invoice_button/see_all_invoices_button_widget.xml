@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>	
+<templates id="categ_reports_template" inherit_id="point_of_sale.template" xml:space="preserve">
+	<t t-name="pos_all_in_one.SeeAllInvoicesButtonWidget"  owl="1">
+		<div class="control-button btn btn-light rounded-0 fw-bolder" t-on-click="() => this.onClickInvoiceCustom()">
+            <i class="fa fa-money"></i>
+			<span> </span>
+			<span>Invoice</span>
+        </div>
+	</t>
+</templates>

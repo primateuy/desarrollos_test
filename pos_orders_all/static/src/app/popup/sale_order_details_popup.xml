@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="pos_orders_all.SaleOrderDetailPopup" owl="1">
+        <div class="popup popup-med"  style="min-width: 70%;">
+            <div class="modal-header">
+                <h4 class="modal-title title drag-handle">
+                    Order Details
+                </h4>
+            </div>
+            <main class="body modal-body">
+                <div class="main_div_pos_session">
+                    <t t-set="order" t-value="props.order || []"/>
+                    <table style='width:100%'>
+                        <tr class="popup-tr">
+                            <td class="text-start" style='width:20%; '><strong>Order Number:</strong>
+                            </td>
+                            <td class="text-start" style='width:30%; '>
+                                <span t-out="order['name']"/>
+                            </td>
+                            <td class="text-start" style='width:20%; '><strong>Order Date:</strong>
+                            </td>
+                            <td class="text-start" style='width:30%; '>
+                                <span t-out="order['date_order']" />
+                            </td>
+                        </tr>
+                        <tr class="popup-tr">
+                            <td class="text-start" style='width:20%; '><strong>Customer:</strong>
+                            </td>
+                            <td class="text-start" style='width:30%; '
+                                t-if="order['partner_id']">
+
+                                <span t-out="order['partner_id'][1] or ''"/>
+
+                            </td>
+                            <td class="text-start" style='width:20%; '><strong>Total Amount:</strong>
+                            </td>
+                            <td class="text-start" style='width:30%; '>
+                                <span t-out="env.utils.formatCurrency(order['amount_total'])" />
+                            </td>
+                        </tr>
+                        <tr class="popup-tr">
+                            <td class="text-start" style='width:20%; '><strong>Company:</strong>
+                            </td>
+                            <td class="text-start" style='width:30%;' t-if="order['company_id']">
+                                <span t-out="order['company_id'][1]"/>
+                            </td>
+                            <td class="text-start" style='width:20%; '><strong>Sale Person:</strong>
+                            </td>
+                            <td class="text-start" style='width:30%;' t-if="order['user_id']">
+                                <span t-out="order['user_id'][1]" />
+                            </td>
+                        </tr>
+                    </table>
+                    <br/>
+                    <table style='width:100%'>
+                        <thead>
+                            <tr class="orderline-table-head">
+                                <th style='width:25%; padding-left: 10px; '>Product</th>
+                                <th style='width:25%; padding-left: 10px; '>Quantity</th>
+                                <th style='width:25%; padding-left: 10px; '>Price</th>
+                                <th style='width:25%; padding-left: 10px; '>Subtotal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="orderline-table" t-foreach="props.orderline || []" t-as="line1" t-key="line1.id">
+                                <td style='width:25%; padding-left: 10px; '><span t-if="line1['product_id']" t-out='line1.product_id[1]' /></td>
+                                <td style='width:25%; padding-left: 10px; '><span t-out='line1.product_uom_qty' /></td>
+                                <td style='width:25%; padding-left: 10px; '><span t-out='line1.price_unit' /></td>
+                                <td style='width:25%; padding-left: 10px; '><span t-out='line1.price_subtotal' /></td>
+                            </tr>
+                        </tbody>
+                    </table>
+               </div>
+            </main>
+            <footer class="footer modal-footer odoo-theme-button">
+                <div class="button cancel btn btn-lg btn-primary" t-on-click="cancel">
+                    Close
+                </div>
+            </footer>
+        </div>
+    </t>
+</templates>

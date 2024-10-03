@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+	<t t-name="pos_all_in_one.PosInternalStockPopup" owl="1">
+		 <div class="popup close-pos-popup">
+			<div class="modal-header">
+				<h4 class="modal-title"><t t-out="props.title"/> </h4>
+			</div>
+			<main class="modal-body">
+				<div class="payment-methods-overview overflow-auto">
+					<p style="color: #0075AC; text-align: left; margin-top: 25px;">Picking Type
+						<select class='drop-type' name='id' id='picking_type'
+								style="float: right; font-size : 15px; width: 50%; border-radius:5px;height: 30px;">
+							<t t-foreach='pos.stockpickingtype' t-as='type' t-key="type.id">
+								<option t-att-value='type.id'>
+									<t t-out='type.display_name'/>
+								</option>
+							</t>
+						</select>
+					</p>
+					<p  style="color: #0075AC; text-align: left; margin-top: 25px;">Sorce Location
+						<select class='drop-src' name='id' id='src_loc'
+								style="float: right; font-size : 15px; width: 50%; border-radius:5px;height: 30px;">
+							<t t-foreach='pos.stocklocations' t-as='src' t-key="src.id">
+								<option t-att-value='src.id'>
+									<t t-out='src.display_name'/>
+								</option>
+							</t>
+						</select>
+					</p>
+					<p  style="color: #0075AC; text-align: left; margin-top: 25px;">Destination Location
+						<select class='drop-dest' name='id' id='dest_loc'
+								style="float: right; font-size : 15px; width: 50%; border-radius:5px;height: 30px;">
+							<t t-foreach='pos.stocklocations' t-as='dest' t-key="dest.id">
+								<option t-att-value='dest.id'>
+									<t t-out='dest.display_name'/>
+								</option>
+							</t>
+						</select>
+					</p>
+					<p  style="color: #0075AC; text-align: left;margin-top: 25px;margin-bottom: 30px;">State
+						<select class='drop-state' name='id' id='cur'
+								style="float: right; font-size : 15px; width: 50%; border-radius:5px;height: 30px;">
+							<option value="Draft">Draft</option>
+							<option value="Waiting">Waiting</option>
+							<option value="Done">Done</option>
+						</select>
+					</p>
+				</div>
+			   
+			</main>
+			<footer class="footer modal-footer justify-content-between">
+				<div class="modal-footer-left d-flex gap-2">
+					<button class="button highlight btn btn-lg btn-primary" t-on-click="create_transfer">
+						<t t-out="props.confirmText"/>
+					</button>
+					<button class="button btn btn-lg btn-secondary" t-on-click="cancel"><t t-out="props.cancelText"/></button>
+				</div>
+			</footer>
+		</div>
+	</t>
+
+</templates>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+	<t t-name="pos_orders_all.CouponPrint" owl="1">
+		<div class="pos-receipt">
+			<div class="pos-center-align" style="text-align: center;">
+				<p>Gift coupon</p>
+				<div class="pos-center-align" style="text-align: center;">
+					<t t-out="date_o"/> <br/>
+					<t t-out="pos.company.name"/><br />
+					<div class="receipt-phone">
+						Phone: <t t-out="pos.company.phone || ''"/><br />
+					</div>
+					<div class="receipt-user">
+						User: <t t-out="pos.get_cashier().name"/><br />
+					</div>
+					<div class="receipt-user">
+						Email: <t t-out="pos.company.email || ''"/><br />
+					</div>
+					<br />
+				</div>
+				<img class="img img-responsive" src="/pos_orders_all/static/src/img/gift-card2.png" style="max-width:100%;"/>
+				<t t-set="obj" t-value="coupon_render_env()"/>
+				<div class="coup_details" style="margin:16px auto">
+					<p><strong>Name : </strong><span t-out="obj.name"/></p>
+					<p><strong>Issue date : </strong><span t-out="obj.issue"/></p>
+					<t t-if="obj.expire">
+						<p><strong>Expiry date : </strong><span t-out="obj.expire"/></p>
+					</t>
+					<p>
+						<strong>Amount : </strong>
+						<span t-out="obj.amount"/>
+						<t t-if="obj.am_type == 'per'">
+							<span style="margin-left:5px;">%</span>
+						</t>
+						<t t-if="obj.am_type == 'fix'">
+							<span style="margin-left:5px;">Fixed</span>
+						</t>
+					</p>
+					<span id="coup_barcode"/>
+					<p><strong>Coupon Number : </strong><span t-out="obj.number"/></p>
+				</div>
+				<div>
+					<div style="margin:auto;width:50% !important;" id="barcode_print2"></div>
+				</div>
+			</div>
+		</div>
+	</t>
+</templates>
