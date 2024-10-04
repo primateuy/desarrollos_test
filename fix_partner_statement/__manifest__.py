@@ -1,6 +1,6 @@
 {
     "name": "Fix Partner Statement",
-    "version": "16.0.0",
+    "version": "16.0.1",
     "category": "Accounting & Finance",
     "summary": "Fix for OCA Financial Reports (Filter exchange differences)",
     "author": "PrimateUY",
