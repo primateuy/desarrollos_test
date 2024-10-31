@@ -1,0 +1,32 @@
+$mk-docs-header-height: 46px;
+	
+.mk_docs {
+	overflow: auto;
+	
+	.navbar {
+	    padding: 0 1rem;
+	    position: relative;
+	    height: $mk-docs-header-height;
+	    
+	    .mk_docs_logo {
+			text-decoration: none;
+			img {
+				width: auto;
+				height: $mk-docs-header-height;
+			}
+		}
+	}
+	
+	.mk_docs_standalone {
+		.info > .main > .link {
+			display: none;
+		}
+	}
+
+	.mk_docs_frame {
+		.information-container {
+			display: none;
+		}
+	}
+	
+}

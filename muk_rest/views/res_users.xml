@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+
+	<record id="view_res_users_form_preferences" model="ir.ui.view">
+	    <field name="name">res_users.form_preferences</field>
+	    <field name="model">res.users</field>
+	    <field name="inherit_id" ref="base.view_users_form_simple_modif"/>
+	    <field name="arch" type="xml">
+            <xpath expr="//group[@name='auth']/.." position="after">
+            	<page string="OAuth Session">
+                    <group name="oauth" >
+		                <group colspan="2" string="OAuth 1 Session">
+	                        <field name="oauth1_session_ids" nolabel="1" colspan="2">
+	                            <tree>
+	                                <field name="oauth_id"/>
+	                                <field name="create_date"/>
+	                                <button 
+	                                	type="object" 
+	                                	name="action_remove" 
+	                                	string="Remove Session" 
+	                                	icon="fa-trash"
+	                                />
+	                            </tree>
+	                        </field>
+		                </group>
+		                <group colspan="2" string="OAuth 2 Session">
+	                        <field name="oauth2_session_ids" nolabel="1" colspan="2">
+	                            <tree>
+	                                <field name="oauth_id"/>
+	                                <field name="create_date"/>
+	                                <field name="expiration_date"/>
+	                                <button 
+		                                type="object" 
+		                                name="action_remove" 
+	                                	string="Remove Session" 
+		                                icon="fa-trash"
+	                                />
+	                            </tree>
+	                        </field>
+		                </group>
+	                </group>
+                </page>
+            </xpath>
+	    </field>
+	</record>
+        
+</odoo>

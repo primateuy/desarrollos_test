@@ -1,0 +1,33 @@
+.mk_rest_systray_item {
+	display: flex;
+    align-items: center;
+    cursor: pointer;
+
+	> a {
+		display: flex;
+	    align-items: center;
+    	padding: 0 0.75rem;
+		color: rgba(255, 255, 255, 0.9);
+		> i {
+			font-size: larger;
+		}
+	}
+
+	.mk_rest_sidebar {
+		position: fixed;
+	    top: $o-navbar-height;
+	    right : -60vw;
+	    transition: right 1s ease;
+	    height: calc(100vh - #{$o-navbar-height});
+	    width: 60vw;
+    	z-index: 99;
+	}
+
+	&.show {
+		background-color: $o-navbar-entry-bg--hover;
+		.mk_rest_sidebar {
+		    right : 0;
+		    transition: right 1s ease;
+		}
+	}
+}

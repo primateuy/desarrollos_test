@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo noupdate="1">
+
+	<record id="demo_rest_oauth2_web" model="muk_rest.oauth2">
+	    <field name="name">Demo OAuth2 - Web Application Flow</field>
+	    <field name="client_id">WebApplicationFlowDemoClientKey</field>
+	    <field name="client_secret">WebApplicationFlowDemoClientSecret</field>
+	    <field name="callback_ids" eval="[(0, 0, {'url': '.+'})]" />
+	    <field name="state">authorization_code</field>
+	    <field name="security">basic</field>
+	    <field name="company">MuK IT</field>
+	    <field name="homepage">https://mukit.at</field>
+	</record>
+
+	<record id="demo_rest_oauth2_mobile" model="muk_rest.oauth2">
+	    <field name="name">Demo OAuth2 - Mobile Application Flow</field>
+	    <field name="client_id">MobileApplicationFlowDemoClientKey</field>
+	    <field name="client_secret">MobileApplicationFlowDemoClientSecret</field>
+	    <field name="state">implicit</field>
+	    <field name="security">basic</field>
+	    <field name="company">MuK IT</field>
+	    <field name="homepage">https://mukit.at</field>
+	</record>
+	
+	<record id="demo_rest_oauth2_legacy" model="muk_rest.oauth2">
+	    <field name="name">Demo OAuth2 - Legacy Application Flow</field>
+	    <field name="client_id">LegacyApplicationFlowDemoClientKey</field>
+	    <field name="client_secret">LegacyApplicationFlowDemoClientSecret</field>
+	    <field name="state">password</field>
+	    <field name="security">basic</field>
+	    <field name="company">MuK IT</field>
+	    <field name="homepage">https://mukit.at</field>
+	</record>
+	
+	<record id="demo_rest_oauth2_backend" model="muk_rest.oauth2">
+	    <field name="name">Demo OAuth2 - Backend Application Flow</field>
+	    <field name="client_id">BackendApplicationFlowDemoClientKey</field>
+	    <field name="client_secret">BackendApplicationFlowDemoClientSecret</field>
+	    <field name="state">client_credentials</field>
+	    <field name="security">basic</field>
+	    <field name="company">MuK IT</field>
+	    <field name="homepage">https://mukit.at</field>
+	    <field name="user_id" ref="base.user_demo" />
+	</record>
+
+	<record id="demo_rest_oauth2_security" model="muk_rest.oauth2">
+	    <field name="name">Demo OAuth2 - Advanced Security</field>
+	    <field name="client_id">AdvancedSecurityFlowDemoClientKey</field>
+	    <field name="client_secret">AdvancedSecurityFlowDemoClientSecret</field>
+	    <field name="state">implicit</field>
+	    <field name="security">advanced</field>
+	    <field name="company">MuK IT</field>
+	    <field name="homepage">https://mukit.at</field>
+	</record>
+
+	<record id="demo_rest_oauth2_security_rule_01" model="muk_rest.access_rules">
+	    <field name="oauth_id" ref="demo_rest_oauth2_security" />
+	    <field name="route">/api/v2/search</field>
+	    <field name="sequence">5</field>
+	</record>
+
+	<record id="demo_rest_oauth2_security_rule_01_expr_01" model="muk_rest.access_rules.expression">
+	    <field name="rule_id" ref="demo_rest_oauth2_security_rule_01" />
+	    <field name="param">model</field>
+	    <field name="operation">*</field>
+	</record>
+
+	<record id="demo_rest_oauth2_security_rule_01_expr_02" model="muk_rest.access_rules.expression">
+	    <field name="rule_id" ref="demo_rest_oauth2_security_rule_01" />
+	    <field name="param">model</field>
+	    <field name="operation">#</field>
+	    <field name="expression">res.partner|res.users</field>
+	</record>
+
+	<record id="demo_rest_oauth2_security_rule_02" model="muk_rest.access_rules">
+	    <field name="oauth_id" ref="demo_rest_oauth2_security" />
+	    <field name="route">/api/v2/.+</field>
+	    <field name="sequence">10</field>
+	</record>
+
+	<record id="demo_rest_oauth2_security_rule_02_expr_01" model="muk_rest.access_rules.expression">
+	    <field name="rule_id" ref="demo_rest_oauth2_security_rule_02" />
+	    <field name="param">model</field>
+	    <field name="operation">=</field>
+	    <field name="expression">res.partner</field>
+	</record>
+	
+</odoo>

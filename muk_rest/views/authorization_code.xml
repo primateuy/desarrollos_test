@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+	
+	<record id="search_rest_authorization_code" model="ir.ui.view">
+		<field name="name">muk_rest_authorization_code.search</field>
+		<field name="model">muk_rest.authorization_code</field>
+		<field name="arch" type="xml">
+			<search>
+				<field name="oauth_id" />
+				<field name="user_id" />
+				<group expand="0" name="group_by" string="Group By">
+					<filter name="group_by_user" string="User" domain="[]" context="{'group_by': 'user_id'}"/>
+					<filter name="group_by_oauth" string="OAuth" domain="[]" context="{'group_by': 'oauth_id'}"/>
+				</group>
+			</search>
+		</field>
+	</record>
+	
+	<record id="view_rest_authorization_code_tree" model="ir.ui.view">
+		<field name="name">muk_rest_authorization_code.tree</field>
+		<field name="model">muk_rest.authorization_code</field>
+		<field name="arch" type="xml">
+			<tree string="Authorization Codes">
+				<field name="oauth_id"/>
+				<field name="callback"/>
+				<field name="user_id" groups="base.group_system"/>
+				<field name="create_date"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="action_rest_authorization_code" model="ir.actions.act_window">
+		<field name="name">Authorization Codes</field>
+		<field name="res_model">muk_rest.authorization_code</field>
+		<field name="view_mode">tree</field>
+		<field name="help" type="html">
+		    <p class="o_view_nocontent_smiling_face">
+                OAuth2 Authorization Code
+            </p>	
+            <p>
+                Authorization Codes are used to authenticate a user with the server.
+            </p>
+	    </field>
+	</record>
+
+	<menuitem id="menu_rest_authorization_code" name="Authorization Codes" sequence="15"
+		parent="cat_menu_rest_technical" action="action_rest_authorization_code" />
+	
+</odoo>

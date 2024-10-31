@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+
+	<record id="search_rest_oauth2_search" model="ir.ui.view">
+	    <field name="name">muk_rest_oauth2.search</field>
+		<field name="model">muk_rest.oauth2</field>
+	    <field name="mode">primary</field>
+	    <field name="inherit_id" ref="search_rest_oauth"/>
+	    <field name="arch" type="xml">
+	    	<xpath expr="//group[@name='group_by']" position="inside">
+	    		<filter name="group_by_state" string="Grant Type" domain="[]" context="{'group_by': 'state'}"/>
+	    	</xpath>
+	    </field>
+	</record>
+
+	<record id="view_rest_oauth2_tree" model="ir.ui.view">
+		<field name="name">muk_rest_oauth2.tree</field>
+		<field name="model">muk_rest.oauth2</field>
+	    <field name="mode">primary</field>
+	    <field name="inherit_id" ref="view_rest_oauth_tree"/>
+		<field name="arch" type="xml">
+			<xpath expr="//field[@name='name']" position="after">
+				<field name="state" />
+			</xpath>
+		</field>
+	</record>
+	
+	<record id="view_rest_oauth2_form" model="ir.ui.view">
+		<field name="name">muk_rest_oauth2.form</field>
+		<field name="model">muk_rest.oauth2</field>
+	    <field name="mode">primary</field>
+	    <field name="inherit_id" ref="view_rest_oauth_form"/>
+		<field name="arch" type="xml">
+			<xpath expr="//group[@name='data']" position="inside">
+				<field name="client_id" widget="CopyClipboardChar" />
+				<field name="client_secret" widget="CopyClipboardChar" required="state in ('authorization_code','client_credentials')"/>
+			</xpath>
+			<xpath expr="//field[@name='security']" position="before">
+				<field name="state" />
+			</xpath>
+			<xpath expr="//field[@name='security']/parent::group" position="after">
+				<group>
+		        	<field name="default_callback_id" options="{'no_open': True}" />
+		        	<field name="user_id" invisible="state != 'client_credentials'" required="state in 'client_credentials'" />
+		        </group>
+			</xpath>
+		</field>
+	</record>
+
+	<record id="action_rest_oauth2" model="ir.actions.act_window">
+		<field name="name">OAuth2</field>
+		<field name="res_model">muk_rest.oauth2</field>
+		<field name="view_mode">tree,form</field>
+		<field name="help" type="html">
+		    <p class="o_view_nocontent_smiling_face">
+                Create a new OAuth2 setting
+            </p><p>
+                An OAuth2 setting can be used to connect to the system via the Restful API.
+            </p>
+	    </field>
+	</record>
+
+	<menuitem id="menu_rest_oauth2" name="OAuth2" sequence="15"
+		parent="cat_menu_rest_configuration" action="action_rest_oauth2" />
+	
+</odoo>

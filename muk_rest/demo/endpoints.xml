@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo noupdate="1">
+
+	<record id="demo_rest_endpoint_01" model="muk_rest.endpoint">
+	    <field name="name">Get all Companies</field>
+	    <field name="endpoint">contacts/companies</field>
+	    <field name="model_id" ref="base.model_res_partner"/>
+	    <field name="method">GET</field>
+	    <field name="state">domain</field>
+	    <field name="protected" eval="False"/>
+	    <field name="eval_sudo" eval="True"/>
+	    <field name="domain">[["is_company","=",True]]</field>
+	    <field name="domain_field_ids" eval="[(6, 0, [ref('base.field_res_partner__name')])]"/>
+	    <field name="docs_summary">All Companies</field>
+	    <field name="docs_description">Get a list of company names.</field>
+	    <field name="docs_parameters">[{
+	"name": "limit",
+	"in": "query",
+	"description": "Limit",
+	"schema": {"type": "integer"}
+}, {
+	"name": "offset",
+	"in": "query",
+	"description": "Offset",
+	"schema": {"type": "integer"}
+}]
+		</field>
+	    <field name="docs_default_response_200" eval="False"/>
+	    <field name="docs_responses">{
+	"200": {
+		"description": "Company List", 
+		"content": {
+			"application/json": {
+				"schema": {
+				"$ref": "#/components/schemas/CustomCompanyNameList"
+				},
+				"example": ["MyCompany"]
+			}
+		}
+	}
+}			</field>
+	    <field name="docs_components">{
+	"CustomCompanyNameList": {
+		"properties": {
+			"domain": {
+				"type": "array",
+				"items": {
+					"anyOf": [{
+						"type": "string"
+					}, {
+						"type": "array",
+						"items": {
+							"anyOf": [{
+								"type": "string"
+							}, {
+								"type": "number"
+							}, {
+								"type": "boolean"
+							}, {
+								"type": "array",
+								"items": {
+									"anyOf": [{
+										"type": "string"
+									}, {
+										"type": "number"
+									}]
+								}
+							}]
+						},
+						"minItems": 3,
+						"maxItems": 3
+					}]
+				}
+			},
+			"fields": {
+				"type": "array",
+				"items": {
+					"type": "string"
+				}
+			},
+			"endpoint": {
+				"type": "string"
+			},
+			"model": {
+				"type": "string"
+			},
+			"result": {
+				"type": "array",
+				"items": {
+					"type": "object",
+					"properties": {
+						"name": {
+						"type": "string"
+						},
+						"id": {
+						"type": "integer"
+						}
+					}
+				}
+			}
+		}
+	}
+}		</field>
+	</record>
+
+	<record id="demo_rest_endpoint_02" model="muk_rest.endpoint">
+	    <field name="name">Create new Partner</field>
+	    <field name="endpoint">contacts/create</field>
+	    <field name="model_id" ref="base.model_res_partner"/>
+	    <field name="method">POST</field>
+	    <field name="state">code</field>
+	    <field name="protected" eval="True"/>
+	    <field name="eval_sudo" eval="False"/>
+	    <field name="code">result = model.name_create(params.get('name'))</field>
+	    <field name="docs_summary">Create Contact</field>
+	    <field name="docs_description">Create a new contact.</field>
+	    <field name="docs_parameters">[{
+	"name": "name", 
+	"in": "query", 
+	"description": "Contact Name", 
+	"schema": {"type": "string"}
+}]
+	</field>
+	</record>
+         
+</odoo>

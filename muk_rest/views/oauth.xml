@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+	
+	<record id="search_rest_oauth" model="ir.ui.view">
+		<field name="name">muk_rest_oauth.search</field>
+		<field name="model">muk_rest.oauth</field>
+		<field name="arch" type="xml">
+			<search>
+				<field name="name" />
+				<filter string="All" name="all" domain="['|', ('active', '=',  True), ('active', '!=',  True)]"/>
+				<filter string="Inactive" name="inactive" domain="[('active', '!=',  True)]"/>
+				<group expand="0" name="group_by" string="Group By"></group>
+			</search>
+		</field>
+	</record>
+	
+	<record id="view_rest_oauth_kanban" model="ir.ui.view">
+		<field name="name">muk_rest_oauth.kanban</field>
+		<field name="model">muk_rest.oauth</field>
+		<field name="arch" type="xml">
+			<kanban class="o_kanban_dashboard o_emphasize_colors mk_oauth_kanban" on_create="muk_rest.action_rest_oauth_on_create">
+				<field name="name" />
+				<field name="active"/>
+				<field name="color"/>
+				<field name="logo_url"/>
+				<field name="company"/>
+				<field name="homepage"/>
+				<field name="privacy_policy"/>
+				<field name="service_terms"/>
+				<field name="sessions"/>
+				<field name="create_uid"/>
+				<templates>
+					<t t-name="kanban-menu">
+						<div class="container">
+							<div class="row">
+								<div class="col-6 o_kanban_card_manage_section o_kanban_manage_view">
+									<div role="menuitem" t-if="! record.active.raw_value">
+										<a name="action_set_active" type="object">Restore</a>
+									</div>
+									<div role="menuitem" t-if="record.active.raw_value">
+										 <a name="action_set_unactive" type="object">Archive</a>
+									</div>
+									<div role="menuitem">
+										<a role="menuitem" name="action_sessions" type="object">Sessions</a>
+									</div>
+									<div role="menuitem">
+										<a role="menuitem" name="action_settings" type="object">Settings</a>
+									</div>
+									<div role="menuitem">
+										<ul role="popup" class="oe_kanban_colorpicker" data-field="color"/>
+									</div>
+								</div>
+							</div>
+						</div>
+					</t>
+					<t t-name="kanban-box">
+						<div t-attf-class="#{kanban_color(record.color.raw_value)}">
+							<div class="oe_kanban_content">
+								<div class="o_kanban_image">
+									<div class="o_kanban_image_wrapper">
+										<img t-if="record.logo_url.raw_value" class="o_kanban_image" t-att-src="record.logo_url.value" alt="OAuth Logo" />
+										<img t-else="" class="o_kanban_image" src="/muk_rest/static/img/oauth.svg" alt="OAuth Logo" />
+									</div>
+								</div>
+								<div class="o_kanban_details">
+									<div class="o_kanban_details_wrapper">
+										<div t-att-title="record.name.value" class="o_kanban_record_title">
+                                            <field name="name" class="o_text_overflow"/>
+                                        </div>
+                                        <div class="o_kanban_record_body">
+                                        	<span t-if="record.company.raw_value">
+										    	<a t-if="record.homepage.raw_value" t-att-href="record.homepage.value" class="o_form_uri" target="_blank">
+										    		<strong><field name="company"/></strong>
+										    	</a>
+										    	<strong t-else=""><field name="company"/></strong>
+										    </span>
+											<ul>
+											    <li t-if="record.privacy_policy.raw_value">
+											    	<a t-att-href="record.privacy_policy.value" class="o_form_uri" target="_blank">
+											    		Privacy policy
+											    	</a>
+											    </li>
+											    <li t-if="record.service_terms.raw_value">
+											    	<a t-att-href="record.service_terms.value" class="o_form_uri" target="_blank">
+											    		Terms of service
+											    	</a>
+											    </li>
+											</ul>
+                                        </div>
+                                        <div class="o_kanban_record_bottom mt-3">
+                                            <div class="oe_kanban_bottom_left">
+                                                <a name="action_sessions" type="object">
+			                                        <span class="o_value"><t t-esc="record.sessions.value"/></span>
+			                                        <span class="o_label ms-1">Active Sessions</span>
+			                                    </a>
+                                            </div>
+                                            <div class="oe_kanban_bottom_right">
+                                            	<field name="create_uid" widget="many2one_avatar_user" />
+                                            </div>
+                                        </div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</t>
+				</templates>
+			</kanban>
+		</field>
+	</record>
+		
+	<record id="view_rest_oauth_tree" model="ir.ui.view">
+		<field name="name">muk_rest_oauth.tree</field>
+		<field name="model">muk_rest.oauth</field>
+		<field name="arch" type="xml">
+			<tree string="Configurations" decoration-muted="(not active)">
+				<field name="name"/>
+				<field name="company"/>
+				<field name="homepage" widget="url" />
+				<field name="active" widget="boolean_toggle"/>
+			</tree>
+		</field>
+	</record>
+	
+	<record id="view_rest_oauth_form" model="ir.ui.view">
+		<field name="name">muk_rest_oauth.form</field>
+		<field name="model">muk_rest.oauth</field>
+		<field name="arch" type="xml">
+			<form string="Configuration">
+	        	<sheet>
+	        		<field name="active" invisible="1"/>
+				    <div class="oe_button_box" name="button_box"></div>
+				    <widget name="web_ribbon" title="Hidden" bg_color="bg-warning" invisible="active == True"/>
+			        <div class="oe_title">
+			            <label for="name" class="oe_edit_only"/>
+			            <h1>
+			            	<field name="name" placeholder="e.g. MyApp"/>
+			            </h1>
+			        </div>
+			        <group name="data" />
+			        <group name="settings">
+				        <group>
+				        	<field name="security"/>
+				        </group>
+			        </group>
+			        <notebook>
+		                <page string="Information" name="info" autofocus="autofocus">
+		                    <group>
+						        <group>
+						        	<field name="company"/>
+						        	<field name="homepage" widget="url"/>
+						        	<field name="logo_url" widget="url"/>
+						        </group>
+						        <group>
+						        	<field name="privacy_policy" widget="url"/>
+						        	<field name="service_terms" widget="url"/>
+						        </group>
+					        </group>
+					        <label for="description"/>
+					        <field name="description"/>
+		                </page>
+			        	<page string="Callbacks" name="callback">
+				      		<field name="callback_ids">
+			                	<tree editable="bottom">
+			                		<field name="sequence" widget="handle" />
+			                		<field name="url" widget="url" placeholder="http://www.example.com" />
+			                	</tree>
+			                </field>
+				        </page>
+				        <page string="Access Rules" name="access" invisible="security == 'basic'">
+				      		<field name="rule_ids">
+			                	<tree  decoration-muted="(not applied)">
+			                		<field name="sequence" widget="handle" />
+					        		<field name="route"/>
+			                		<field name="expression_ids" widget="many2many_tags"/>
+			                		<field name="applied" widget="boolean_toggle"/>
+			                	</tree>
+			                	<form>
+			                		<sheet>
+								        <group>
+									        <group>
+									        	<field name="route_selection"/>
+					        					<field name="route" placeholder="/api/.*" />
+									        </group>
+									        <group>
+									        	<field name="applied" widget="boolean_toggle"/>
+									        </group>
+								        </group>
+										<notebook>
+		                					<page string="Expressions" name="expressions" autofocus="autofocus">
+												<field name="expression_ids">
+													<tree editable="bottom">
+														<field name="display_name" invisible="1"/>
+														<field name="name" invisible="1"/>
+														<field name="param"/>
+														<field name="operation"/>
+														<field name="expression" invisible="operation in ['!', '*']" required="operation not in ['!', '*']"/>
+													</tree>
+												</field>
+											</page>
+		                					<page string="Rule" name="rule" groups="base.group_no_one">
+												<field name="rule" widget="ace" options="{'mode': 'json'}"/>
+											</page>
+										</notebook>
+									</sheet>
+			                	</form>
+			                </field>
+				        </page>
+			        </notebook>
+		        </sheet>
+			</form>
+		</field>
+	</record>
+	
+	<record id="action_rest_oauth" model="ir.actions.act_window">
+		<field name="name">Dashboard</field>
+		<field name="res_model">muk_rest.oauth</field>
+		<field name="view_mode">kanban</field>
+		<field name="help" type="html">
+		    <p class="o_view_nocontent_smiling_face">
+                OAuth Settings
+            </p><p>
+                An OAuth Settings can be used to connect to the system via the Restful API.
+            </p>
+	    </field>
+	</record>
+	
+	<record id="action_rest_oauth_on_create" model="ir.actions.act_window">
+		<field name="name">Create a new OAuth2 Setting</field>
+		<field name="res_model">muk_rest.oauth2</field>
+		<field name="view_mode">form</field>
+		<field name="target">new</field>
+	</record>
+	
+	<menuitem id="menu_rest_oauth" name="Dashboard" sequence="5"
+		parent="cat_menu_rest_overview" action="action_rest_oauth" />
+	
+</odoo>

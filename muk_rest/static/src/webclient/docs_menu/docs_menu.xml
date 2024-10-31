@@ -1,0 +1,29 @@
+<templates id="template" xml:space="preserve">
+
+	<t t-name="muk_rest.DocsMenu" owl="1">
+        <div 
+        	t-if="hasAccess"
+	        class="mk_rest_systray_item" 
+	        role="menuitem" 
+	        t-att-class="{'show': state.open}"
+        >
+	        <a 
+	        	role="button" 
+	        	href="#" 
+	        	class="mk_rest_systray_icon" 
+	        	title="Docs" 
+	        	t-on-click.prevent.stop="() => state.open = !state.open"
+	        >
+	          	<i class="fa fa-code" role="img" aria-label="Docs"/>
+        	</a>
+        	<div class="mk_rest_sidebar border-start">
+        		<iframe 
+        			class="w-100 h-100 border-0" 
+        			src="/rest/docs?template=docs_frame"
+        			loading="lazy" 
+        		/>
+        	</div>
+	    </div>
+	</t>
+	
+</templates>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo noupdate="1">
+
+	<record id="rule_rest_access_token_user" model="ir.rule">
+	    <field name="name">rest_access_token.user</field>
+	    <field name="model_id" ref="model_muk_rest_access_token"/>
+	    <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+	    <field name="perm_read" eval="1"/>
+	    <field name="perm_write" eval="0"/>
+	    <field name="perm_create" eval="0"/>
+	    <field name="perm_unlink" eval="1"/>
+	    <field name="domain_force">[('user_id','=', user.id)]
+	    </field>
+	</record>
+	
+	<record id="rule_rest_access_token_system" model="ir.rule">
+	    <field name="name">rest_access_token.system</field>
+	    <field name="model_id" ref="model_muk_rest_access_token"/>
+	    <field name="groups" eval="[(4, ref('base.group_system'))]"/>
+	    <field name="perm_read" eval="1"/>
+	    <field name="perm_write" eval="0"/>
+	    <field name="perm_create" eval="0"/>
+	    <field name="perm_unlink" eval="1"/>
+	    <field name="domain_force">[(1,'=', 1)]
+	    </field>
+	</record>
+	
+	<record id="rule_rest_bearer_token_user" model="ir.rule">
+	    <field name="name">rest_bearer_token.user</field>
+	    <field name="model_id" ref="model_muk_rest_bearer_token"/>
+	    <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+	    <field name="perm_read" eval="1"/>
+	    <field name="perm_write" eval="0"/>
+	    <field name="perm_create" eval="0"/>
+	    <field name="perm_unlink" eval="1"/>
+	    <field name="domain_force">[('user_id','=', user.id)]
+	    </field>
+	</record>
+	
+	<record id="rule_rest_bearer_token_system" model="ir.rule">
+	    <field name="name">rest_bearer_token.system</field>
+	    <field name="model_id" ref="model_muk_rest_bearer_token"/>
+	    <field name="groups" eval="[(4, ref('base.group_system'))]"/>
+	    <field name="perm_read" eval="1"/>
+	    <field name="perm_write" eval="0"/>
+	    <field name="perm_create" eval="0"/>
+	    <field name="perm_unlink" eval="1"/>
+	    <field name="domain_force">[(1,'=', 1)]
+	    </field>
+	</record>
+        
+</odoo>

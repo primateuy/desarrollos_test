@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+	
+	<record id="view_rest_request_data_tree" model="ir.ui.view">
+		<field name="name">muk_rest_request_data.tree</field>
+		<field name="model">muk_rest.request_data</field>
+		<field name="arch" type="xml">
+			<tree string="Requests">
+				<field name="client_key"/>
+				<field name="timestamp"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="action_rest_request_data" model="ir.actions.act_window">
+		<field name="name">Request Data</field>
+		<field name="res_model">muk_rest.request_data</field>
+		<field name="view_mode">tree</field>
+		<field name="help" type="html">
+		    <p class="o_view_nocontent_smiling_face">
+                OAuth1 Restful API Requests
+            </p>
+            <p>
+                Requests made to the Restful API.
+            </p>
+	    </field>
+	</record>
+
+	<menuitem id="menu_rest_request_data" name="Request Data" sequence="10"
+		parent="cat_menu_rest_technical" action="action_rest_request_data" />
+	
+</odoo>

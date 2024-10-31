@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.base.setup</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="0"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <block id="user_default_rights" position="after">
+                <block title="API" id="rest_api">
+                    <setting id="rest_docs">
+                        <label string="Docs Security" for="rest_docs_security_group_id"/>
+                        <div class="text-muted">
+                            Set a security group to restrict the access to the docs.
+                        </div>
+                        <div class="content-group mt16">
+                            <div class="row">
+                                <label for="rest_docs_security_group_id" string="Group" class="col-lg-3 o_light_label"/>
+                                <field name="rest_docs_security_group_id" class="oe_inline"/>
+                            </div>
+                            <div class="row">
+                                <label for="rest_docs_security_group_xmlid" string="XMLID" class="col-lg-3 o_light_label"/>
+                                <field name="rest_docs_security_group_xmlid" class="oe_inline" readonly="1"/>
+                            </div>
+                        </div>
+                    </setting>
+                    <setting id="rest_oauth2">
+                        <label string="OAuth 2.0" for="rest_oauth2_bearer_expires_in_seconds"/>
+                        <div class="text-muted">
+                            Set the configuration values for the bearer token.
+                        </div>
+                        <div class="content-group mt16">
+                            <div class="row">
+                                <div class="o_light_label">
+                                    <label class="fw-bold col-6 col-sm-4 col-md-2 col-lg-4" string="Expires in" for="rest_oauth2_bearer_expires_in_seconds"/>
+                                    <field name="rest_oauth2_bearer_expires_in_seconds" class="w-25 text-center" nolabel="1"/>
+                                    <span class="col-auto ms-2">in Seconds</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="o_light_label">
+                                    <label class="fw-bold col-6 col-sm-4 col-md-2 col-lg-4" string="Clean after" for="rest_oauth2_bearer_autovacuum_days"/>
+                                    <field name="rest_oauth2_bearer_autovacuum_days" class="w-25 text-center" nolabel="1"/>
+                                    <span class="col-auto ms-2">in Days</span>
+                                </div>
+                            </div>
+                        </div>
+                    </setting>
+                </block>
+            </block>
+        </field>
+    </record>
+
+</odoo>

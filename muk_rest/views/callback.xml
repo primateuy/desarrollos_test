@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+
+	<record id="view_rest_callback_tree" model="ir.ui.view">
+		<field name="name">muk_rest_callback.tree</field>
+		<field name="model">muk_rest.callback</field>
+		<field name="arch" type="xml">
+			<tree string="Callbacks" editable="bottom">
+				<field name="url" widget="url" />
+				<field name="oauth_id"/>
+			</tree>
+		</field>
+	</record>
+	
+	<record id="view_rest_callback_form" model="ir.ui.view">
+		<field name="name">muk_rest_callback.form</field>
+		<field name="model">muk_rest.callback</field>
+		<field name="arch" type="xml">
+			<form string="Callback">
+				<sheet>
+			        <group>
+			        	<field name="url" widget="url" />
+			        </group>
+				</sheet>
+			</form>
+		</field>
+	</record>
+	
+	<record id="action_rest_callback" model="ir.actions.act_window">
+		<field name="name">Callbacks</field>
+		<field name="res_model">muk_rest.callback</field>
+		<field name="view_mode">tree</field>
+		<field name="help" type="html">
+		    <p class="o_view_nocontent_smiling_face">
+                Create a new Configuration Callbacks
+            </p>
+            <p>
+                Protect the Restful API from requests from unknown sources.
+            </p>
+	    </field>
+	</record>
+
+	<menuitem id="menu_rest_callback" name="Callbacks" sequence="2"
+		parent="cat_menu_rest_technical" action="action_rest_callback" />
+	
+</odoo>

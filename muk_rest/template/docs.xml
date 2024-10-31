@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="docs" name="API Docs">
+        <t t-call="web.layout">
+            <t t-set="head_docs">
+                <meta name="generator" content="API Docs"/>
+                <meta name="description" content="API Docs"/>
+                
+                <t t-call-assets="web.assets_frontend" t-js="false"/>
+                <t t-call-assets="muk_rest.assets_docs" t-js="false"/>
+                
+				<link rel="shortcut icon" type="image/x-icon" href="/muk_rest/static/img/favicon.ico" />
+				
+				<script type="text/javascript">
+	                odoo.rest = {
+	                	serverBaseUrl: "<t t-esc="base_url"/>",
+	                	databaseName: "<t t-esc="db_name"/>",
+	                	databaseHeader: "<t t-esc="db_header"/>",
+	                	databaseParam: "<t t-esc="db_param"/>",
+	                };
+	            </script>
+				
+                <t t-call-assets="web.assets_common" t-css="false"/>
+                <t t-call-assets="web.assets_frontend" t-css="false"/>
+                <t t-call-assets="muk_rest.assets_docs" t-css="false"/>
+            </t>
+	        <t t-set="head" t-value="head_docs + (head or '')"/>
+	        <t t-set="body_classname" t-value="'mk_docs'"/>
+	        <main>
+	        	<div id="swagger-ui"/>
+	       	</main>
+        </t>
+    </template>
+    
+    <template id="docs_standalone" inherit_id="docs" primary="True">
+        <xpath expr="//main" position="before">
+        	<header>
+        		<nav class="navbar navbar-light bg-light border-bottom">
+				  	<a href="/web" class="text-dark" accesskey="h">
+			            <i class="fa fa-th"></i>
+			        </a>
+			        <a class="mk_docs_logo" href="https://www.mukit.at?utm_source=app&amp;utm_medium=rest" target="_blank">
+                    	<span class="align-middle">Powered by <strong>MuK IT</strong></span>
+                    	<img src="/muk_rest/static/img/logo.svg" alt="Logo"/>
+                    </a>
+				</nav>
+        	</header>
+        </xpath>
+        <xpath expr="//main" position="attributes">
+        	<attribute name="class">mk_docs_standalone</attribute>
+        </xpath>
+    </template>
+    
+    <template id="docs_frame" inherit_id="docs" primary="True">
+        <xpath expr="//main" position="attributes">
+        	<attribute name="class">mk_docs_frame</attribute>
+        </xpath>
+    </template>
+    
+</odoo>

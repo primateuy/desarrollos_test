@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+
+	<record id="search_rest_bearer_token" model="ir.ui.view">
+		<field name="name">muk_rest_bearer_token.search</field>
+		<field name="model">muk_rest.bearer_token</field>
+		<field name="arch" type="xml">
+			<search>
+				<field name="oauth_id" />
+				<field name="user_id" />
+				<filter 
+					string="Active" 
+					name="active" 
+					domain="['|', ('expiration_date', '=', False), ('expiration_date', '&gt;', context_today())]"
+				/>
+				<filter 
+					string="Expired" 
+					name="expired" 
+					domain="['&amp;', ('expiration_date', '!=', False), ('expiration_date', '&lt;', context_today())]"
+				/>
+				<group expand="0" name="group_by" string="Group By">
+					<filter name="group_by_user" string="User" domain="[]" context="{'group_by': 'user_id'}"/>
+					<filter name="group_by_oauth" string="OAuth" domain="[]" context="{'group_by': 'oauth_id'}"/>
+				</group>
+			</search>
+		</field>
+	</record>
+	
+	<record id="view_rest_bearer_token_tree" model="ir.ui.view">
+		<field name="name">muk_rest_bearer_token.tree</field>
+		<field name="model">muk_rest.bearer_token</field>
+		<field name="arch" type="xml">
+			<tree string="Bearer Tokens">
+				<field name="oauth_id"/>
+				<field name="user_id" groups="base.group_system"/>
+				<field name="create_date"/>
+				<field name="expiration_date"/>
+			</tree>
+		</field>
+	</record>
+	
+	<record id="view_rest_bearer_token_form" model="ir.ui.view">
+		<field name="name">muk_rest_bearer_token.form</field>
+		<field name="model">muk_rest.bearer_token</field>
+		<field name="arch" type="xml">
+			<form string="Bearer Token">
+				<sheet>
+					<group>
+				        <group>
+				        	<field name="oauth_id"/>
+							<field name="user_id" groups="base.group_system"/>
+				        </group>
+				        <group>
+							<field name="create_date"/>
+							<field name="expiration_date"/>
+				        </group>
+					</group>
+				</sheet>
+			</form>
+		</field>
+	</record>
+
+	<record id="action_rest_bearer_token" model="ir.actions.act_window">
+		<field name="name">Bearer Token</field>
+		<field name="res_model">muk_rest.bearer_token</field>
+		<field name="view_mode">tree</field>
+		<field name="context">{'search_default_active': 1}</field>
+		<field name="help" type="html">
+		    <p class="o_view_nocontent_smiling_face">
+                OAuth2 Bearer Token
+            </p>	
+            <p>
+                Bearer Token are used to authenticate a user with the server.
+            </p>
+	    </field>
+	</record>
+
+	<menuitem id="menu_rest_bearer_token" name="Bearer Tokens" sequence="5"
+		parent="cat_menu_rest_tokens" action="action_rest_bearer_token" />
+	
+</odoo>
