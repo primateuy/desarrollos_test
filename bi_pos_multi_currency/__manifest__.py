@@ -3,7 +3,7 @@
 
 {
     "name": "POS Multi Currency payment in Odoo",
-    "version": "17.0.0.2",
+    "version": "17.0.0.5",
     "category": "point of sale",
     "depends": ['base', 'point_of_sale'],
     "author": "BrowseInfo",
@@ -28,9 +28,13 @@
     ],
     'assets': {
         'point_of_sale._assets_pos': [
+            'bi_pos_multi_currency/static/src/css/button.css',
             'bi_pos_multi_currency/static/src/js/pos_data.js',
             'bi_pos_multi_currency/static/src/js/BiPaymentScreen.js',
-            'bi_pos_multi_currency/static/src/css/button.css',
+            'bi_pos_multi_currency/static/src/js/cash_opening_popup.js',
+            'bi_pos_multi_currency/static/src/js/closing_popup.js',
+            'bi_pos_multi_currency/static/src/js/payment_status.js',
+            'bi_pos_multi_currency/static/src/js/payment_lines.js',
             'bi_pos_multi_currency/static/src/xml/**/*',
         ],
     },

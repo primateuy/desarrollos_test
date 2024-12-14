@@ -7,14 +7,10 @@ import { Component, onMounted, useRef } from "@odoo/owl";
 patch(PaymentScreen.prototype, {
     setup() {
 		super.setup();
-		this.mobile_multi = false
-		// useListener('click-update_amount', this._UpdateAmountt);
-		// useListener('click-cur-switch', this._UpdateDetails);
-		// useListener('click-cur-switch-mobile', this._UpdateDetailsMobile);
-
+		this.mobile_multi = false;
 		onMounted(() => {
            	$('#details_mobile').hide()
-			// $('#details').hide()
+			$('#details').hide()
         });
 
 	},
@@ -55,9 +51,12 @@ patch(PaymentScreen.prototype, {
 		let user_amt = $('.edit-amount').val();
 		let cur = $('.drop-currency').val();
 		let payment_methods_from_config = this.pos.payment_methods.filter(method => this.pos.config.payment_method_ids.includes(method.id));
-		order.add_paymentline(payment_methods_from_config[0]);
+		if (!order.selected_paymentline){
+			order.add_paymentline(payment_methods_from_config[0]);
+		}
 		let selected_paymentline = order.selected_paymentline;
 		if (user_amt == ''){
+			alert("Please Add amount first.")
 		}else{
 
 			for(var i=0;i<currency.length;i++){
@@ -71,6 +70,7 @@ patch(PaymentScreen.prototype, {
 					selected_paymentline.set_curname(currency[i].name);
 					selected_paymentline.set_curamount(selected_paymentline.amount_currency);
 					selected_paymentline.set_currency_symbol(currency[i].symbol);
+					order.set_cur_pay_id(currency[i].id)
 				}
 			}
 			order.get_paymentlines();
@@ -110,6 +110,7 @@ patch(PaymentScreen.prototype, {
 				order.set_curamount(parseFloat(curr_tot.toFixed(6)));
 				order.set_symbol(curr_sym);
 				order.set_curname(currencies[i].name);
+				order.set_cur_pay_id(currencies[i].id);
 				return curr_tot;
 			}
 			if(cur == pos_currency.id && cur==currencies[i].id){

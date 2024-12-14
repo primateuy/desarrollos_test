@@ -23,3 +23,10 @@ Version : 17.0.0.6 (11/06/2024)
 
 Version : 17.0.0.7 (29/08/2024)
 	- Creating a POS order with the invoice at that time in the payment journal entry is not showing pricelist currency fixed the issue.
+
+Version : 17.0.0.8 (03/10/2024)
+	- Fixed the issue related validation rounding error at the time of confirm Invoice from the Sales Order.  
+
+Version 17.0.0.9 : (09/12/2024)
+Customization
+	- Compatible module with bi_pos_multi_currency.

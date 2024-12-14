@@ -3,7 +3,7 @@
 
 {
     'name': 'POS Multi Currency Pricelist',
-    'version': '17.0.0.7',
+    'version': '17.0.0.9',
     'category': 'Point of Sale',
     'summary': 'Point of sale multi Currency pricelist allow multi currency pricelist on pos multiple currency pricelist pos multiple currencies pricelist allow multi currency pricelist on pos allow multi currency pricelist on point of sales pos multi pricelist on pos',
     'description' :"""
@@ -15,7 +15,7 @@
     "currency": 'EUR',
     'depends': ['base','point_of_sale'],
     'data': [
-        'views/models_view.xml',
+        # 'views/models_view.xml',
     ],
     'assets': {
         'point_of_sale._assets_pos': [

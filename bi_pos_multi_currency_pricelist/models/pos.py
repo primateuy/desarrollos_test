@@ -83,6 +83,8 @@ class PosPayment(models.Model):
                     'pos_payment_ids': payment.ids,
                 })
                 result |= payment_move
+                payment_move.update({'bi_amount_in_currency': payment_move.pos_payment_ids.account_currency,
+                'currency_id':payment_move.pos_payment_ids.payment_method_id.currency_id.id})
                 payment.write({'account_move_id': payment_move.id})
                 amounts = pos_session._update_amounts({'amount': 0, 'amount_converted': 0}, {'amount': payment.amount}, payment.payment_date)
                 credit_line_vals = pos_session._credit_amounts({
@@ -113,6 +115,8 @@ class PosPayment(models.Model):
                     'pos_payment_ids': payment.ids,
                 })
                 result |= payment_move
+                payment_move.update({'bi_amount_in_currency': payment_move.pos_payment_ids.account_currency,
+                'currency_id':payment_move.pos_payment_ids.payment_method_id.currency_id.id})
                 payment.write({'account_move_id': payment_move.id})
                 amounts = pos_session._update_amounts({'amount': 0, 'amount_converted': 0}, {'amount': payment.amount}, payment.payment_date)
                 credit_line_vals = pos_session._credit_amounts({
@@ -237,6 +241,8 @@ class POSOrder(models.Model):
 
     @api.model
     def _payment_fields(self, order, ui_paymentline):
+        fields_data = super(POSOrder, self)._payment_fields(order, ui_paymentline)
+
         payment_total = []
         company_id = self.env.user.company_id
         payment_date = ui_paymentline['name']
@@ -253,9 +259,9 @@ class POSOrder(models.Model):
             currency_id = order.pricelist_id.currency_id.id
             price_unit_comp_curr = price_unit_comp_curr
 
-        return {
+        fields_data.update({
             'amount_currency': price_unit_foreign_curr,
-            'currency': currency_id,
+            # 'currency': currency_id,
             'amount': price_unit_comp_curr or 0.0,
             'payment_date': ui_paymentline['name'],
             'payment_method_id': ui_paymentline['payment_method_id'],
@@ -264,7 +270,9 @@ class POSOrder(models.Model):
             'transaction_id': ui_paymentline.get('transaction_id'),
             'payment_status': ui_paymentline.get('payment_status'),
             'pos_order_id': order.id,
-        }
+        })
+
+        return fields_data
 
     def _prepare_invoice_vals(self):
         self.ensure_one()
@@ -420,15 +428,15 @@ class currency(models.Model):
                 rate = (round(i.rate,6) / company_currency.rate)
                 i.currency_convert = rate
 
-class AccountInvoiceLine(models.Model):
-    _inherit = 'account.move.line'
+# class AccountInvoiceLine(models.Model):
+#     _inherit = 'account.move.line'
 
-    @api.depends('currency_rate', 'balance')
-    def _compute_amount_currency(self):
-        for line in self:
-            if line.amount_currency is False:
-                line.amount_currency = line.currency_id.round(line.balance * line.currency_rate)
-            if line.currency_id == line.company_id.currency_id:
-                line.amount_currency = line.balance
-            if line.currency_id != line.company_id.currency_id:
-                line.amount_currency = line.currency_id.round(line.balance * line.currency_rate)
+#     @api.depends('currency_rate', 'balance')
+#     def _compute_amount_currency(self):
+#         for line in self:
+#             if line.amount_currency is False:
+#                 line.amount_currency = line.currency_id.round(line.balance * line.currency_rate)
+#             if line.currency_id == line.company_id.currency_id:
+#                 line.amount_currency = line.balance
+#             if line.currency_id != line.company_id.currency_id:
+#                 line.amount_currency = line.currency_id.round(line.balance * line.currency_rate)
