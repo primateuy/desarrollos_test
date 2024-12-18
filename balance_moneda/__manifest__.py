@@ -16,15 +16,12 @@ monedas directamente desde las vistas contables.
     'category': 'Contabilidad',
     'version': '17.1.0',
 
-    'depends': ['base'],
+    'depends': ['account'],
 
     'data': [
         'security/ir.model.access.csv',
         'views/account_move_line_views.xml',
     ],
 
-    'demo': [
-        'demo/demo.xml',
-    ],
 }
 
