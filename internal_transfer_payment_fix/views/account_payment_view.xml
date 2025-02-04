@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_account_internal_transfer_form" model="ir.ui.view">
+        <field name="name">account.internal.transfer.form</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account.view_account_payment_form"/>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <field name="payment_type" position="after">
+                <field name="counter_part_internal_transfer" invisible="1"/>
+            </field>
+            <widget name="web_ribbon" position="after">
+                <widget name="web_ribbon" text="CONTRAPATA TRANSFERENCIA INTERNA"
+                        invisible="counter_part_internal_transfer != True"/>
+            </widget>
+
+            <xpath expr="//button[@name='action_post']" position="attributes">
+                <attribute name="invisible">state != 'draft' or counter_part_internal_transfer</attribute>
+            </xpath>
+
+            <xpath expr="//button[@name='action_draft']" position="attributes">
+                <attribute name="invisible">state not in ('posted', 'cancel') or counter_part_internal_transfer</attribute>
+            </xpath>
+
+            <xpath expr="//button[@name='action_cancel']" position="attributes">
+                <attribute name="invisible">state != 'draft' or counter_part_internal_transfer</attribute>
+            </xpath>
+
+            <xpath expr="//button[@name='mark_as_sent']" position="attributes">
+                <attribute name="invisible">state != 'posted' or is_move_sent or payment_method_code != 'manual' or counter_part_internal_transfer</attribute>
+            </xpath>
+
+            <xpath expr="//button[@name='unmark_as_sent']" position="attributes">
+                <attribute name="invisible">state != 'posted' or not is_move_sent or payment_method_code != 'manual' or counter_part_internal_transfer</attribute>
+            </xpath>
+
+            <xpath expr="//div[@name='amount_div']" position="replace">
+                <field name="show_destino" invisible="1"/>
+                <div name="amount_div" class="o_row">
+                    <field name="amount" readonly="state != 'draft' or counter_part_internal_transfer"/>
+                    <field name="currency_id"
+                           options="{'no_create': True, 'no_open': True}"
+                           required="1"
+                           readonly="state != 'draft' or counter_part_internal_transfer"
+                           groups="base.group_multi_currency"/>
+                </div>
+                <label for="amount_destino"/>
+                <div name="amount_div_destination" class="o_row">
+                    <field name="amount_destino" readonly="state != 'draft' or show_destino != True or counter_part_internal_transfer"/>
+                    <field name="currency_destino_id" readonly="state != 'draft' or show_destino != True or counter_part_internal_transfer"
+                           options="{'no_create': True, 'no_open': True}" required="show_destino == True"
+                           groups="base.group_multi_currency"/>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>
