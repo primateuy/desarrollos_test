@@ -1,0 +1,12 @@
+<odoo>
+    <record id="vista_orden_venta_modificada" model="ir.ui.view">
+        <field name="name">vista.orden.venta.modificada</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_confirm']" position="attributes">
+                <attribute name="context">{'validate_analityc': True}</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

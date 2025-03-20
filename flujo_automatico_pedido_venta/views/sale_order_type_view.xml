@@ -1,0 +1,18 @@
+<odoo>
+    <record id="view_sale_order_type_form_inherit_flujo" model="ir.ui.view">
+        <field name="name">sale.order.type.form.inherit.flujo</field>
+        <field name="model">sale.order.type</field>
+        <field name="inherit_id" ref="sale_order_type.sot_sale_order_type_form_view"/>
+        <field name="arch" type="xml">
+            <!-- Agregamos un nuevo grupo al final del sheet -->
+            <xpath expr="//sheet" position="inside">
+                <group string="Flujo automático">
+                    <field name="flujo_automatico_ids" widget="many2many_tags"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>
+
+
+
