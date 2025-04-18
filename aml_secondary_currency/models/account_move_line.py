@@ -1,21 +1,5 @@
 # -*- coding: utf-8 -*-
-from odoo import models, fields, api
-
-
-class ResCompany(models.Model):
-    _inherit = "res.company"
-
-    # Activate the currency update
-    secondary_currency_id = fields.Many2one(comodel_name='res.currency', string='Divisa secundaria')
-
-
-class AccountMov(models.Model):
-    _inherit = 'account.move'
-
-    def post(self):
-        res = super(AccountMov, self).post()
-        self.line_ids.compute_amount_secondary()
-        return res
+from odoo import models, fields
 
 class AccountMoveLine(models.Model):
     _inherit = 'account.move.line'
