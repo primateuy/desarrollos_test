@@ -1,0 +1,17 @@
+<odoo>
+<record id="view_account_payment_form_inherit_delete_button" model="ir.ui.view">
+    <field name="name">account.payment.form.inherit.delete.button</field>
+    <field name="model">account.payment</field>
+    <field name="inherit_id" ref="account.view_account_payment_form"/>
+    <field name="arch" type="xml">
+        <xpath expr="//header" position="inside">
+            <button name="unlink"
+                    type="object"
+                    string="Eliminar"
+                    groups="control_eliminacion_de_pagos.group_allow_delete_payments"
+                    class="btn-danger"
+                    confirm="¿Estás seguro de que deseas eliminar este pago?"/>
+        </xpath>
+    </field>
+</record>
+</odoo>
