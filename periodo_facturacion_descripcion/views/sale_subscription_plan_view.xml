@@ -5,9 +5,12 @@
         <field name="model">sale.subscription.plan</field>
         <field name="inherit_id" ref="sale_subscription.sale_subscription_plan_view_form"/>
         <field name="arch" type="xml">
-            <!-- Insertamos el campo al final del primer group -->
+            <!-- Insertamos ambos campos justo después de related_plan_id -->
             <xpath expr="//group/field[@name='related_plan_id']" position="after">
                 <field name="usar_descripcion_cotizacion"/>
+                <field name="descartar_devengamiento"
+                    string="Descartar devengamiento"
+                    help="Al marcarlo en True, al generar facturas en borrador se dejarán en blanco las fechas desde y hasta del renglón de factura."/>
             </xpath>
         </field>
     </record>
