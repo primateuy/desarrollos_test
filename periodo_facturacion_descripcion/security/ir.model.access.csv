@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sale_subscription_plan_incluir_periodo,Acceso a incluir período de facturación en plan,model_sale_subscription_plan,base.group_user,1,1,1,1
