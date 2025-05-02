@@ -1,2 +1,2 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_account_payment_delete_group,account.payment.delete,model_account_payment,aa_control_eliminacion_de_pagos.group_delete_payments,1,1,1,1
+access_account_payment_delete_group,account.payment.delete,model_account_payment,control_eliminacion_de_pagos.group_delete_payments,1,1,1,1
