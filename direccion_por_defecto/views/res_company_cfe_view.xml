@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_company_form_cfe_direccion_por_defecto" model="ir.ui.view">
+        <field name="name">res.company.form.cfe.direccion.defecto</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+        <xpath expr="//page[@name='cfe_connection_page']" position="inside">
+            <group string="Dirección por defecto">
+            <field name="direccion_por_defecto"/>
+            </group>
+        </xpath>
+        </field>
+    </record>
+</odoo>

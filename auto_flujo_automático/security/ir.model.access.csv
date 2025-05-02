@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id,perm_read,perm_write,perm_create,perm_unlink
+access_orden_venta,Acceso a Órdenes de Venta,model_sale_order,,1,1,1,1

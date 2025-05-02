@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_sale_subscription_plan_form_inherit_custom_invoice" model="ir.ui.view">
+        <field name="name">sale.subscription.plan.form.inherit.custom.invoice.description</field>
+        <field name="model">sale.subscription.plan</field>
+        <field name="inherit_id" ref="sale_subscription.sale_subscription_plan_view_form"/>
+        <field name="arch" type="xml">
+            <!-- Insertamos ambos campos justo después de related_plan_id -->
+            <xpath expr="//group/field[@name='related_plan_id']" position="after">
+                <field name="usar_descripcion_cotizacion"/>
+                <field name="descartar_devengamiento"
+                    string="Descartar devengamiento"
+                    help="Al marcarlo en True, al generar facturas en borrador se dejarán en blanco las fechas desde y hasta del renglón de factura."/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,17 @@
+<odoo>
+    <record id="view_sale_order_form_inherit_download_invoice" model="ir.ui.view">
+        <field name="name">sale.order.form.inherit.download.invoice</field>
+        <field name="model">sale.order</field>
+        <!-- Aquí usamos el external id de la vista estándar de cotización; ajústalo si es necesario -->
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <!-- Se inserta el botón justo después del botón 'Enviar por correo electrónico' -->
+            <xpath expr="//button[@name='action_quotation_send']" position="after">
+                <button name="action_download_invoice_pdf"
+                        type="object"
+                        class="btn btn-secondary"
+                        string="Descargar PDF de factura"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
