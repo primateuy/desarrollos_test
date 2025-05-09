@@ -8,7 +8,7 @@
             <button name="unlink"
                     type="object"
                     string="Eliminar"
-                    groups="control_eliminacion_de_pagos.group_allow_delete_payments"
+                    groups="control_eliminacion_de_pagos.group_allow_delete_payment"
                     class="btn-danger"
                     confirm="¿Estás seguro de que deseas eliminar este pago?"/>
         </xpath>
