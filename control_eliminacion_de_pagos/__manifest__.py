@@ -10,7 +10,6 @@
     "data": [
         "security/delete_payment_groups.xml",
         'security/ir.model.access.csv',
-        "views/account_payment_view.xml",
     ],
     "installable": True,
     "application": False,
