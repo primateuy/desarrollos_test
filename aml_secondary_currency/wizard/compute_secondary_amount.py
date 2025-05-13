@@ -2,9 +2,8 @@ from odoo import models, api, _
 from odoo.exceptions import UserError
 
 
-class ComputeSecondaryAmount(models.TransientModel):
-    _name = "compute.secondary.amount"
-    _description = "Validate Account Move"
+class AccountMoveLine(models.Model):
+    _inherit = 'account.move.line'
 
     def compute_secondary_amount(self):
         if self._context.get('active_model') == 'account.move.line':
@@ -16,4 +15,3 @@ class ComputeSecondaryAmount(models.TransientModel):
         if not move_lines:
             raise UserError(_('No se encontaron apuntes'))
         move_lines.compute_amount_secondary()
-
