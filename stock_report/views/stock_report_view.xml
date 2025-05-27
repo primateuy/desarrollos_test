@@ -22,6 +22,8 @@
         <field name="warehouse_id" type="col"/>
         <field name="qty_available" type="measure"/>
         <field name="virtual_available" type="measure"/>
+        <field name="daily_consumption" type="measure"/>
+        <field name="days_of_stock" type="measure"/>
       </pivot>
     </field>
   </record>
