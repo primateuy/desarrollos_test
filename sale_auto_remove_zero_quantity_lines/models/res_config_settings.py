@@ -8,8 +8,8 @@ class ResConfigSettings(models.TransientModel):
     _inherit = "res.config.settings"
 
     sale_auto_remove_zero_quantity_lines = fields.Boolean(
-        string="Automatic Removal of Zero Quantity Lines",
+        string="Eliminación automática de líneas con cantidad cero",
         related="company_id.sale_auto_remove_zero_quantity_lines",
         readonly=False,
-        help="Auto remove sale order lines with zero quantity upon confirmation.",
+        help="Eliminar automáticamente las líneas de pedido de venta con cantidad cero al confirmar.",
     )
