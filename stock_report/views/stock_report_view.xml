@@ -1,18 +1,6 @@
 <odoo>
-    <!-- Vista tree -->
-  <record id="view_report_stock_by_warehouse_tree" model="ir.ui.view">
-    <field name="name">report.stock.by.warehouse.tree</field>
-    <field name="model">report.stock.by.warehouse</field>
-    <field name="arch" type="xml">
-      <tree>
-        <field name="product_id"/>
-        <field name="warehouse_id"/>
-        <field name="qty_available"/>
-        <field name="virtual_available"/>
-      </tree>
-    </field>
-  </record>
-    <!-- Vista pivot -->
+
+  <!-- Vista pivot -->
   <record id="view_report_stock_by_warehouse_pivot" model="ir.ui.view">
     <field name="name">report.stock.by.warehouse.pivot</field>
     <field name="model">report.stock.by.warehouse</field>
@@ -28,17 +16,41 @@
     </field>
   </record>
 
-  <!-- Acción -->
-  <record id="action_report_stock_by_warehouse" model="ir.actions.act_window">
-    <field name="name">Stock por almacén</field>
-    <field name="res_model">report.stock.by.warehouse</field>
-    <field name="view_mode">tree,pivot</field>
-    <field name="help" type="html">
-      <p>Reporte de stock por producto y almacén con cantidades reales y pronosticadas</p>
+
+  <!-- Búsqueda -->
+
+  <record id="view_mi_modelo_search" model="ir.ui.view">
+    <field name="name">report.stock.by.warehouse.search</field>
+    <field name="model">report.stock.by.warehouse</field>
+    <field name="arch" type="xml">
+      <search>
+        <!-- Búsqueda rápida por nombre -->
+        <field name="product_id" string="Nombre" search="1"/>
+
+        <!-- Filtro por almacén -->
+        <field name="warehouse_id" string="Almacén" search="1"/>
+
+      </search>
     </field>
   </record>
 
+  <!-- Acción -->
+<record id="action_report_stock_by_warehouse" model="ir.actions.act_window">
+    <field name="name">Reporte de stock por almacén</field>
+    <field name="res_model">report.stock.by.warehouse</field>
+    <field name="view_mode">pivot</field>
+    <field name="context">{'default_warehouse_ids': user.warehouse_ids.ids}</field>
+</record>
+
+  <!-- Regla de registro -->
+<record id="action_report_stock_by_warehouse" model="ir.actions.act_window">
+    <field name="name">Reporte de stock por almacén</field>
+    <field name="res_model">report.stock.by.warehouse</field>
+    <field name="view_mode">pivot</field>
+    <field name="context">{'default_warehouse_ids': user.warehouse_ids.ids}</field>
+</record>
+
   <!-- Menú -->
   <menuitem id="menu_stock_by_warehouse_root" name="Stock por almacén" parent="stock.menu_stock_inventory_control" sequence="99"/>
-  <menuitem id="menu_stock_by_warehouse_report" name="Reporte de stock" action="action_report_stock_by_warehouse" parent="menu_stock_by_warehouse_root"/>
+  <menuitem id="menu_stock_report_pivot" name="Stock por Almacén" action="action_stock_by_warehouse_pivot_dynamic" parent="stock.menu_stock_root" />
 </odoo>

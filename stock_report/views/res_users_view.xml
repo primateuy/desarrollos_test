@@ -1,0 +1,47 @@
+<odoo>
+    <record id="view_users_form_inherit_almacenes" model="ir.ui.view">
+        <field name="name">res.users.form.inherit.almacenes</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type="xml">
+            <!-- Insertamos el campo debajo del campo company_id, por ejemplo -->
+            <xpath expr="//field[@name='company_id']" position="after">
+                <field name="warehouse_ids" widget="many2many_tags"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_users_form_inherit_almacenes_button" model="ir.ui.view">
+    <field name="name">res.users.form.inherit.almacenes.button</field>
+    <field name="model">res.users</field>
+    <field name="inherit_id" ref="base.view_users_form"/>
+    <field name="arch" type="xml">
+
+        <!-- Insertamos el botón después del campo warehouse_ids -->
+        <xpath expr="//field[@name='warehouse_ids']" position="after">
+            <button name="action_add_all_warehouses"
+                    type="object"
+                    class="btn-link"
+                    style="width: 100%; text-align: left;">
+            <span>Agregar todos los almacenes</span>
+            </button>
+
+        </xpath>
+    </field>
+</record>
+
+  <record id="view_users_form_inherit_stock_report" model="ir.ui.view">
+    <field name="name">res.users.form.stock.report</field>
+    <field name="model">res.users</field>
+    <field name="inherit_id" ref="base.view_users_form"/>
+    <field name="arch" type="xml">
+      <xpath expr="//field[@name='action_add_all_warehouses']" position="after">
+        <button name="action_actualizar_vista_stock"
+                string="Actualizar Stock por Almacén"
+                type="object"
+                class="btn btn-primary"
+                attrs="{'invisible': [('id', '!=', uid)]}"/>
+      </xpath>
+    </field>
+  </record>
+</odoo>
