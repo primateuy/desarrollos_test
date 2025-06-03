@@ -1,4 +1,4 @@
-from odoo import fields, models
+from odoo import fields, models, api
 
 class ReportStockByWarehouse(models.Model):
     _name = 'report.stock.by.warehouse'
@@ -16,7 +16,6 @@ class ReportStockByWarehouse(models.Model):
     virtual_available = fields.Float(string="Stock Pronosticado")
     daily_consumption = fields.Float(string='Consumo Anual Salidas', readonly=True)
     days_of_stock = fields.Float(string='Stock en Días', readonly=True)
-    
     
     def init(self):
       self._cr.execute("""
