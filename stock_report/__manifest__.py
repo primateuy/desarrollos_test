@@ -1,7 +1,7 @@
 {
     "name": "Reporte de Stock por Almacén",
     "version": "1.0.0",
-    "depends": ["stock"],
+    "depends": ["stock", "setu_advance_reordering"],
     "author": "Andrés Iglesias / Primate Uy",
     "category": "Inventory",
     "data": [

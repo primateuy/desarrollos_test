@@ -30,6 +30,7 @@
         <!-- Filtro por almacén -->
         <field name="warehouse_id" string="Almacén" search="1"/>
 
+
       </search>
     </field>
   </record>

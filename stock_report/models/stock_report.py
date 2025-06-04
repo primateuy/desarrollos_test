@@ -1,4 +1,4 @@
-from odoo import fields, models, api
+from odoo import fields, models
 
 class ReportStockByWarehouse(models.Model):
     _name = 'report.stock.by.warehouse'
@@ -7,7 +7,7 @@ class ReportStockByWarehouse(models.Model):
 
     id = fields.Integer(string='ID', readonly=True)
     product_id = fields.Many2one('product.product', string="Producto")
-    warehouse_id = fields.Many2one('stock.warehouse', string='Warehouse')
+    warehouse_id = fields.Many2one('stock.warehouse', string='Almacén')
     location_id = fields.Many2one('stock.location', string="Ubicación")
     lot_id = fields.Many2one('stock.lot', string="Lote")
     qty_available = fields.Float(string="Stock Real")
@@ -16,9 +16,10 @@ class ReportStockByWarehouse(models.Model):
     virtual_available = fields.Float(string="Stock Pronosticado")
     daily_consumption = fields.Float(string='Consumo Anual Salidas', readonly=True)
     days_of_stock = fields.Float(string='Stock en Días', readonly=True)
+    group_id = fields.Many2one('stock.warehouse.group', string="Grupo de almacenes")
     
     def init(self):
-      self._cr.execute("""
+        self._cr.execute("""
     CREATE OR REPLACE VIEW report_stock_by_warehouse AS (
         WITH stock_data AS (
             SELECT
@@ -27,14 +28,8 @@ class ReportStockByWarehouse(models.Model):
                 sq.location_id,
                 sw.id                              AS warehouse_id,
                 sq.lot_id                          AS lot_id,
-
-                -- stock hoy
                 SUM(sq.quantity)                   AS qty_available,
-
-                -- reservado
                 SUM(sq.reserved_quantity)          AS outgoing_qty,
-
-                -- entrante
                 COALESCE((
                     SELECT SUM(sm.product_uom_qty)
                     FROM stock_move_line sml
@@ -47,8 +42,6 @@ class ReportStockByWarehouse(models.Model):
                         OR (sml.lot_id = sq.lot_id)
                       )
                 ), 0)                             AS incoming_qty,
-
-                -- consumo diario año anterior (salidas)
                 COALESCE((
                     SELECT SUM(sml.quantity)::float / 365
                     FROM stock_move_line sml
@@ -58,19 +51,21 @@ class ReportStockByWarehouse(models.Model):
                       AND sml.date >= date_trunc('year', current_date) - interval '1 year'
                       AND sml.date < date_trunc('year', current_date)
                       AND sml.quantity > 0
-                      AND sml.location_dest_id != sq.location_id  -- salidas
-                ), 0)                             AS daily_consumption
-
+                      AND sml.location_dest_id != sq.location_id
+                ), 0)                             AS daily_consumption,
+                rel.stock_warehouse_group_id       AS group_id
             FROM stock_quant sq
             JOIN stock_location sl ON sq.location_id = sl.id
             JOIN stock_warehouse sw ON sl.warehouse_id = sw.id
+            JOIN stock_warehouse_stock_warehouse_group_rel rel
+                ON rel.stock_warehouse_id = sw.id
             GROUP BY
                 sq.product_id,
                 sq.location_id,
                 sw.id,
+                rel.stock_warehouse_group_id,
                 sq.lot_id
         )
-
         SELECT *,
             qty_available + incoming_qty - outgoing_qty AS virtual_available,
             CASE
