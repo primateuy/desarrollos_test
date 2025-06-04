@@ -31,6 +31,7 @@
         'security/ir.model.access.csv',
         'views/account_journal_views.xml',
         'views/account_payment_views.xml',
+        'views/account_payment_register_views.xml',
     ],
     
     'images': ['static/description/banner.gif'],
