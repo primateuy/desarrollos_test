@@ -9,9 +9,7 @@ class AccountMove(models.Model):
 
     def _create_recurring_invoice(self, batch_size=30):
         account_moves = super()._create_recurring_invoice(batch_size)
-        grouped_invoice = self.env['ir.config_parameter'].get_param('sale_subscription.invoice_consolidation', False)
-        all_subscriptions, need_cron_trigger = self._recurring_invoice_get_subscriptions(grouped=grouped_invoice,
-                                                                                         batch_size=batch_size)
+        all_subscriptions = self.env['sale.order'].search([('payment_exception', '=', True)])
         for subscription in all_subscriptions:
             if subscription.payment_exception:
                 subscription.payment_exception = False
