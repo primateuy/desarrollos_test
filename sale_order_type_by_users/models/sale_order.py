@@ -10,26 +10,24 @@ class SaleOrder(models.Model):
         for record in self:
             sale_type = False
 
-            # Si hay tipo por usuario
-            user_sale_type = self.env["sale.order.type"].search([
+            # Buscar si el usuario está asignado a algún tipo de orden de venta
+            user_types = self.env["sale.order.type"].search([
                 ("assignment_method", "=", "user"),
                 ("user_ids", "in", record.env.user.id),
                 ("company_id", "in", [record.company_id.id, False]),
-            ], limit=1)
-
-            if user_sale_type:
+            ])
+            if user_types:
+                # Si el usuario tiene alguno, aplicar el flujo por usuario
+                user_sale_type = user_types[:1]
                 sale_type = user_sale_type
             else:
-                # Si hay tipo por cliente
+                # Si no, aplicar el flujo por cliente
                 partner_sale_type = (
                     record.partner_id.with_company(record.company_id).sale_type
-                    or record.partner_id.commercial_partner_id.with_company(record.company_id).sale_type
+                    or record.partner_id.commercial_partner_ived.with_company(record.company_id).sale_type
                 )
-                if partner_sale_type and partner_sale_type.assignment_method == "partner":
+                if partner_sale_type:
                     sale_type = partner_sale_type
 
-            # Si no hay ninguno, usar el predeterminado
-            if not sale_type:
-                sale_type = record._default_type_id()
-
+        
             record.type_id = sale_type
