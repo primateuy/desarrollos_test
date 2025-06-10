@@ -23,7 +23,7 @@ class SaleOrder(models.Model):
                 # Si no, aplicar el flujo por cliente
                 partner_sale_type = (
                     record.partner_id.with_company(record.company_id).sale_type
-                    or record.partner_id.commercial_partner_ived.with_company(record.company_id).sale_type
+                    or record.partner_id.commercial_partner_id.with_company(record.company_id).sale_type
                 )
                 if partner_sale_type:
                     sale_type = partner_sale_type
