@@ -27,9 +27,7 @@ class SaleOrder(models.Model):
                 )
                 if partner_sale_type:
                     sale_type = partner_sale_type
-                else: 
-                    # Si no hay tipo de orden de venta por cliente, usar el tipo de orden de venta por defecto
-                    sale_type = record.company_id.default_sale_order_type_id
+
 
 
             record.type_id = sale_type
