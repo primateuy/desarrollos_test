@@ -6,8 +6,7 @@
         <field name="inherit_id" ref="sale_order_type.sot_sale_order_type_form_view"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='sequence_id']" position="after">
-                <field name="assignment_method"/>
-                <field name="user_ids" invisible="assignment_method != 'user'" widget="many2many_tags"/>
+                <field name="user_ids"  widget="many2many_tags"/>
             </xpath>
         </field>
     </record>

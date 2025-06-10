@@ -5,16 +5,6 @@ from odoo.exceptions import ValidationError
 class SaleOrderType(models.Model):
     _inherit = "sale.order.type"
 
-    assignment_method = fields.Selection(
-        selection=[
-            ("partner", "Por cliente"),
-            ("user", "Por usuario"),
-        ],
-        string="Método de asignación",
-        required=True,
-        default="partner",
-    )
-
     user_ids = fields.Many2many(
         comodel_name="res.users",
         string="Usuarios predeterminados",

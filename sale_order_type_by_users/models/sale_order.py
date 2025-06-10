@@ -12,7 +12,6 @@ class SaleOrder(models.Model):
 
             # Buscar si el usuario está asignado a algún tipo de orden de venta
             user_types = self.env["sale.order.type"].search([
-                ("assignment_method", "=", "user"),
                 ("user_ids", "in", record.env.user.id),
                 ("company_id", "in", [record.company_id.id, False]),
             ])
@@ -28,6 +27,9 @@ class SaleOrder(models.Model):
                 )
                 if partner_sale_type:
                     sale_type = partner_sale_type
+                else: 
+                    # Si no hay tipo de orden de venta por cliente, usar el tipo de orden de venta por defecto
+                    sale_type = record.company_id.default_sale_order_type_id
 
-        
+
             record.type_id = sale_type
