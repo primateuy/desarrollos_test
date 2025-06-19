@@ -21,6 +21,7 @@
 
     'data': [
         'views/sale_subscription_plan_view.xml',
+        'views/sale_order_views.xml',
     ],
 
     'installable': True,
