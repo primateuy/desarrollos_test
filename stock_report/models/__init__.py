@@ -1,2 +1,2 @@
-from . import stock_report
-from . import res_users
+# -*- coding: utf-8 -*-
+from . import stock_warehouse
