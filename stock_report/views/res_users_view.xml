@@ -4,31 +4,20 @@
         <field name="model">res.users</field>
         <field name="inherit_id" ref="base.view_users_form"/>
         <field name="arch" type="xml">
-            <!-- Insertamos el campo debajo del campo company_id, por ejemplo -->
-            <xpath expr="//field[@name='company_id']" position="after">
-                <field name="warehouse_ids" widget="many2many_tags"/>
+
+            <!-- Insertamos una nueva pestaña al final del notebook -->
+            <xpath expr="//notebook" position="inside">
+                <page string="Almacenes">
+                    <group>
+                        <field name="warehouse_ids" widget="many2many_tags"/>
+                        <button name="action_add_all_warehouses"
+                                string="Agregar todos los almacenes"
+                                type="object"
+                                class="btn btn-link"/>
+                    </group>
+                </page>
             </xpath>
+
         </field>
     </record>
-
-    <record id="view_users_form_inherit_almacenes_button" model="ir.ui.view">
-    <field name="name">res.users.form.inherit.almacenes.button</field>
-    <field name="model">res.users</field>
-    <field name="inherit_id" ref="base.view_users_form"/>
-    <field name="arch" type="xml">
-
-        <!-- Insertamos el botón después del campo warehouse_ids -->
-        <xpath expr="//field[@name='warehouse_ids']" position="after">
-            <button name="action_add_all_warehouses"
-                    string="Agregar todos los almacenes"
-                    type="object"
-                    class="btn btn-link"
-                    >
-            </button>
-        </xpath>
-    </field>
-    </record>
-
-
-
 </odoo>

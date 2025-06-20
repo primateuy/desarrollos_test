@@ -1,5 +1,4 @@
-from . import models
-
+from odoo import 
 def post_init_assign_default_warehouse_group(env):
     default_group = env.ref('stock_report.stock_warehouse_group_default', raise_if_not_found=False)
     if default_group:

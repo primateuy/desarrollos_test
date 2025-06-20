@@ -1,5 +1,5 @@
 <odoo>
-    <data>
+    <data noupdate="0">
 
         <record id="view_company_form_inherit_secondary_currency" model="ir.ui.view">
             <field name="name">res.company.form.inherit.secondary.currency</field>
@@ -11,7 +11,6 @@
                 </xpath>
             </field>
         </record>
-
 
         <record id="account_move_line_view_add_secondary_currency" model="ir.ui.view">
             <field name="name">account.move.line.view.tree.add.secondary.currency</field>
