@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <!-- Hereda la vista tree de stock.valuation.layer para agregar el campo nuevoCampo -->
+    <record id="tchistorico_stock_valuation_layer_tree_inherit" model="ir.ui.view">
+      <field name="name">stock.valuation.layer.tree.inherit.tchistorico</field>
+      <field name="model">stock.valuation.layer</field>
+      <field name="inherit_id" ref="stock_account.stock_valuation_layer_tree"/>
+      <field name="arch" type="xml">
+        <xpath expr="//field[@name='quantity']" position="after">
+          <field name="valorMonedaSecundaria"/>
+          <field name="moneda_reporte_id"/>
+          <field name="cotizacionDia"/>
+          <field name="ucmr" 
+                 widget="monetary" 
+                 options="{'currency_field': 'moneda_reporte_id'}"
+                 string="UCMR"/>
+          <field name="unitCostesDestinoInc" widget="monetary" options="{'currency_field': 'currency_id'}" string="unitCostesDestinoInc"/>
+          <field name="unitCostesDestinoIncMR" widget="monetary" options="{'currency_field': 'moneda_reporte_id'}" string="unitCostesDestinoIncMR"/>
+          <field name="valorizadoCosteDestino" widget="monetary" options="{'currency_field': 'currency_id'}" string="valorizadoCosteDestino"/>
+          <field name="valorizadoCosteDestinoMR" widget="monetary" options="{'currency_field': 'currency_id'}" string="valorizadoCosteDestinoMR"/>
+          
+        </xpath>
+      </field>
+    </record>
+
+    <record id="tchistorico_res_company_form_inherit" model="ir.ui.view">
+      <field name="name">res.company.form.inherit.tchistorico</field>
+      <field name="model">res.company</field>
+      <field name="inherit_id" ref="base.view_company_form"/>
+      <field name="arch" type="xml">
+        <xpath expr="//field[@name='currency_id']" position="after">
+          <field name="monedaDeReporte"/>
+        </xpath>
+      </field>
+    </record>
+
+
+    <record id="view_product_product_form_inherit" model="ir.ui.view">
+        <field name="name">product.product.form.inherit</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='standard_price']" position="after">
+                <div class="o_row">
+                    <label for="ultimo_costo_mr" string="Costo Histórico en MR:"/>
+                    <field name="ultimo_costo_mr" readonly="not id"/>
+                    <span class="fa fa-info-circle ml-2" 
+                          title="Este valor refleja el último costo en moneda de reporte, calculado al tipo de cambio del día de la transacción"/>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+     <record id="product_product_tree_view_ucmr" model="ir.ui.view">
+        <field name="name">product.product.tree.ucmr</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_product_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='standard_price']" position="after">
+                <field name="ultimo_costo_mr" 
+                       widget="monetary" 
+                       options="{'currency_field': 'moneda_reporte_id'}"
+                       string="UC MR"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_product_template_form_inherit" model="ir.ui.view">
+        <field name="name">product.template.form.inherit</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='standard_price']" position="after">
+                <div class="o_row">
+                    <label for="ultimo_costo_mr" string="Costo Histórico en MR:"/>
+                    <field name="ultimo_costo_mr" readonly="not id"/>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_move_form_inherit" model="ir.ui.view">
+    <field name="name">account.move.form.inherit</field>
+    <field name="model">account.move</field>
+    <field name="inherit_id" ref="account.view_move_form"/>
+    <field name="arch" type="xml">
+        <xpath expr="//field[@name='line_ids']/tree" position="inside">
+            <field name="valor_moneda_reportes" />
+            <field name="cotizacion_historica" />
+            <field name="moneda_reportes_id" />
+        </xpath>
+    </field>
+</record>
+
+
+<record id="view_product_stock_tree_inherit" model="ir.ui.view">
+    <field name="name">product.product.stock.tree.ucmr</field>
+    <field name="model">product.product</field>
+    <field name="inherit_id" ref="stock.product_product_stock_tree"/>
+    <field name="arch" type="xml">
+        <xpath expr="//field[@name='qty_available']" position="after">
+            <field name="ultimo_costo_mr" 
+                   widget="monetary" 
+                   options="{'currency_field': 'moneda_reporte_id'}"
+                   string="UC MR"
+                   groups="base.group_user"/>
+        </xpath>
+    </field>
+</record>
+
+    
+
+  </data>
+</odoo>
+
