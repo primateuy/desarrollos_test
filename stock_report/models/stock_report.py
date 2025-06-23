@@ -16,7 +16,7 @@ class ReportStockByWarehouse(models.Model):
     virtual_available = fields.Float(string="Stock Pronosticado")
     daily_consumption = fields.Float(string='Consumo Anual Salidas', readonly=True)
     days_of_stock = fields.Float(string='Stock en Días', readonly=True)
-    group_id = fields.Many2one('stock.warehouse.group', string="Grupo de almacenes")
+    group_id = fields.Many2one('stock.warehouse.group.report', string="Grupo de almacenes")
     
     def init(self):
         self._cr.execute("""
@@ -53,17 +53,15 @@ class ReportStockByWarehouse(models.Model):
                       AND sml.quantity > 0
                       AND sml.location_dest_id != sq.location_id
                 ), 0)                             AS daily_consumption,
-                rel.stock_warehouse_group_id       AS group_id
+                sw.group_id AS group_id
             FROM stock_quant sq
             JOIN stock_location sl ON sq.location_id = sl.id
             JOIN stock_warehouse sw ON sl.warehouse_id = sw.id
-            JOIN stock_warehouse_stock_warehouse_group_rel rel
-                ON rel.stock_warehouse_id = sw.id
             GROUP BY
                 sq.product_id,
                 sq.location_id,
                 sw.id,
-                rel.stock_warehouse_group_id,
+                sw.group_id,
                 sq.lot_id
         )
         SELECT *,
