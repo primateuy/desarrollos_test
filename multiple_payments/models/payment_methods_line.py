@@ -26,7 +26,7 @@ class MPPaymentMethodsLine(models.Model):
     # monto del recibo
     amount = fields.Float()
     # fecha
-    date = fields.Date()
+    date = fields.Date(related='mps_payment_aggregator_id.date')
     # memo
     memo = fields.Char()
 
@@ -40,7 +40,8 @@ class MPPaymentMethodsLine(models.Model):
     payment_type = fields.Selection([
         ('outbound', 'Outbound'),
         ('inbound','Inbound')
-    ], default="outbound")
+    ],
+    related='mps_payment_aggregator_id.receiptbook_id.type')
     payment_type_visibility = fields.Boolean(
         default=False,
         store=False
@@ -48,7 +49,8 @@ class MPPaymentMethodsLine(models.Model):
     payment_method_id = fields.Many2one(
         'account.payment.method',
         string='Payment Method',
-        domain=lambda self: self._getPaymentMethodDomain()
+        domain=lambda self: str(self._getPaymentMethodDomain()),
+        default=lambda self: self._get_default_payment_method()
     )
     exchange_rate = fields.Float()
     exchange_rate_visibility = fields.Boolean(
@@ -98,7 +100,7 @@ class MPPaymentMethodsLine(models.Model):
             self.payment_aggregator_currency_id = self._getPaymentAggregatorCurrency()
         else:
             # Establecemos el domain
-            self.payment_method_domain = self._getPaymentMethodDomain()
+            self.payment_method_domain = str(self._getPaymentMethodDomain())
 
     @api.onchange('currency_id')
     def onchange_currency_id(self):
@@ -116,7 +118,10 @@ class MPPaymentMethodsLine(models.Model):
     @api.onchange('payment_amount','exchange_rate')
     def onchange_payment_amount(self):
         if self.payment_amount and self.exchange_rate and self._checkSameCurrency() == False:
-            self.amount = self.payment_amount * self.exchange_rate
+            if  self.payment_aggregator_currency_id.rate > self.currency_id.rate:
+                self.amount = self.payment_amount * self.exchange_rate
+            else:
+                self.amount = self.payment_amount / self.exchange_rate
         elif (self.payment_amount and not self.exchange_rate) or (self.payment_amount and self._checkSameCurrency() == True):
             self.amount = self.payment_amount
 
@@ -167,8 +172,8 @@ class MPPaymentMethodsLine(models.Model):
                 payment_method_ids = payment_methods.mapped("payment_method_id.id")
 
                 # retornamos el domain
-                return "[('id', 'in', %s)]" % payment_method_ids
-        return "[]"
+                return [('id', 'in', payment_method_ids)] 
+        return []
     
     # Metodo para buscar el talonario por el contexto
     def _getReceiptbookContext(self):
@@ -180,3 +185,11 @@ class MPPaymentMethodsLine(models.Model):
                 limit=1
             )
         return False
+    
+    def _get_default_payment_method(self):
+        # Obtenemos el dominio generado por _getPaymentMethodDomain
+        domain = self._getPaymentMethodDomain()
+        # Buscamos el primer método de pago que cumpla con el dominio
+        payment_method = self.env['account.payment.method'].search(domain, limit=1)
+        
+        return payment_method.id if payment_method else False

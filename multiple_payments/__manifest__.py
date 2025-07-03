@@ -1,6 +1,6 @@
 {
     "name": "Multiple Payments",
-    "version": "1.0",
+    "version": "1.1",
     "author": "Tu Nombre / Empresa",
     "category": 'Accounting/Accounting',
     "depends": ["base","account","l10n_latam_check","l10n_uy"],
@@ -13,6 +13,7 @@
         "data/receipt_books.xml",
         "data/res_country.xml",
         "data/document_type.xml",
+        "data/ir_sequence_data.xml",
         # Views
         "views/payment_aggregator_views.xml",
         "views/receipt_books_views.xml",

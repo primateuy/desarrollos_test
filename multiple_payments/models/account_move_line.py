@@ -7,5 +7,5 @@ class accountMoveLine(models.Model):
     
     total_import = fields.Monetary(
         string='Total Import', store=True,
-        currency_field='company_currency_id',
+        currency_field='currency_id',
     )

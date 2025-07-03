@@ -7,6 +7,7 @@
                 <field name="name"/>
                 <field name="partner_id"/>
                 <field name="transaction_type"/>
+                <field name="amount_signed"/>
             </tree>
         </field>
     </record>

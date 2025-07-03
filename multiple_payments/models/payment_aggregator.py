@@ -1,6 +1,6 @@
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError, ValidationError
-import json
+from datetime import datetime
 import logging
 _logger = logging.getLogger(__name__)
 
@@ -9,7 +9,7 @@ class PaymentAggregator(models.Model):
     _name = 'mps.payment.aggregator'
     _description = 'Model to save payment aggregator'
 
-    name = fields.Char(required=True)
+    name = fields.Char(required=True, default="Borrador")
     currency_id = fields.Many2one(
         'res.currency',
         string='currency',
@@ -26,6 +26,9 @@ class PaymentAggregator(models.Model):
         "mps.receipt.books",
         required=True
     )
+
+    # domain para el talonario
+    domain_receiptbook_id = fields.Char(default="[('is_public','=',True)]")
 
     # cliente o empresa
     customer_id = fields.Many2one(
@@ -97,38 +100,37 @@ class PaymentAggregator(models.Model):
             if len(self.mps_payment_methods_line_ids) > 0:
                 for method in self.mps_payment_methods_line_ids:
                     method.adenda = self.adenda
-    
 
     # Cambiar estatus del registro
     def button_change_state(self):
         if self.state == "draft":
             # Validamos creditos/debitos
-            if len(self.mps_credits_line_ids) == 0:
-                raise ValidationError(_("To make payments you must have credits or debits to operate."))
+            # if len(self.mps_credits_line_ids) == 0:
+            #     raise ValidationError(_("To make payments you must have credits or debits to operate."))
 
             # Validamos si tiene importes pagados
-            for credit_line in self.mps_credits_line_ids:
-                if credit_line["total_import"] <= 0:
-                    raise ValidationError(_("To confirm payments you must upload the amounts to be paid."))
+            # for credit_line in self.mps_credits_line_ids:
+            #     if credit_line["total_import"] <= 0:
+            #         raise ValidationError(_("To confirm payments you must upload the amounts to be paid."))
             
             # Validamos pagos
             if len(self.mps_payment_methods_line_ids) == 0:
                 raise ValidationError(_("To make payments you must load the payments in the payment lines."))
 
             # Validamos el valor de diferencia
-            if self.difference != 0:
-                raise ValidationError(_("To confirm payments the difference must be 0"))
+            # if self.difference != 0:
+            #     raise ValidationError(_("To confirm payments the difference must be 0"))
 
-            for credit_line in self.mps_credits_line_ids:
-                if not credit_line.move_id:
-                    raise UserError(_("La línea contable %s no está asociada a una factura") % credit_line.display_name)
+            # for credit_line in self.mps_credits_line_ids:
+            #     if not credit_line.move_id:
+            #         raise UserError(_("La línea contable %s no está asociada a una factura") % credit_line.display_name)
                 
-                # Verificar que la factura tenga exactamente una línea por cobrar/pagar
-                receivable_payable_lines = credit_line.move_id.line_ids.filtered(
-                    lambda l: l.account_id.account_type in ('asset_receivable', 'liability_payable')
-                )
-                if len(receivable_payable_lines) != 1:
-                    raise UserError(_("La factura %s no tiene una estructura contable válida") % credit_line.move_id.name)
+            #     # Verificar que la factura tenga exactamente una línea por cobrar/pagar
+            #     receivable_payable_lines = credit_line.move_id.line_ids.filtered(
+            #         lambda l: l.account_id.account_type in ('asset_receivable', 'liability_payable')
+            #     )
+            #     if len(receivable_payable_lines) != 1:
+            #         raise UserError(_("La factura %s no tiene una estructura contable válida") % credit_line.move_id.name)
 
             try:
                 # Recorrer los creditos y/o debitos
@@ -191,21 +193,22 @@ class PaymentAggregator(models.Model):
 
     # Metodo para recorrer los apuntes contables y marcar como pagados
     def _create_invoices_payment(self):
-        # Recorrer los creditos y/o debitos
-        for credit_line in self.mps_credits_line_ids:
-            # Armamos los detalles del pago
-            payment_details = self._get_standard_payment()
+        if self.mps_credits_line_ids:
+            # Recorrer los creditos y/o debitos
+            for credit_line in self.mps_credits_line_ids:
+                # Armamos los detalles del pago
+                payment_details = self._get_standard_payment()
 
-            # Modificamos los campos necesarios
-            payment_details["amount"] = credit_line.total_import  # Monto a pagar
-            payment_details["reconciled_invoice_ids"] = [(6,0,[credit_line.move_id.id])], # Se asigna la factura al pago
-            payment_details["ref"] = credit_line.move_id.name, # Nombre de referencia
+                # Modificamos los campos necesarios
+                payment_details["amount"] = credit_line.total_import  # Monto a pagar
+                payment_details["reconciled_invoice_ids"] = [(6,0,[credit_line.move_id.id])], # Se asigna la factura al pago
+                payment_details["ref"] = credit_line.move_id.name, # Nombre de referencia
 
-            # Creamos el pago
-            self.create_publish_payment(payment_details)
+                # Creamos el pago
+                self.create_publish_payment(payment_details)
 
-            # Marcamos la factura como pagada
-            credit_line.move_id.payment_state = 'paid' 
+                # Marcamos la factura como pagada
+                credit_line.move_id.payment_state = 'paid' 
 
     # Metodo para obtener el diccionario estandar para registrar un pago
     def _get_standard_payment(self):
@@ -248,14 +251,14 @@ class PaymentAggregator(models.Model):
     def filter_credit_moves(self):
         self.mps_credits_line_ids = self.search_account_move_line()
 
-    def assign_domain(self):
+    def assign_domain(self, payment_state='not_paid'):
         return [
                     ('partner_id', '=', self.customer_id.id),
                     ('currency_id', '=', self.currency_id.id),
                     '|',  
                     ('account_id.account_type', '=', 'asset_receivable'),
                     ('account_id.account_type', '=', 'liability_payable'),
-                    ('move_id.payment_state','=','not_paid'),
+                    ('move_id.payment_state','=', payment_state),
                     ('move_id.move_type', 'in', ['out_invoice','in_invoice'])
                 ]
     
@@ -270,14 +273,14 @@ class PaymentAggregator(models.Model):
             'type': 'ir.actions.act_window',
             'res_model': 'account.move.line',  
             'view_mode': 'tree,form',  
-            'domain': self.assign_domain(),  
+            'domain': self.assign_domain('paid'),  
         }
     
     def button_open_grouped_payments(self):
         self.ensure_one()
         
         # Buscar la vista específica si existe
-        view_id = self.env.ref('tu_modulo.view_account_payment_tree_grouped_simple', False)
+        view_id = self.env.ref('multiple_payments.view_account_payment_tree_grouped_simple', False)
         
         return {
             'name': 'Pagos Agrupados',
@@ -327,4 +330,9 @@ class PaymentAggregator(models.Model):
                         record.total_import = total_import
 
         return
- 
+    
+    @api.model
+    def create(self, values):
+        result = super().create(values)
+        result.name = self.env['ir.sequence'].next_by_code('aggregator.sequence')
+        return result
