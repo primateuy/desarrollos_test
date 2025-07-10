@@ -5,7 +5,6 @@ from odoo.exceptions import UserError
 
 _logger = logging.getLogger(__name__)
 
-
 class StockValuationLayer(models.Model):
     _inherit = 'stock.valuation.layer'
 
@@ -140,7 +139,7 @@ class StockValuationLayer(models.Model):
                 'moneda_reporte_id': False
             })
 
-        vals['ucmr'] = product.ultimo_costo_mr if product else 0.0
+        vals['ucmr'] = vals['unit_cost'] * vals.get('cotizacionDia', 1.0);
 
         res = super().create(vals)
         _logger.info(f"[SVL] Registro creado: {res.id} | Cotizacion: {res.cotizacionDia} | Valor MR: {res.valorMonedaSecundaria}")
@@ -362,34 +361,72 @@ class SaleOrderLine(models.Model):
         
         return invoices
 
+
 class AccountMove(models.Model):
     _inherit = 'account.move'
+
+    valor_moneda_reportes = fields.Monetary(
+        string='Valor Total en MR',
+        currency_field='moneda_reportes_id',
+        compute='_compute_moneda_reportes_totals',
+        store=True,
+        help="Valor total del asiento en moneda de reportes"
+    )
+    
+    moneda_reportes_id = fields.Many2one(
+        'res.currency',
+        related='company_id.monedaDeReporte',
+        string='Moneda de Reportes',
+        store=True
+    )
+    
+    cotizacion_historica = fields.Float(
+        string='Tipo de Cambio Histórico',
+        digits=(12, 6),
+        compute='_compute_moneda_reportes_totals',
+        store=True,
+        help="Tipo de cambio histórico promedio del asiento"
+    )
+
+    @api.depends('line_ids.valor_moneda_reportes', 'line_ids.cotizacion_historica')
+    def _compute_moneda_reportes_totals(self):
+        for move in self:
+            total_mr = sum(abs(line.valor_moneda_reportes) for line in move.line_ids.filtered(lambda l: l.debit > 0))
+            
+            # Calcular cotización promedio ponderada
+            total_balance = sum(abs(line.balance) for line in move.line_ids.filtered(lambda l: l.debit > 0))
+            if total_balance > 0:
+                cotizacion_promedio = total_mr / total_balance
+            else:
+                cotizacion_promedio = 0.0
+            
+            move.valor_moneda_reportes = total_mr
+            move.cotizacion_historica = cotizacion_promedio
 
     def action_post(self):
         res = super().action_post()
         for invoice in self:
             company = invoice.company_id
-            if company.monedaDeReporte and invoice.move_type in ('out_invoice', 'out_refund'):
-                for invoice in self:
-                    stock_lines = invoice.line_ids.filtered(
+            if company.monedaDeReporte and invoice.move_type in ('out_invoice', 'out_refund', 'in_invoice', 'in_refund'):
+                stock_lines = invoice.line_ids.filtered(
                     lambda l: hasattr(l.account_id, 'user_type_id') and l.account_id.user_type_id.type in ('other', 'asset') and l.product_id
-                    )
-                    
-                    cotizacion = self.env['res.currency']._get_conversion_rate(
-                        company.currency_id,
-                        company.monedaDeReporte,
-                        company,
-                        invoice.invoice_date or fields.Date.context_today(self)
-                    );
+                )
+                
+                cotizacion = self.env['res.currency']._get_conversion_rate(
+                    company.currency_id,
+                    company.monedaDeReporte,
+                    company,
+                    invoice.invoice_date or fields.Date.context_today(self)
+                )
 
-                    if not cotizacion:
-                        raise UserError("No hay cotización disponible para la moneda de reportes en la fecha del pago.")
+                if not cotizacion:
+                    raise UserError("No hay cotización disponible para la moneda de reportes en la fecha del pago.")
 
-                    for line in invoice.line_ids:
-                        line.write({
-                            'valor_moneda_reportes': abs(line.balance) * cotizacion,  # O usa el rate que consideres para cada tipo de línea
-                            'cotizacion_historica': cotizacion
-                        })
+                for line in invoice.line_ids:
+                    line.write({
+                        'valor_moneda_reportes': abs(line.balance) * cotizacion,
+                        'cotizacion_historica': cotizacion
+                    })
         return res
 
 class AccountPayment(models.Model):
