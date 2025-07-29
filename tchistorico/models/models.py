@@ -9,7 +9,7 @@ class StockValuationLayer(models.Model):
     _inherit = 'stock.valuation.layer'
 
     cotizacionDia = fields.Float(string='Cotización del día', digits=(12, 6), 
-                               help='Cotización del día de la moneda secundaria.', store=True)
+                               help='Cotización del día de la moneda secundaria.', store=True, group_operator=False)
     valorMonedaSecundaria = fields.Monetary(string='Valor en moneda secundaria',
                                           currency_field='moneda_reporte_id',
                                           help='Valor en la moneda de reporte.', store=True)
@@ -27,54 +27,103 @@ class StockValuationLayer(models.Model):
         help="Moneda secundaria para reportes contables"
     )
 
-    ucmr = fields.Float(
+    ucmr = fields.Monetary(
     string='UCMR',
-    digits='Product Price',
-    help='Último costo en moneda de reporte.'
-    )
+    currency_field='moneda_reporte_id',
+    help='Último costo en moneda de reporte.',
+    store=True,
+    group_operator=False,
+)
 
     unitCostesDestinoInc = fields.Float(
-        string='Unit Costes Destino Inc',
+        string='Costo total unitario',
         digits='Product Price',
         help='Costo unitario de destino en moneda principal.',
+        group_operator=False,
     )
 
     unitCostesDestinoIncMR = fields.Float(
-        string='Unit Costes Destino Inc',
+        string='Costo total unitario MR',
         digits='Product Price',
         help='Costo unitario de destino en moneda reporte.',
+        group_operator=False,
     )
 
     valorizadoCosteDestino = fields.Float(
         string='Valorizado Coste Destino',
         digits='Product Price',
         help='Valorizado del coste de destino en moneda principal.',
+        group_operator=False,
     )
 
     valorizadoCosteDestinoMR = fields.Float(
-        string='Valorizado Coste Destino',
+        string='Valorizado Coste Destino MR',
         digits='Product Price',
         help='Valorizado del coste de destino en moneda principal.',
+        group_operator=False,
     )
+
+
+    inverse_company_rate = fields.Char(
+    string="Cotización del día",
+    compute='computeInverseCompanyRate',
+    store=False
+    )
+
+    company_rate = fields.Char(
+        string="Cotización del día inversa",
+        compute= 'computeCompanyRate',
+        store=False
+       
+    )
+
+    @api.depends('cotizacionDia', 'moneda_reporte_id', 'company_id.currency_id')
+    def computeCompanyRate(self):
+        for record in self:
+            if record.cotizacionDia and record.moneda_reporte_id and record.company_id.currency_id:
+       
+                record.company_rate = "{:.2f} {}".format(
+                    1/record.cotizacionDia if record.cotizacionDia != 0 else 0,  
+                    record.company_id.currency_id.name  
+                )
+            else:
+                record.company_rate = "-"
+
+
+    @api.depends('cotizacionDia', 'moneda_reporte_id', 'company_id.currency_id')
+    def computeInverseCompanyRate(self):
+        for record in self:
+            if record.cotizacionDia and record.moneda_reporte_id and record.company_id.currency_id:
+                
+                record.inverse_company_rate = "{:.2f} {}".format(
+                    record.cotizacionDia,
+                    record.moneda_reporte_id.name 
+                )
+                
+            else:
+                record.inverse_company_rate = "-"
 
     @api.depends('unit_cost', 'cotizacionDia')
     def _compute_unit_cost_report(self):
         for layer in self:
             layer.unit_cost_report = layer.unit_cost * (layer.cotizacionDia or 1)
 
+
+
+
+
     @api.model
     def create(self, vals):
-        _logger.info(f"[SVL] Creando con vals: {vals}")
         company_id = vals.get('company_id') or self.env.company.id
         company = self.env['res.company'].browse(company_id)
         product = self.env['product.product'].browse(vals.get('product_id'))
         moneda_reporte = company.monedaDeReporte;
-
+        fecha = vals.get('create_date') or fields.Date.context_today(self)
+        
         # 1. Verificar y convertir a moneda principal si es necesario
         currency_id = vals.get('currency_id')
         if currency_id and currency_id != company.currency_id.id:
             currency = self.env['res.currency'].browse(currency_id) or 1;
-            fecha = vals.get('create_date') or fields.Date.context_today(self)
             
             # Convertir el valor a moneda principal
             value_in_company_currency = currency._convert(
@@ -83,8 +132,6 @@ class StockValuationLayer(models.Model):
                 company,
                 fecha
             )
-            
-            _logger.info(f"Conversión de moneda: {vals.get('value')} {currency.name} -> {value_in_company_currency} {company.currency_id.name}")
             
             vals.update({
                 'value': value_in_company_currency,
@@ -114,17 +161,22 @@ class StockValuationLayer(models.Model):
 
             
         elif moneda_reporte and 'value' in vals and vals.get('value', 0) < 0 and vals.get('product_id'):
-            svl_entrada = self.env['stock.valuation.layer'].search([
-                ('product_id', '=', vals['product_id']),
-                ('company_id', '=', company_id),
-                ('remaining_qty', '>', 0),
-            ], order='create_date asc', limit=1)
-            if svl_entrada:
-                cotizacion = svl_entrada.cotizacionDia or 1.0
+            
+
+
+            cotizacion = self.env['res.currency']._get_conversion_rate(
+                company.currency_id,
+                moneda_reporte,
+                company,
+                fecha
+            )
+
+            
+            if cotizacion:
                 vals.update({
-                    'cotizacionDia': cotizacion,
-                    'valorMonedaSecundaria': abs(float(vals['value'])) * cotizacion,
-                    'moneda_reporte_id': svl_entrada.moneda_reporte_id.id
+                    'cotizacionDia': cotizacion or 1.0,
+                    'valorMonedaSecundaria': float(vals['value']) * cotizacion,
+                    'moneda_reporte_id': moneda_reporte.id
                 })
             else:
                 vals.update({
@@ -142,7 +194,6 @@ class StockValuationLayer(models.Model):
         vals['ucmr'] = vals['unit_cost'] * vals.get('cotizacionDia', 1.0);
 
         res = super().create(vals)
-        _logger.info(f"[SVL] Registro creado: {res.id} | Cotizacion: {res.cotizacionDia} | Valor MR: {res.valorMonedaSecundaria}")
         return res
 
 
@@ -171,6 +222,7 @@ class ProductProduct(models.Model):
         help="Último costo histórico en moneda de reportes",
         compute='_compute_ultimo_costo_mr',
         store=True,
+        
     )
 
     @api.depends('stock_valuation_layer_ids.unit_cost_report')
@@ -246,7 +298,6 @@ class AccountMoveLine(models.Model):
         ], order='create_date desc', limit=1)
 
         if svl and svl.moneda_reporte_id:
-            _logger.info(f"Procesando movimiento {move.id} con SVL {svl.id}")
             for line in vals:
                 line.update({
                     'valor_moneda_reportes': abs(line.get('balance', 0)) * svl.cotizacionDia,
@@ -286,7 +337,6 @@ class AccountMoveLine(models.Model):
             ('state', '=', 'posted')
         ])
         
-        _logger.info(f"Actualizando {len(moves)} asientos de inventario")
         moves.mapped('line_ids')._compute_moneda_reportes_values()
 
 
@@ -301,8 +351,7 @@ class StockMove(models.Model):
         svl = self.env['stock.valuation.layer'].browse(svl_id)
         
         if svl and svl.moneda_reporte_id:
-            _logger.info(f"Procesando movimiento {self.id} con SVL {svl.id}")
-          
+           
             for line_type in vals:
                 if 'balance' in vals[line_type]:
                     amount = abs(vals[line_type]['balance'])
@@ -313,6 +362,7 @@ class StockMove(models.Model):
                     })
         
         return vals
+
 
 class StockLandedCost(models.Model):
     _inherit = 'stock.landed.cost'
@@ -331,10 +381,25 @@ class StockLandedCost(models.Model):
                     ('company_id', '=', move.company_id.id)
                 ])
 
+                svlProd = self.env['stock.valuation.layer'].search([
+                    ('stock_move_id', '=', move.id),
+                    ('quantity', '!=', 0),
+                    ('company_id', '=', move.company_id.id)
+                ])
+
+                cotizacion = svlProd.cotizacionDia;
+                qty = move.product_qty or 1.0
+                final_cost_unit = val_line.final_cost / qty if qty != 0 else 0.0
+                svlProd.write({
+                    'unitCostesDestinoInc': final_cost_unit,
+                    'unitCostesDestinoIncMR': final_cost_unit * cotizacion,
+                    'valorizadoCosteDestino': val_line.final_cost,
+                    'valorizadoCosteDestinoMR': val_line.final_cost * cotizacion,
+                })
+
                 for svl in svls:
                     if svl.cotizacionDia and val_line.final_cost:
-                        qty = move.product_qty or 1.0
-                        final_cost_unit = val_line.final_cost / qty if qty != 0 else 0.0
+                        
                         cot = svl.cotizacionDia
 
                         svl.write({
@@ -342,22 +407,19 @@ class StockLandedCost(models.Model):
                             'unitCostesDestinoIncMR': final_cost_unit * cot,
                             'valorizadoCosteDestino': val_line.final_cost,
                             'valorizadoCosteDestinoMR': val_line.final_cost * cot,
-                        })
+                            'ucmr': svlProd.ucmr if svlProd.ucmr else 0.0
+                        });
 
         return res
+
 
 class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
 
     def _create_invoices(self):
-        _logger.info("=== DEBUG: Creando factura desde venta ===")
-        _logger.info(f"Venta ID: {self.id}, Cliente: {self.partner_id.name}")
-        _logger.info(f"Líneas de venta: {[(l.product_id.name, l.price_unit) for l in self.order_line]}")
         
         invoices = super()._create_invoices()
         
-        _logger.info(f"=== DEBUG: Factura creada ID: {invoices.id} ===")
-        _logger.info(f"Datos de factura: {invoices.name}, Total: {invoices.amount_total}")
         
         return invoices
 
@@ -444,7 +506,6 @@ class AccountPayment(models.Model):
             #     raise UserError("La moneda del pago debe coincidir con la moneda de la empresa (%s)." % payment.company_id.currency_id.name)
 
             if company.monedaDeReporte:
-                _logger.info(f"Procesando pago {payment.id} en moneda de reportes {company.monedaDeReporte.name}")
                 cotizacion = self.env['res.currency']._get_conversion_rate(
                     company.currency_id,
                     company.monedaDeReporte,
@@ -457,11 +518,10 @@ class AccountPayment(models.Model):
 
                 for line in payment.line_ids:
 
-                    _logger.info(f"Actualizando línea de pago {line.id} con cotización {cotizacion}")
                     line.valor_moneda_reportes = abs(line.balance) * cotizacion
                     line.cotizacion_historica = cotizacion
                     line.moneda_reportes_id = company.monedaDeReporte.id
-            _logger.info("DEBUG SALIENDO ACA");
+            
 
         
         res = super().action_post()
