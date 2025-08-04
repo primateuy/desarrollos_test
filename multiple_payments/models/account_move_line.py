@@ -9,3 +9,8 @@ class accountMoveLine(models.Model):
         string='Total Import', store=True,
         currency_field='currency_id',
     )
+
+    payment_aggregator_id = fields.Many2one(
+        'mps.payment.aggregator',
+        string='payment_aggregator',
+        )

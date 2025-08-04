@@ -18,6 +18,25 @@
                         <field name="state" widget="statusbar"/>
                     </header>
                     <sheet>
+                        <div name="button_box">
+                            <button 
+                                name="button_open_accounting_notes" 
+                                type="object"
+                                string="Open Accounting Notes" 
+                                class="oe_highlight fa" 
+                                icon="fa-line-chart"
+                                invisible="state == 'draft'"
+                            />
+                            <button 
+                                name="button_open_grouped_payments" 
+                                type="object"
+                                string="Open Grouped Payments" 
+                                class="oe_highlight fa" 
+                                icon="fa-line-chart"
+                                invisible="state == 'draft'"
+                            />
+                        </div>
+
                         <h1 class="oe_title">
                             <field name="name" readonly="1"/>
                         </h1>
@@ -55,7 +74,7 @@
                                             <group>
                                                 <field name="payment_amount" required="1" string="Payment amount"/>
                                                 <field name="payment_aggregator_currency_id" invisible="1"/>
-                                                <field name="currency_id" options="{'no_create': True}" required="1"/>
+                                                <field name="currency_id" readonly='1' options="{'no_create': True}" required="1"/>
                                                 <field name="amount" required="1"/>
                                                 <field name="date" required="1"/>
                                                 <field name="memo"/>
@@ -87,15 +106,16 @@
                                     string="Open Accounting Notes" 
                                     class="oe_highlight fa m-1" 
                                     icon="fa-line-chart"
+                                    invisible="state == 'draft'"
                                 />
-                                <button 
+                                <!-- <button 
                                     name="button_open_grouped_payments" 
                                     type="object"
                                     string="Open Grouped Payments" 
                                     class="oe_highlight fa m-1" 
                                     icon="fa-line-chart"
                                     invisible="state == 'draft'"
-                                />
+                                /> -->
                                 <button 
                                     name="button_update_accounting_notes" 
                                     type="object"
@@ -128,14 +148,14 @@
                                     icon="fa-check-square-o"
                                     invisible="state == 'published'"
                                 />
-                                <field name="mps_credits_line_ids" readonly="state == 'published'">
+                                <field name="account_move_line_payment_agg_ids" readonly="state == 'published'">
                                     <tree editable="bottom">
                                         <field name="date"/>
                                         <field name="move_id" />
                                         <field name="name" readonly="1"/>
-                                        <field name="amount_currency" sum="Total Import (External Currency)" readonly="1"/>
-                                        <field name="amount_residual" sum="Total Residual Amount" readonly="1"/>
-                                        <field name="total_import" sum="Total Import"/>
+                                        <field name="payment_aggregator_amount_currency" sum="Total Import (External Currency)" readonly="1"/>
+                                        <field name="payment_aggregator_amount_residual" sum="Total Residual Amount" readonly="1"/>
+                                        <field name="payment_aggregator_total_import" sum="Total Import"/>
                                         <field name="currency_id" column_invisible="True"/>
                                         <field name="company_currency_id" column_invisible="True"/>
                                         <field name="move_type" column_invisible="True"/>

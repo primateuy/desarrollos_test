@@ -1,4 +1,7 @@
 from odoo import _, api, fields, models, tools
+import logging
+_logger = logging.getLogger(__name__)
+
 
 class MPSReceiptBooks(models.Model):
 
@@ -22,3 +25,19 @@ class MPSReceiptBooks(models.Model):
         string='Document Type',
     )
     is_public = fields.Boolean(default=True)
+    company_id = fields.Many2one(
+        'res.company',
+        string='company',
+    )
+
+    def create(self, vals):
+        # Asignar la compañía actual si no se especificó
+        if self.env.company:
+            if type(vals) is list:
+                for val in vals:
+                    val['company_id'] = self.env.company.id
+            else:
+                vals['company_id'] = self.env.company.id
+
+        
+        return super().create(vals)

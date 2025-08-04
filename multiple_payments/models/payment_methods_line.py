@@ -16,8 +16,7 @@ class MPPaymentMethodsLine(models.Model):
     # Moneda
     currency_id = fields.Many2one(
         'res.currency',
-        string='currency',
-        related="account_journal_id.currency_id"
+        string='currency'
     )
     payment_aggregator_currency_id = fields.Many2one(
         'res.currency',
@@ -101,6 +100,8 @@ class MPPaymentMethodsLine(models.Model):
         else:
             # Establecemos el domain
             self.payment_method_domain = str(self._getPaymentMethodDomain())
+        if self.account_journal_id and not self.account_journal_id.currency_id:
+            self.currency_id = self.env.company.currency_id
 
     @api.onchange('currency_id')
     def onchange_currency_id(self):

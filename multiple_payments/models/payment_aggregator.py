@@ -10,6 +10,10 @@ class PaymentAggregator(models.Model):
     _description = 'Model to save payment aggregator'
 
     name = fields.Char(required=True, default="Borrador")
+    company_id = fields.Many2one(
+        'res.company',
+        string='company',
+    )
     currency_id = fields.Many2one(
         'res.currency',
         string='currency',
@@ -77,6 +81,11 @@ class PaymentAggregator(models.Model):
     )
     average_rate = fields.Float(compute='_compute_average_rate')
 
+    account_move_line_payment_agg_ids = fields.One2many(
+        'account.move.line.payment.aggregator',
+        'payment_aggregator_id' 
+    )
+
     # Se suma los montos de los metodos de pago
     @api.depends('average_rate')
     def _compute_average_rate(self):
@@ -104,39 +113,17 @@ class PaymentAggregator(models.Model):
     # Cambiar estatus del registro
     def button_change_state(self):
         if self.state == "draft":
-            # Validamos creditos/debitos
-            # if len(self.mps_credits_line_ids) == 0:
-            #     raise ValidationError(_("To make payments you must have credits or debits to operate."))
-
-            # Validamos si tiene importes pagados
-            # for credit_line in self.mps_credits_line_ids:
-            #     if credit_line["total_import"] <= 0:
-            #         raise ValidationError(_("To confirm payments you must upload the amounts to be paid."))
-            
+           
             # Validamos pagos
             if len(self.mps_payment_methods_line_ids) == 0:
                 raise ValidationError(_("To make payments you must load the payments in the payment lines."))
 
-            # Validamos el valor de diferencia
-            # if self.difference != 0:
-            #     raise ValidationError(_("To confirm payments the difference must be 0"))
-
-            # for credit_line in self.mps_credits_line_ids:
-            #     if not credit_line.move_id:
-            #         raise UserError(_("La línea contable %s no está asociada a una factura") % credit_line.display_name)
-                
-            #     # Verificar que la factura tenga exactamente una línea por cobrar/pagar
-            #     receivable_payable_lines = credit_line.move_id.line_ids.filtered(
-            #         lambda l: l.account_id.account_type in ('asset_receivable', 'liability_payable')
-            #     )
-            #     if len(receivable_payable_lines) != 1:
-            #         raise UserError(_("La factura %s no tiene una estructura contable válida") % credit_line.move_id.name)
-
+           
             try:
                 # Recorrer los creditos y/o debitos
                 self._create_invoices_payment()
 
-                # Validamos si tiene pago acuento para realizar le pago
+                # Validamos si tiene pago a cuenta para realizar el pago
                 self._create_payment_acount()
 
                 # Crear los pagos de los metodos de pago
@@ -170,11 +157,14 @@ class PaymentAggregator(models.Model):
             
             # Validar el sentido del talonario para registrar el pago, ya sea saliente o entrante
             if self.receiptbook_id.type == "outbound":
+                # payment_details['journal_id'] = self.currency_id.account_journal_id.id # Diario origen
+                # payment_details['destination_journal_id'] = journal.id # Diario destino
+
                 payment_details['journal_id'] = journal.id # Diario origen
-                payment_details['destination_journal_id'] = self.currency_id.account_journal_id.id # Diario destino
+                payment_details['destination_journal_id'] = self.currency_id.account_journal_id.id,
             else:
-                payment_details['journal_id'] = self.currency_id.account_journal_id.id # Diario origen
-                payment_details['destination_journal_id'] = journal.id, # Diario destino
+                payment_details['journal_id'] = journal.id # Diario origen
+                payment_details['destination_journal_id'] = self.currency_id.account_journal_id.id, # Diario destino
             
             # Creamos el pago
             self.create_publish_payment(payment_details)
@@ -193,22 +183,47 @@ class PaymentAggregator(models.Model):
 
     # Metodo para recorrer los apuntes contables y marcar como pagados
     def _create_invoices_payment(self):
-        if self.mps_credits_line_ids:
-            # Recorrer los creditos y/o debitos
-            for credit_line in self.mps_credits_line_ids:
-                # Armamos los detalles del pago
-                payment_details = self._get_standard_payment()
+        if self.account_move_line_payment_agg_ids:
+            # Borramos las deudas que tengan importe 0
+            self._delete_accounting_notes()
 
-                # Modificamos los campos necesarios
-                payment_details["amount"] = credit_line.total_import  # Monto a pagar
-                payment_details["reconciled_invoice_ids"] = [(6,0,[credit_line.move_id.id])], # Se asigna la factura al pago
-                payment_details["ref"] = credit_line.move_id.name, # Nombre de referencia
+            # Si todavia hay deudas por pagar
+            if len(self.account_move_line_payment_agg_ids) > 0:
+                # Recorrer los creditos y/o debitos
+                for credit_line in self.account_move_line_payment_agg_ids:
+                    # Armamos los detalles del pago
+                    payment_details = self._get_standard_payment()
 
-                # Creamos el pago
-                self.create_publish_payment(payment_details)
+                    # Modificamos los campos necesarios
+                    payment_details["amount"] = credit_line.payment_aggregator_total_import  # Monto a pagar
+                    # payment_details["reconciled_invoice_ids"] = [(6,0,[credit_line.move_id.id])], # Se asigna la factura al pago
+                    payment_details["ref"] = credit_line.move_id.name # Nombre de referencia
 
-                # Marcamos la factura como pagada
-                credit_line.move_id.payment_state = 'paid' 
+                    # Creamos el pago
+                    move_id = self.create_publish_payment(payment_details)
+
+                    # Invocamos el metodo para reconciliar el estatus del pago
+                    move_id._compute_reconciliation_status()
+
+                    # Obtenemos los apuntes contables del pago
+                    payment_lines = move_id.line_ids.filtered(
+                        lambda line: line.account_id.account_type in ['asset_receivable', 'liability_payable'] and not line.reconciled
+                    )
+                    # Obtenemos los apuntes contables de la factura
+                    invoice_lines = credit_line.move_id.line_ids.filtered(
+                        lambda line: line.account_id.account_type in ['asset_receivable', 'liability_payable'] and not line.reconciled
+                    )
+                    # Unimos en una sola lista del mismo modelo e invocamos el metodo reconcile para 
+                    # reconciliar el pago de la factura
+                    (invoice_lines + payment_lines).reconcile()
+
+                    # Marcamos los pagos como matches
+                    for payment_line in payment_lines:
+                        if payment_line.move_id.payment_id:
+                            payment_line.move_id.payment_id.is_matched = True
+
+                    # Invocamos el metodo que comprueba si la factura puede pasar a pagada
+                    credit_line.move_id._compute_payment_state()
 
     # Metodo para obtener el diccionario estandar para registrar un pago
     def _get_standard_payment(self):
@@ -221,6 +236,7 @@ class PaymentAggregator(models.Model):
             'journal_id': self.currency_id.account_journal_id.id, # Diario intermedio
             'partner_type': self.receiptbook_id.partner_type, # Si es cliente o si es proveedor
             'payment_method_id': self.env.ref('account.account_payment_method_manual_in').id, # Metodo de pago
+            'payment_aggregator_id': self.id
         }
     
     # Metodo para crear un pago y publicarlo
@@ -232,6 +248,8 @@ class PaymentAggregator(models.Model):
         # Confirmamos el pago
         payment_id.action_post()
         payment_id.set_transaction_type()
+        payment_id.line_ids.payment_aggregator_id = self.id
+
         # Retornamos el pago
         return payment_id
 
@@ -241,40 +259,59 @@ class PaymentAggregator(models.Model):
         for record in self:
             record.difference = record.amount - (record.payment_account + record.debt_allocation)
     # Calculamos debt_allocation automáticamente cuando cambian las líneas
-    @api.depends('mps_credits_line_ids.total_import')
+    @api.depends('account_move_line_payment_agg_ids.payment_aggregator_total_import')
     def _compute_debt_allocation(self):
         for record in self:
-            record.debt_allocation = sum(record.mps_credits_line_ids.mapped('total_import'))
+            record.debt_allocation = sum(record.account_move_line_payment_agg_ids.mapped('payment_aggregator_total_import'))
+            record.mps_credits_line_ids.total_import = record.account_move_line_payment_agg_ids.payment_aggregator_total_import
 
     
     @api.onchange('customer_id', 'currency_id')
     def filter_credit_moves(self):
         self.mps_credits_line_ids = self.search_account_move_line()
+        self.set_account_move_line(self.mps_credits_line_ids)
 
     def assign_domain(self, payment_state='not_paid'):
+
         return [
                     ('partner_id', '=', self.customer_id.id),
                     ('currency_id', '=', self.currency_id.id),
-                    '|',  
-                    ('account_id.account_type', '=', 'asset_receivable'),
-                    ('account_id.account_type', '=', 'liability_payable'),
-                    ('move_id.payment_state','=', payment_state),
+                    ('account_id.account_type', 'in', ['asset_receivable', 'liability_payable']),
+                    # ('move_id.payment_state','=', payment_state),
                     ('move_id.move_type', 'in', ['out_invoice','in_invoice'])
                 ]
     
     def search_account_move_line(self):
         return self.env['account.move.line'].search(self.assign_domain())
     
+    def set_account_move_line(self, credit_lines=False):
+        aggregator_ids = []
+        if credit_lines:
+            for credit_line in credit_lines:
+                aggregator_record = self.env['account.move.line.payment.aggregator'].create({
+                    'account_move_line_id': credit_line.id,
+                    'move_id': credit_line.move_id.id,
+                    'payment_aggregator_amount_currency': credit_line.amount_currency,
+                    'payment_aggregator_amount_residual': credit_line.amount_residual
+                })
+                aggregator_ids.append(aggregator_record.id)
+        self.account_move_line_payment_agg_ids = [(6, 0, aggregator_ids)]
+    
     def button_open_accounting_notes(self):
         self.ensure_one()
-        
+        move_ids = self.env['account.move.line'].search([('payment_aggregator_id', '=', self.id)])
+        # _logger.info(move_ids)
         return {
-            'name': 'Apuntes Contables', 
-            'type': 'ir.actions.act_window',
-            'res_model': 'account.move.line',  
-            'view_mode': 'tree,form',  
-            'domain': self.assign_domain('paid'),  
-        }
+        'name': 'Asientos Contables',
+        'type': 'ir.actions.act_window',
+        'res_model': 'account.move.line',
+        'view_mode': 'tree,form',
+        'domain': [('id', 'in', move_ids.ids)],
+        'context': {
+                'group_by': ['journal_id'],
+            },
+        
+    }
     
     def button_open_grouped_payments(self):
         self.ensure_one()
@@ -286,53 +323,57 @@ class PaymentAggregator(models.Model):
             'name': 'Pagos Agrupados',
             'type': 'ir.actions.act_window',
             'res_model': 'account.payment',
-            'view_mode': 'tree',
-            'views': [(view_id.id if view_id else False, 'tree')],
-            'target': 'current',
+            'view_mode': 'tree,form',
             'context': {
                 'group_by': ['transaction_type'],
                 'search_default_partner_id': self.customer_id.id if self.customer_id else False,
             },
-            'domain': [('partner_id', '=', self.customer_id.id)] if self.customer_id else [],
+            'domain': [('payment_aggregator_id', '=', self.id)]
         }
     
     def button_update_accounting_notes(self):
         self.filter_credit_moves()
         return
     
+    # Accion del boton de eliminacion de cuentas en 0
     def button_delete_accounting_notes(self):
-        # Filtrar solo los registros donde total_import es 0
-        lines_to_remove = self.mps_credits_line_ids.filtered(lambda line: line.total_import == 0)
-        # Eliminar solo esas líneas
-        self.write({'mps_credits_line_ids': [(3, line.id) for line in lines_to_remove]})
+        # Metodo para eliminar los registros donde total_import es 0
+        self._delete_accounting_notes()
         return
     
+    def _delete_accounting_notes(self):
+        # Filtrar solo los registros donde total_import es 0
+        lines_to_remove = self.account_move_line_payment_agg_ids.filtered(lambda line: line.payment_aggregator_total_import == 0)
+        # Eliminar solo esas líneas
+        self.write({'account_move_line_payment_agg_ids': [(3, line.id) for line in lines_to_remove]})
+        return True
 
     def button_apply_fifo(self):
-        if self.difference > 0 and self.mps_credits_line_ids:
-            sorted_moves = self.mps_credits_line_ids.sorted(key=lambda r: r.date or fields.Date.today())
+        if self.difference > 0 and self.account_move_line_payment_agg_ids:
+            sorted_moves = self.account_move_line_payment_agg_ids.sorted(key=lambda r: r.date or fields.Date.today())
             
             for move in sorted_moves:
-                if move.total_import == 0:
+                if move.payment_aggregator_total_import == 0:
                     total_import = abs(move.credit) + abs(move.debit)
                     if total_import <= 0:
                         continue
                     if (self.difference - total_import) >= 0:
-                        move.total_import = total_import
+                        move.payment_aggregator_total_import = total_import
                     else:
                         break
 
     def button_assign_all(self):
-        for record in self.mps_credits_line_ids:
-            if record.total_import == 0:
+        for record in self.account_move_line_payment_agg_ids:
+            if record.payment_aggregator_total_import == 0:
                 total_import = record.credit + record.debit
                 if (self.difference - total_import) >= 0:
-                        record.total_import = total_import
+                        record.payment_aggregator_total_import = total_import
 
         return
     
     @api.model
     def create(self, values):
+        values['company_id'] = self.env.company.id
         result = super().create(values)
         result.name = self.env['ir.sequence'].next_by_code('aggregator.sequence')
         return result

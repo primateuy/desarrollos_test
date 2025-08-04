@@ -9,6 +9,11 @@ class accountPayment(models.Model):
                                          ('customer_payment', 'Customer Payment'),
                                          ('vendor_payment', 'Vendor Payment')])
     
+    payment_aggregator_id = fields.Many2one(
+        'mps.payment.aggregator',
+        string='Payment Aggregator'
+    )
+    
     def set_transaction_type(self):
         if not self.is_internal_transfer:
             if self.partner_type == 'customer':

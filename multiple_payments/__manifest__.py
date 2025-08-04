@@ -1,6 +1,6 @@
 {
     "name": "Multiple Payments",
-    "version": "1.1",
+    "version": "1.2.2",
     "author": "Tu Nombre / Empresa",
     "category": 'Accounting/Accounting',
     "depends": ["base","account","l10n_latam_check","l10n_uy"],
@@ -9,6 +9,8 @@
         # Permisos 
         "security/admin/ir.model.access.csv",
         "security/group_user/ir.model.access.csv",
+        # Reglas
+        "data/ir_rules.xml",
         # Data
         "data/receipt_books.xml",
         "data/res_country.xml",
